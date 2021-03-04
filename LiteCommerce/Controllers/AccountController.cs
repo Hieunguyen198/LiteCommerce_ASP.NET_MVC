@@ -19,5 +19,9 @@ namespace LiteCommerce.Controllers
         {
             return View();
         }
+        public ActionResult ChangePWd()
+        {
+            return View();
+        }
     }
 }

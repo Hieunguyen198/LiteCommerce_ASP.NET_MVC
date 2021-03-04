@@ -143,7 +143,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\Cat.jpg" />
     <Content Include="Images\Cat1.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -407,6 +406,7 @@
     <Content Include="Themes\Admin\bower_components\bootstrap\js\.jshintrc" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Account\ChangePWd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
