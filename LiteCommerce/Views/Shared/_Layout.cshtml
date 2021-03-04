@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link bootstrap-->
+    <link rel="stylesheet" href="~/Themes/Admin/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Link font awesome-->
+    <link rel="stylesheet" href="~/Themes/Admin/bower_components/font-awesome/css/font-awesome.min.css" />
+    <!-- Link Css-->
+    <link rel="stylesheet" href="~/Themes/Admin/dist/css/AdminLTE.min.css" />
+    <!-- Link page skin-->
+    <link rel="stylesheet" href="~/Themes/Admin/dist/css/skins/_all-skins.min.css" />
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <!-- Wrapper -->
+    <div class="wrapper">
+        <!-- Render Header-->
+        @{Html.RenderPartial("_Header");}
+        <!-- Render SideBar-->
+        @{Html.RenderPartial("_SideBar");}
+        <!-- Content-wrarpper -->
+        <div class="content-wrapper">
+            <section class="content-header">
+                <h1></h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-home">Home</i></a></li>
+                    <li><a href="#">@ViewBag.Title</a></li>
+                </ol>
+            </section>
+            <section class="content">
+                <!--Render body-->
+                @RenderBody()
+            </section>
+        </div>
+        <!-- /.Content-Wrapper -->
+        <!--Render footer-->
+        @{Html.RenderPartial("_Footer");}
+    </div>
+    <!-- /.Wrapper-->
+    <!-- Script -->
+    <script src="~/Themes/Admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="~/Themes/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Themes/Admin/dist/js/adminlte.min.js"></script>
+    <!-- /.Script-->
+</body>
+</html>
