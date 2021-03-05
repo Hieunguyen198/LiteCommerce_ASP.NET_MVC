@@ -74,3 +74,7 @@ C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\obj\Debug\LiteCommerce.cs
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\obj\Debug\LiteCommerce.csproj.CopyComplete
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\obj\Debug\LiteCommerce.dll
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\obj\Debug\LiteCommerce.pdb
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\EntityFramework.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\EntityFramework.SqlServer.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\EntityFramework.xml
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\EntityFramework.SqlServer.xml

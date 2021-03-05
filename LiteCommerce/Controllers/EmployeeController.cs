@@ -13,5 +13,9 @@ namespace LiteCommerce.Controllers
         {
             return View();
         }
+        public ActionResult Input()
+        {
+            return View();
+        }
     }
 }

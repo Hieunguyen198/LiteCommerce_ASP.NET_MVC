@@ -1,0 +1,75 @@
+﻿<!-- edit product-->
+<div class="box box-primary">
+    <div class="box-header">
+        <h3 style="float: right;" class="box-title">
+            <a class="btn btn-primary mr-3"
+               href="~/Product">Back to list >></a>
+        </h3>
+    </div>
+    <div class="row shadow" style="padding-top:10px;">
+        <div class="col-sm-12">
+            <div>
+                <form method="POST" action="~/Product/Input" enctype="multipart/form-data">
+                    <input class="hidden" name="ProductID" value="1" />
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Product Name</label> <input type="text"
+                                                               class="text form-control" placeholder="Company name" required
+                                                               name="productName" value="Pen">
+                        </div>
+                    </div>
+                    <div>
+                        <input type="hidden"
+                               class="text form-control" placeholder="Photo path"
+                               name="photoPath" value="">
+                        <div class="col-sm-6" style="display:flex">
+                            <div class="form-group">
+                                <label>Photo Path</label> <input type="file" id="my_input_file"
+                                                                 class="text form-control" placeholder="Photo path"
+                                                                 name="uploadPhoto">
+
+                            </div>
+                            <div>
+                                <img class="profile-user-img img-responsive img-circle" id="showThumb" src="~/Images/Cat1.jpg" alt="User profile picture">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select name="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                <option value="">-- Choise your category --</option>
+                                <option value="1" selected>Van Phong Pham</option>
+                                <option value="2">Phu lie May Mac</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Descriptions</label> <input type="text"
+                                                           class="form-control" name="Descriptions"
+                                                           placeholder="Description about your product" value="">
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Quantity Per Unit</label> <input type="text"
+                                                                class="form-control" name="QuantityPerUnit" placeholder="Quantity Per Unit"
+                                                                value="" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Unit Price</label> <input type="number"
+                                                         class="form-control" name="unitPrice"
+                                                         value="" required>
+                    </div>
+
+                    <div class="form-group " style="float:right;padding-top:10px;padding-right:15px;">
+                        <button type="submit" class="btn btn-primary mb-5" name="subAdd"><div class="fa fa-save"></div> Save</button>
+                        <a href="~/Product" class="btn btn-danger mb-5" name="subCancle"><div class="fa fa-remove"></div> Cancel</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
