@@ -1,7 +1,138 @@
-﻿
-@{
-    ViewBag.Title = "Catalog > Produt";
-}
+﻿<!-- Product -->
+<div class="box box-default">
+    <form action="~/Product" method="get">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Search" name="searchValue" value="1">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
+            </span>
 
-<h2>Product page</h2>
+        </div>
+    </form>
+</div>
+<div class="box box-primary">
+    <!-- /.box-header -->
+    <form action="~/Product/Delete" method="post">
+        <div class="box-body">
+            <h3 style="float: right;" class="box-title">
+                <button onclick="return confirm('Do you really want to delete these products?')" class="btn btn-danger mr-3"
+                        type="submit">
+                    Delete Products
+                </button>
+            </h3>
+            <h3 style="float: right; padding-right:5px;" class="box-title">
+                <a class="btn btn-success mr-3"
+                   href="~/Product/Input">Add product</a>
+            </h3>
+            <table id="example1" class="table table-bordered table-striped">
 
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAll" /></th>
+                        <th>#</th>
+                        <th>Product name</th>
+                        <th>Image</th>
+                        <th>Category</th>
+                        <th>Quantity per unit</th>
+                        <th>Unit price</th>
+                        <th width="100px">Decriptions</th>
+                        <th style="text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" name="productIDs" value="1" /></td>
+                        <td>1</td>
+                        <td>Pen</td>
+                        <td><img class="profile-user-img img-responsive img-circle" src="~/Images/Cat1.jpg" alt="User profile picture"></td>
+                        <td>Van Phong Pham</td>
+                        <td>200</td>
+                        <td>50000</td>
+                        <td>Pen</td>
+                        <td style="text-align: center;">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="~/Product/Input/1" class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-info" data-toggle="modal" data-target="#ProductAttribute"><i class="fas fa-info-circle"></i></a>
+                                <a onclick="return confirm('Do you really want to delete this supplier?');"
+                                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="productIDs" value="1" /></td>
+                        <td>1</td>
+                        <td>Pen</td>
+                        <td><img class="profile-user-img img-responsive img-circle" src="~/Images/Cat1.jpg" alt="User profile picture"></td>
+                        <td>Van Phong Pham</td>
+                        <td>200</td>
+                        <td>50000</td>
+                        <td>Pen</td>
+                        <td style="text-align: center;">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="~/Product/Input/1" class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-info" data-toggle="modal" data-target="#ProductAttribute"><i class="fas fa-info-circle"></i></a>
+                                <a onclick="return confirm('Do you really want to delete this supplier?');"
+                                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" name="productIDs" value="1" /></td>
+                        <td>1</td>
+                        <td>Pen</td>
+                        <td><img class="profile-user-img img-responsive img-circle" src="~/Images/Cat1.jpg" alt="User profile picture"></td>
+                        <td>Van Phong Pham</td>
+                        <td>200</td>
+                        <td>50000</td>
+                        <td>Pen</td>
+                        <td style="text-align: center;">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <a href="~/Product/Input/1" class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
+                                <a class="btn btn-info" data-toggle="modal" data-target="#ProductAttribute"><i class="fas fa-info-circle"></i></a>
+                                <a onclick="return confirm('Do you really want to delete this supplier?');"
+                                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    <!-- /.box-body -->
+</div>
+<div class="modal fade" id="ProductAttribute" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="myModalLabel">Product Attributes</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Value</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Height</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>Width</td>
+                            <td>50</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,141 @@
-﻿
-@{
-    ViewBag.Title = "Dashboard";
-}
+﻿<div class="box box-primary">
+    <div id="titleThongKe" style="font-size: 23px; text-align: center; padding-top: 16px;">
+        Statistics of monthly revenue in 2021
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="form-group">
+                <select class="text form-control" id="OrderStatistic"
+                        style="width: 100px; margin-left: auto;">
+                    <option selected>2021</option>
+                    <option>2020</option>
+                    <option>2019</option>
 
-<h2>This is dashboard code here</h2>
+                </select>
+                Total Revenue: <strong id="TTotal">2131100$</strong>
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>January</th>
+                        <th>February</th>
+                        <th>March</th>
+                        <th>April</th>
+                        <th>May</th>
+                        <th>June</th>
+                        <th>July</th>
+                        <th>August</th>
+                        <th>September</th>
+                        <th>October</th>
+                        <th>November</th>
+                        <th>December</th>
 
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="OrderStatistics">
+                        <td>123124$</td>
+                        <td>14124$</td>
+                        <td>12441$</td>
+                        <td>41213l$</td>
+                        <td>12312$</td>
+                        <td>133$</td>
+                        <td>123123$</td>
+                        <td>123231$</td>
+                        <td>21312$</td>
+                        <td>2131$</td>
+                        <td>123123$</td>
+                        <td>12313$</td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Monthly Revenue Report</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-wrench"></i>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center">
+                    <strong>Sales: 1 Jan, 2021 - 30 Dec, 2021</strong>
+                </p>
+
+                <div class="chart">
+                    <!-- Sales Chart Canvas -->
+                    <div class="card-body">
+                        <canvas id="line-chart" width="1500" height="290"></canvas>
+                        <input type="hidden" value="123123)" id='doanhThu'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- ./box-body -->
+    <div class="box-footer">
+        <div class="row">
+            <div class="col-sm-3 col-xs-6">
+                <div class="description-block border-right">
+                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
+                    <h5 class="description-header">213213$</h5>
+                    <span class="description-text">TOTAL REVENUE</span>
+                </div>
+                <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-3 col-xs-6">
+                <div class="description-block border-right">
+                    <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
+                    <h5 class="description-header">$10,390.90</h5>
+                    <span class="description-text">TOTAL Discount</span>
+                </div>
+                <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-3 col-xs-6">
+                <div class="description-block border-right">
+                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
+                    <h5 class="description-header">$24,813.53</h5>
+                    <span class="description-text">TOTAL PROFIT</span>
+                </div>
+                <!-- /.description-block -->
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-3 col-xs-6">
+                <div class="description-block">
+                    <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
+                    <h5 class="description-header">1200</h5>
+                    <span class="description-text">GOAL COMPLETIONS</span>
+                </div>
+                <!-- /.description-block -->
+            </div>
+
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.box-footer -->
+</div>
