@@ -1,12 +1,15 @@
-﻿
+﻿@model LiteCommerce.Models.EmployeePaginationResult
 @{
-
+    ViewBag.Title = "Manage Employees";
+    ViewBag.SmallTitle = "List, create, edit,delete employees";
+    ViewBag.Manage = "Employees";
+    int i = 1;
 }
 
 <div class="box  box-default">
     <form action="~/Employee" method="get">
         <div class="input-group input-group-sm">
-            <input type="text" style="width:794px;" class="form-control" placeholder="Search" name="searchValue" value="">
+            <input type="text" style="width:794px;" class="form-control" placeholder="Search" name="searchValue" value="@Model.SearchValue">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
             </span>
@@ -26,6 +29,9 @@
                 <a class="btn btn-success mr-3"
                    href="~/Employee/Input">Add employee</a>
             </h3>
+            <div style="padding-top:25px;">
+                There are @Model.RowCount employee, Page @Model.Page/@Model.PageCount
+            </div>
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -37,71 +43,97 @@
                         <th>E-mail</th>
                         <th>Hire date</th>
                         <th>Address</th>
-                        <th style="width:200px;">Notes</th>
-                        <th style="width:100px;">Actions</th>
+                        <th style="width:300px;">Notes</th>
+                        <th style="text-align: center;width:100px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="checkbox" name="employeeIDs" value="1" /></td>
-                        <td>1</td>
-                        <td>Hieu  Nguyen (DEV)</td>
-                        <td><img class="profile-user-img img-responsive img-circle" src="~/Images/Cat1.jpg" alt="User profile picture"></td>
-                        <td>17/05/1998</td>
-                        <td>Hieu@gmail.com</td>
-                        <td>01/03/2021</td>
-                        <td>
-                            <div class="fa fa-address-card"></div> Thua Thien Hue
-                            <br />
-                            <div class="fa fa-address-book"></div> Thua Thien Hue
-                            <br />
-                            <div class="fa fa-globe"></div> Viet Nam
-                            <br />
-                            <div class="fa fa-phone"></div> 0969861254
-                        </td>
-                        <td>...</td>
-                        <td style="text-align: center;">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <a href="~/Employee/Input"
-                                   class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
-                                <a style="color: #fff"
-                                   onclick="return confirm('Do you really want to delete this employee?');"
-                                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="employeeIDs" value="1" /></td>
-                        <td>1</td>
-                        <td>Dien  Nguyen (DEV)</td>
-                        <td><img class="profile-user-img img-responsive img-circle" src="~/Images/Cat1.jpg" alt="User profile picture"></td>
-                        <td>17/05/1999</td>
-                        <td>Hieu@gmail.com</td>
-                        <td>01/03/2021</td>
-                        <td>
-                            <div class="fa fa-address-card"></div> Thua Thien Hue
-                            <br />
-                            <div class="fa fa-address-book"></div> Thua Thien Hue
-                            <br />
-                            <div class="fa fa-globe"></div> Viet Nam
-                            <br />
-                            <div class="fa fa-phone"></div> 0969861254
-                        </td>
-                        <td>...</td>
-                        <td style="text-align: center;">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <a href="~/Employee/Input/1"
-                                   class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
-                                <a style="color: #fff"
-                                   onclick="return confirm('Do you really want to delete this employee?');"
-                                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="employeeIDs" value="@item.EmployeeID" /></td>
+                            <td>@(i++)</td>
+                            <td>@item.FirstName @item.LastName (@item.Title)</td>
+                            <td><img class="profile-user-img img-responsive img-circle" src="@item.PhotoPath" alt="User profile picture"></td>
+                            <td>@item.BirthDate</td>
+                            <td>@item.Email</td>
+                            <td>@item.HireDate</td>
+                            <td>
+                                <div class="fa fa-address-card"></div> @item.Address
+                                <br />
+                                <div class="fa fa-address-book"></div> @item.City
+                                <br />
+                                <div class="fa fa-globe"></div> @item.Country
+                                <br />
+                                <div class="fa fa-phone"></div> @item.HomePhone
+                            </td>
+                            <td>@item.Notes</td>
+                            <td style="text-align: center;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a href="~/Employee/Input/@item.EmployeeID"
+                                       class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
+                                    <a style="color: #fff"
+                                       onclick="return confirm('Do you really want to delete this employee?');"
+                                       class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
+            <ul class="pagination pagination-sm no-margin pull-right">
+                @if (Model.Page > 1)
+                {
+                    <li><a href="~/Employee?page=@(Model.Page-1)&searchValue=@Model.SearchValue&searchCountry=@Model.searchCountry">«</a></li>
+                }
+                else
+                {
+                    <li class="hide"><a>«</a></li>
+                }
+                @if (Model.PageCount <= 5)
+                {
+                    for (int page = Model.Page; page <= Model.PageCount; page++)
+                    {
+                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue&searchCountry=@Model.searchCountry">@page</a></li>
+                    }
+                }
+                else
+                if (Model.Page == Model.PageCount || Model.Page == Model.PageCount - 1)
+                {
+                    for (int page = (Model.PageCount - 4); page <= Model.PageCount; page++)
+                    {
+
+                        <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue&searchCountry=@Model.searchCountry">@page</a></li>
+
+                    }
+                }
+                else
+                {
+                    if (Model.Page > 3)
+                    {
+                        for (int page = Model.Page - 2; page <= (Model.Page + 2); page++)
+                        {
+                            <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue&searchCountry=@Model.searchCountry">@page</a></li>
+                        }
+                    }
+                    else
+                    {
+                        for (int page = Model.Page; page <= (Model.Page + 4); page++)
+                        {
+                            <li><a href="~/Employee?page=@page&searchValue=@Model.SearchValue&searchCountry=@Model.searchCountry">@page</a></li>
+                        }
+                    }
+                }
+                @if (Model.Page < Model.PageCount)
+                {
+                    <li><a href="~/Employee?page=@(Model.Page+1)&searchValue=@Model.SearchValue&searchCountry=@Model.searchCountry">»</a></li>
+                }
+                else
+                {
+                    <li class="hide"><a>»</a></li>
+                }
+            </ul>
         </div>
         <!-- /.box-body -->
     </form>
 </div>
-

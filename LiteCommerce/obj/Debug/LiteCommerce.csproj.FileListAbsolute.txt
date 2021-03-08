@@ -78,3 +78,9 @@ C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\EntityFramework.dll
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\EntityFramework.SqlServer.dll
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\EntityFramework.xml
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\EntityFramework.SqlServer.xml
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.BusinessLayers.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.DomainModels.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.DataLayers.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.BusinessLayers.pdb
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.DomainModels.pdb
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.DataLayers.pdb

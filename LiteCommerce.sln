@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCommerce.DataLayers", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCommerce.BusinessLayers", "LiteCommerce.BusinessLayers\LiteCommerce.BusinessLayers.csproj", "{FEF47129-DEA6-4A64-835B-706654F12630}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteCommerce.DomainModels", "LiteCommerce.DomainModels\LiteCommerce.DomainModels.csproj", "{C0EB587B-2F4D-40E8-B787-60363E9203D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{FEF47129-DEA6-4A64-835B-706654F12630}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEF47129-DEA6-4A64-835B-706654F12630}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEF47129-DEA6-4A64-835B-706654F12630}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0EB587B-2F4D-40E8-B787-60363E9203D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0EB587B-2F4D-40E8-B787-60363E9203D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0EB587B-2F4D-40E8-B787-60363E9203D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0EB587B-2F4D-40E8-B787-60363E9203D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +45,7 @@ Global
 		{2684172A-3B05-4870-A16E-52492B4E55DB} = {3CB8A796-DA30-48E8-B2D3-11E726FDB6B5}
 		{9C1EC7F5-C038-4404-8155-C03E5F325C3A} = {F20A72AF-F265-4F11-8A07-32B5AC4E1A31}
 		{FEF47129-DEA6-4A64-835B-706654F12630} = {F20A72AF-F265-4F11-8A07-32B5AC4E1A31}
+		{C0EB587B-2F4D-40E8-B787-60363E9203D3} = {F20A72AF-F265-4F11-8A07-32B5AC4E1A31}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6C7002C-C762-48EF-A2A0-C5B50FE84BCD}
