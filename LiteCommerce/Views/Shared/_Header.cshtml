@@ -1,4 +1,7 @@
-﻿<header class="main-header">
+﻿@{
+    WebUserData userData = User.GetUserData();
+}
+<header class="main-header">
     <!-- Logo -->
     <a class="logo" href="~/Dashboard">
         <!-- mini logo -->
@@ -37,14 +40,14 @@
                 <li class="dropdown user user-menu">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                         <img class="user-image" alt="User Image" src="~/images/Cat1.jpg">
-                        <span class="hidden-xs">Hieu Nguyen</span>
+                        <span class="hidden-xs">@userData.FullName</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img class="img-circle" alt="User Image" src="~/Images/Cat1.jpg">
+                            <img class="img-circle" alt="User Image" src="~/@userData.Photo">
                             <p>
-                                Hieu Nguyen - Web Developer
+                                @userData.FullName - @userData.Title
                                 <small>Member since Mar. 2021</small>
                             </p>
                         </li>
@@ -54,8 +57,8 @@
                             <div class="pull-left">
                                 <a class="btn btn-default btn-flat" href="~/Account/Index">Profile</a>
                             </div>
-                            <div style="padding-left:5px;"class="pull-left">
-                                <a class="btn btn-default btn-flat" href="~/Account/ChangePWd">Change Pwd</a>
+                            <div style="padding-left:5px;" class="pull-left">
+                                <a class="btn btn-default btn-flat" href="~/Account/ChangePassword">Change Pwd</a>
                             </div>
                             <div class="pull-right">
                                 <a class="btn btn-default btn-flat" href="~/Account/Signout" onclick="return confirm('Do you want to log out of the system?');">Sign out</a>

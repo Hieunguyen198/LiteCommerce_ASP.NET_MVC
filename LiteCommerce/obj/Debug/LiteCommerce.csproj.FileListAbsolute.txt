@@ -84,3 +84,9 @@ C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.DataLaye
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.BusinessLayers.pdb
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.DomainModels.pdb
 C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\LiteCommerce.DataLayers.pdb
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\System.Net.Http.Formatting.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\System.Web.Http.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\System.Web.Http.WebHost.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\System.Net.Http.Formatting.xml
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\System.Web.Http.xml
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce\bin\System.Web.Http.WebHost.xml

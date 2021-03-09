@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LiteCommerce.Codes
+namespace LiteCommerce
 {
     /// <summary>
     /// Lưu Thông tin đăng nhập vào cookies

@@ -1,4 +1,8 @@
-﻿<div class="box box-primary">
+﻿@model LiteCommerce.DomainModels.Employee
+@{
+
+}
+<div class="box box-primary">
     <div class="box-header">
         <h3 style="float: right;" class="box-title">
             <a class="btn btn-primary mr-3"
@@ -9,20 +13,20 @@
         <div class="col-sm-12">
             <div>
                 <form method="POST" action="~/Employee/input" enctype="multipart/form-data">
-                    <input type="hidden" name="employeeID" value="" />
+                    <input type="hidden" name="employeeID" value="@Model.EmployeeID" />
                     <div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>First Name</label> <input type="text"
                                                                  class="text form-control" placeholder="Firstname" required
-                                                                 name="firstName" value="">
+                                                                 name="firstName" value="@Model.FirstName">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Last Name</label> <input type="text"
                                                                 class="text form-control" placeholder="Last name" required
-                                                                name="lastName" value="">
+                                                                name="lastName" value="@Model.LastName">
                             </div>
                         </div>
                     </div>
@@ -31,12 +35,12 @@
                         <div class="form-group">
                             <label>Name title </label> <input type="text"
                                                               class="text form-control" placeholder="Ex: Manage person" required
-                                                              name="title" value="">
+                                                              name="title" value="@Model.Title">
                         </div>
                     </div>
                     <input type="hidden"
                            class="text form-control" placeholder="Photo path"
-                           name="photoPath" value="">
+                           name="photoPath" value="@Model.PhotoPath">
                     <div class="col-sm-6" style="display:flex">
                         <div class="form-group">
                             <label>Photo Path</label> <input type="file" id="my_input_file"
@@ -45,15 +49,15 @@
 
                         </div>
                         <div>
-                            <img class="profile-user-img img-responsive img-circle" id="showThumb" src="" alt="User profile picture">
+                            <img class="profile-user-img img-responsive img-circle" id="showThumb" src="~/@Model.PhotoPath" alt="User profile picture">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label>E-mail</label><i class="text-danger"></i>
+                            <label>E-mail</label><i class="text-danger"> @Html.ValidationMessage("")</i>
                             <input type="email"
                                    class="text form-control" placeholder="Ex: abc@gmail.com" required
-                                   name="email" value="">
+                                   name="email" value="@Model.Email">
                         </div>
                     </div>
 
@@ -62,7 +66,7 @@
                             <div class="form-group">
                                 <label>Birth Date</label> <input type="date"
                                                                  class="text form-control"
-                                                                 name="birthDate" value="">
+                                                                 name="birthDate" value="@string.Format("{0:yyyy-MM-dd}",Model.BirthDate)">
                             </div>
                         </div>
                     </div>
@@ -70,7 +74,7 @@
                         <div class="form-group">
                             <label>Hire Date</label> <input type="date"
                                                             class="text form-control"
-                                                            name="hireDate" value="">
+                                                            name="hireDate" value="@string.Format("{0:yyyy-MM-dd}",Model.HireDate)">
                         </div>
                     </div>
 
@@ -78,7 +82,7 @@
                         <div class="col-sm-12">
                             <label>Address</label> <input type="text"
                                                           class="form-control" name="address"
-                                                          placeholder="Address" value="" required>
+                                                          placeholder="Address" value="@Model.Address" required>
                         </div>
                     </div>
 
@@ -86,27 +90,31 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Country</label>
+                                @Html.DropDownListFor(m => m.Country, 
+                               SelectListHelper.ListOfCountries(), 
+                               "-------------------------------------------------------- Choice your country ---------------------------------------------------------------", 
+                               new { @class = "form-control" })
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <label>City</label>
-                            <select name="city" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                <option value="">-- Choise your city --</option>
-                            </select>
+                            @Html.DropDownListFor(m=>m.City,SelectListHelper.ListOfcities(),
+                            "-------------------------------------------------------- Choice your City ---------------------------------------------------------------",
+                           new { @class = "form-control form-control-sm" }) 
                         </div>
                     </div>
                     <div>
                         <div class="col-sm-12">
                             <label>Home Phone</label> <div class="input-group">
                                 <div class="input-group-addon"><i class="fa fa-globe"></i></div>
-                                <input type="text" class="form-control" name="homePhone" placeholder="8712367126" value="" required>
+                                <input type="text" class="form-control" name="homePhone" placeholder="8712367126" value="@Model.HomePhone" required>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label>Notes</label> <input type="text" class="form-control" name="notes" placeholder="notes" value="" />
+                            <label>Notes</label> <input type="text" class="form-control" name="notes" placeholder="notes" value="@Model.Notes" />
                         </div>
                     </div>
 
@@ -121,3 +129,4 @@
 
     </div>
 </div>
+<i>@Html.ValidationMessage("")</i>

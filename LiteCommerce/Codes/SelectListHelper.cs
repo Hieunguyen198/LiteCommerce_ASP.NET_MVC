@@ -3,11 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using LiteCommerce.BusinessLayers;
 
-namespace LiteCommerce.Codes
+namespace LiteCommerce
 {
     public static class SelectListHelper
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static List<SelectListItem> ListOfCountries()
+        {
+            List<string> listCountry = CatalogBLL.List_Country();
+            List<SelectListItem> listCountries = new List<SelectListItem>();
+            foreach (string item in listCountry)
+            {
+                listCountries.Add(new SelectListItem() { Value = item, Text = item });
+            }
+            return listCountries;
+        }
         /// <summary>
         /// 
         /// </summary>

@@ -20,6 +20,11 @@ namespace LiteCommerce.DataLayers.SQLServer
         {
             this.connectionString = connectionString;
         }
+        /// <summary>
+        /// Check email when add or edit employees
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public Employee Check_Email(string email)
         {
             Employee data = null;
@@ -60,7 +65,7 @@ namespace LiteCommerce.DataLayers.SQLServer
 
         }
         /// <summary>
-        /// Bổ sung một employee
+        /// Add employee
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -128,7 +133,7 @@ namespace LiteCommerce.DataLayers.SQLServer
             return employeeID;
         }
         /// <summary>
-        /// Đếm số lượng nhân viên
+        /// Count empoyees
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -161,7 +166,7 @@ namespace LiteCommerce.DataLayers.SQLServer
             return rowCount;
         }
         /// <summary>
-        /// 
+        /// Delete employees
         /// </summary>
         /// <param name="EmployeeIDs"></param>
         /// <returns></returns>

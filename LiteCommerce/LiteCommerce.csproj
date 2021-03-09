@@ -57,6 +57,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -65,6 +68,12 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -131,9 +140,16 @@
     <Compile Include="App_Start\BusinessLayerConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Codes\AppSettings.cs" />
+    <Compile Include="Codes\MD5.cs" />
     <Compile Include="Codes\SelectListHelper.cs" />
+    <Compile Include="Codes\UpLoadImage.cs" />
     <Compile Include="Codes\WebUserData.cs" />
+    <Compile Include="Codes\WebUserExtentions.cs" />
+    <Compile Include="Codes\WebUserHelper.cs" />
+    <Compile Include="Codes\WebUserPrincipal.cs" />
+    <Compile Include="Codes\WebUserRoles.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -144,6 +160,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoryNoPagination.cs" />
     <Compile Include="Models\EmployeePaginationResult.cs" />
     <Compile Include="Models\PaginationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +174,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\Cat1.jpg" />
+    <Content Include="Images\Cat2.jpg" />
+    <Content Include="Images\Cat4.jpg" />
+    <Content Include="Images\Cat5.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -350,7 +370,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
@@ -403,7 +422,6 @@
     <Content Include="Themes\Admin\bower_components\jquery\dist\jquery.min.map" />
     <Content Include="Themes\Admin\bower_components\jquery\dist\jquery.slim.min.map" />
     <Content Include="Themes\Admin\bower_components\jquery\external\sizzle\dist\sizzle.min.map" />
-    <Content Include="Themes\Admin\bower_components\jquery\src\.eslintrc.json" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap-theme.css.map" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap-theme.min.css.map" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap.css.map" />
@@ -420,11 +438,13 @@
     <Content Include="Themes\Admin\bower_components\bootstrap\js\.jshintrc" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
-    <Content Include="Views\Account\ChangePWd.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Customer\Input.cshtml" />
     <Content Include="Views\Product\Input.cshtml" />
     <Content Include="Views\Employee\Input.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Category\Input.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

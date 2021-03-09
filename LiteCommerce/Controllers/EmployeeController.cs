@@ -43,14 +43,14 @@ namespace LiteCommerce.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.Title = "Add new employee";
+                ViewBag.Title = "ADD NEW EMPLOYEE";
                 Employee newEmployee = new Employee();
                 newEmployee.EmployeeID = 0;
                 return View(newEmployee);
             }
             else
             {
-                ViewBag.Title = "Edit employee";
+                ViewBag.Title = "EDIT EMPLOYEE";
                 Employee editEmployee = EmployeeBLL.Get_Employee(Convert.ToInt32(id));
                 if (editEmployee == null)
                     return RedirectToAction("Index");
@@ -60,9 +60,6 @@ namespace LiteCommerce.Controllers
         [HttpPost]
         public ActionResult Input(Employee model, HttpPostedFileBase uploadPhoto)
         {
-
-            //try
-            //{
             //Kiểm tra dữ liệu đầu vào
             if (string.IsNullOrEmpty(model.Address))
                 model.Address = "";
@@ -70,6 +67,8 @@ namespace LiteCommerce.Controllers
                 model.City = "";
             if (string.IsNullOrEmpty(model.Country))
                 model.Country = "";
+            if (string.IsNullOrEmpty(model.Notes))
+                model.Notes = "";
             if (uploadPhoto != null)
             {
                 string path = Path.Combine(Server.MapPath("~/Images/"), Path.GetFileName(uploadPhoto.FileName));
@@ -84,7 +83,7 @@ namespace LiteCommerce.Controllers
                 if (data != null)//check email
                 {
                     ViewBag.Method = "Add";
-                    ViewBag.Title = "Add new Employee";
+                    ViewBag.Title = "ADD NEW EMPLOYEE";
                     ModelState.AddModelError("", "Email already exists!");
                     return View(model);
                 }
@@ -99,7 +98,7 @@ namespace LiteCommerce.Controllers
                 if (data.EmployeeID != model.EmployeeID)
                 {
                     ViewBag.Method = "Edit";
-                    ViewBag.Title = "Edit Employee";
+                    ViewBag.Title = "EDIT EMPLOYEE";
                     ModelState.AddModelError("", "Email already exists!");
                     return View(model);
                 }

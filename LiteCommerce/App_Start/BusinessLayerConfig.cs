@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using LiteCommerce.BusinessLayers;
 
-namespace LiteCommerce.App_Start
+namespace LiteCommerce
 {
     ///
     public static class BusinessLayerConfig
@@ -19,6 +19,7 @@ namespace LiteCommerce.App_Start
                 ConfigurationManager.ConnectionStrings["LiteCommerce"].ConnectionString;
             UserAccountBLL.Initialize(connectionString);
             EmployeeBLL.Initialize(connectionString);
+            CatalogBLL.Initialize(connectionString);
         }
     }
 }

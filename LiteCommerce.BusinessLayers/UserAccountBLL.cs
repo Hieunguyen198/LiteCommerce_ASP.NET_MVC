@@ -29,7 +29,7 @@ namespace LiteCommerce.BusinessLayers
         /// <param name="userName"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static UserAccount Authorize(string userName, string password)
+        public static UserAccount Authorize(string userName, string password, UserAccountTypes userType)
         {
             return userAccountDB.Authorize(userName, password);
         }

@@ -1,4 +1,11 @@
-﻿<!-- Category -->
+﻿@model LiteCommerce.Models.CategoryNoPagination
+@{
+    ViewBag.Title = "MANAGE CATEGORIES";
+    ViewBag.SmallTitle = "List, create, edit, delete categories";
+    ViewBag.Manage = "Catalog";
+    ViewBag.ManageDetail = "Category";
+    int i = 1;
+}
 <div class="box box-header">
     <form action="~/Category" method="get">
         <div class="input-group input-group-sm">
@@ -22,6 +29,9 @@
                 <a class="btn btn-success mr-3"
                    data-toggle="modal" data-target="#input">Add category</a>
             </h3>
+            <div style="padding-top:25px;">
+                <em><b>There are @Model.RowCount category</b></em>
+            </div>
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -33,26 +43,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="checkbox" name="categoryIDs" value="1" /></td>
-                        <td>1</td>
-                        <td>Gear</td>
-                        <td>PC</td>
-                        <td style="text-align: center;">
-                            <div class="d-flex justify-content-center align-items-center">
-                                <a href="~/Category/Input/1"
-                                   class="btn btn-success mr-3" data-toggle="modal" data-target="#input"><i class="fa fa-edit"></i></a>
-                                <a style="color: #fff"
-                                   onclick="return confirm('Do you really want to delete this category?');"
-                                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="categoryIDs" value="@item.CategoryID" /></td>
+                            <td>@(i++)</td>
+                            <td>@item.CategoryName</td>
+                            <td>@item.Description</td>
+                            <td style="text-align: center;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a href="~/Category/Input/@item.CategoryID"
+                                       class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
+                                    <a style="color: #fff"
+                                       onclick="return confirm('Do you really want to delete this category?');"
+                                       class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </form>
 </div>
+<!-- Add Category Modal-->
 <div class="modal fade" id="input" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">

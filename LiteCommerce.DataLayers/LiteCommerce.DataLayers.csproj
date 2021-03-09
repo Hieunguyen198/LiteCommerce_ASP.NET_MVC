@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICategoryDAL.cs" />
+    <Compile Include="IContryDAL.cs" />
     <Compile Include="ICustomerDAL.cs" />
     <Compile Include="IEmployeeDAL.cs" />
     <Compile Include="IOrderDAL.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="IUserAccountDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLServer\CategoryDAL.cs" />
+    <Compile Include="SQLServer\CountryDAL.cs" />
     <Compile Include="SQLServer\CustomerDAL.cs" />
     <Compile Include="SQLServer\EmployeeDAL.cs" />
     <Compile Include="SQLServer\EmployeeUserAccountDAL.cs" />

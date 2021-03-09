@@ -1,15 +1,16 @@
 ﻿@model LiteCommerce.Models.EmployeePaginationResult
 @{
-    ViewBag.Title = "Manage Employees";
+    ViewBag.Title = "MANAGE EMPLOYEES";
     ViewBag.SmallTitle = "List, create, edit,delete employees";
     ViewBag.Manage = "Employees";
     int i = 1;
 }
 
-<div class="box  box-default">
+<div class="box  box-group">
     <form action="~/Employee" method="get">
-        <div class="input-group input-group-sm">
-            <input type="text" style="width:794px;" class="form-control" placeholder="Search" name="searchValue" value="@Model.SearchValue">
+        @Html.DropDownListFor(m => m.searchCountry, SelectListHelper.ListOfCountries(), "-------------------------------- All countries ----------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:400px" })
+        <div class="input-group input-group-sm ">
+            <input type="text" style="width:100%;" class="form-control" placeholder="Search" name="searchValue" value="@Model.SearchValue">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
             </span>
@@ -30,9 +31,9 @@
                    href="~/Employee/Input">Add employee</a>
             </h3>
             <div style="padding-top:25px;">
-                There are @Model.RowCount employee, Page @Model.Page/@Model.PageCount
+                <em><b>There are @Model.RowCount employee, Page @Model.Page/@Model.PageCount</b></em> 
             </div>
-            <table id="example1" class="table table-bordered table-striped">
+            <table  class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
@@ -55,9 +56,9 @@
                             <td>@(i++)</td>
                             <td>@item.FirstName @item.LastName (@item.Title)</td>
                             <td><img class="profile-user-img img-responsive img-circle" src="@item.PhotoPath" alt="User profile picture"></td>
-                            <td>@item.BirthDate</td>
+                            <td>@string.Format("{0:yyyy-MM-dd}", item.BirthDate)</td>
                             <td>@item.Email</td>
-                            <td>@item.HireDate</td>
+                            <td>@string.Format("{0:yyyy-MM-dd}", item.HireDate)</td>
                             <td>
                                 <div class="fa fa-address-card"></div> @item.Address
                                 <br />
@@ -72,7 +73,7 @@
                                 <div class="d-flex justify-content-center align-items-center">
                                     <a href="~/Employee/Input/@item.EmployeeID"
                                        class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
-                                    <a style="color: #fff"
+                                    <a href="~/Account/Delete/@item.EmployeeID" style="color: #fff"
                                        onclick="return confirm('Do you really want to delete this employee?');"
                                        class="btn btn-danger"><i class="fa fa-remove"></i></a>
                                 </div>
@@ -81,6 +82,7 @@
                     }
                 </tbody>
             </table>
+            <!--Pagination-->
             <ul class="pagination pagination-sm no-margin pull-right">
                 @if (Model.Page > 1)
                 {
@@ -133,6 +135,7 @@
                     <li class="hide"><a>»</a></li>
                 }
             </ul>
+            <!--Pagination-->
         </div>
         <!-- /.box-body -->
     </form>

@@ -8,7 +8,7 @@
     <!-- Link font awesome-->
     <link rel="stylesheet" href="~/Themes/Admin/bower_components/font-awesome/css/font-awesome.min.css" />
     <!-- Link Css-->
-    <link rel="stylesheet" href="~/Themes/Admin/dist/css/AdminLTE.css" />
+    <link rel="stylesheet" href="~/Themes/Admin/dist/css/AdminLTE.min.css" />
     <!-- Link page skin-->
     <link rel="stylesheet" href="~/Themes/Admin/dist/css/skins/skin-blue.css" />
 </head>
@@ -21,6 +21,17 @@
         @{Html.RenderPartial("_SideBar");}
         <!-- Content-wrarpper -->
         <div class="content-wrapper">
+            <section class="content-header">
+                <h1>
+                    @ViewBag.Title
+                    <small>@ViewBag.SmallTitle</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="~/Dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href=""> @ViewBag.Manage</a></li>
+                    <li class="active"> @ViewBag.ManageDetail</li>
+                </ol>
+            </section>
             <section class="content">
                 <!--Render body-->
                 @RenderBody()
@@ -36,6 +47,29 @@
     <script src="~/Themes/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/Themes/Admin/dist/js/adminlte.min.js"></script>
     <script src="~/Scripts/changepassword.js"></script>
+    <!-- Select all Script -->
+    <script>
+        $("#selectAll").click(function () {
+            $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
+        });
+        $("input[type=checkbox]").click(function () {
+            if (!$(this).prop("checked")) {
+                $("#selectAll").prop("checked", false);
+            }
+        });
+    </script>
+    <!--/.Select all Script -->
+    <!-- Show images-->
+    <script>
+        document.getElementById("my_input_file").onchange = function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("showThumb").src = e.target.result;
+            };
+            reader.readAsDataURL(this.files[0]);
+        };
+    </script>
+    <!--/.Show images-->
     <!-- /.Script-->
 </body>
 </html>
