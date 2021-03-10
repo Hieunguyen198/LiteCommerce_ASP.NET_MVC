@@ -6,12 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using LiteCommerce.BusinessLayers;
-using LiteCommerce.Codes;
 using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
         /// <summary>
@@ -53,7 +52,8 @@ namespace LiteCommerce.Controllers
                         SessionID = Session.SessionID,
                         ClientIP = Request.UserHostAddress,
                         Photo = userAccount.Photo,
-                        Title = userAccount.Title
+                        Title = userAccount.Title,
+                        HireDate=userAccount.HireDate
                     };
                     FormsAuthentication.SetAuthCookie(cookieData.ToCookieString(), false);
                     return RedirectToAction("Index", "Dashboard");

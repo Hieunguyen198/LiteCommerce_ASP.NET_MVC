@@ -29,7 +29,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                 using (SqlCommand cmd = new SqlCommand())
                 {
 
-                    cmd.CommandText = @"select EmployeeID,FirstName,LastName,PhotoPath,GroupName,Title
+                    cmd.CommandText = @"select EmployeeID,FirstName,LastName,PhotoPath,GroupName,Title,HireDate
                                         from Employees
                                         where (Email=@email) and  (Password=@pWd)
                                         ";// chuỗi câu lệnh thực thi
@@ -47,7 +47,8 @@ namespace LiteCommerce.DataLayers.SQLServer
                                 FullName = Convert.ToString(dbReader["FirstName"]) + " " + Convert.ToString(dbReader["LastName"]),
                                 Photo = Convert.ToString(dbReader["PhotoPath"]),
                                 GroupName = Convert.ToString(dbReader["GroupName"]),
-                                Title = Convert.ToString(dbReader["Title"])
+                                Title = Convert.ToString(dbReader["Title"]),
+                                HireDate=Convert.ToString(dbReader["HireDate"])
                             };
                         }
                     }

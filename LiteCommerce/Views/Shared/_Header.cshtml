@@ -39,7 +39,7 @@
                 <!-- User Panel Account -->
                 <li class="dropdown user user-menu">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                        <img class="user-image" alt="User Image" src="~/images/Cat1.jpg">
+                        <img class="user-image" alt="User Image" src="~/@userData.Photo">
                         <span class="hidden-xs">@userData.FullName</span>
                     </a>
                     <ul class="dropdown-menu">
@@ -48,7 +48,7 @@
                             <img class="img-circle" alt="User Image" src="~/@userData.Photo">
                             <p>
                                 @userData.FullName - @userData.Title
-                                <small>Member since Mar. 2021</small>
+                                <small>Member since @string.Format("{0:MMMM-yyyy}", Convert.ToDateTime(userData.HireDate))</small>
                             </p>
                         </li>
                         <!-- /.User image-->

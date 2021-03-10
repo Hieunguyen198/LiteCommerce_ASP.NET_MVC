@@ -9,7 +9,7 @@
 <div class="box box-header">
     <form action="~/Category" method="get">
         <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Search" name="searchValue">
+            <input type="text" class="form-control" placeholder="Enter the category name to search" name="searchValue">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
             </span>
@@ -20,7 +20,7 @@
     <form action="~/Category/Delete" method="post">
         <div class="box-body">
             <h3 style="float: right;" class="box-title">
-                <button onclick="return confirm('Do you really want to delete these categories?')" ; class="btn btn-danger mr-3"
+                <button onclick="return confirm('Do you really want to delete selected categories?')" ; class="btn btn-danger mr-3"
                         type="submit">
                     Delete categories
                 </button>
@@ -30,7 +30,7 @@
                    data-toggle="modal" data-target="#input">Add category</a>
             </h3>
             <div style="padding-top:25px;">
-                <em><b>There are @Model.RowCount category</b></em>
+                <em><b style="color:#3c8dbc">There are @Model.RowCount category</b></em>
             </div>
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -54,9 +54,10 @@
                                 <div class="d-flex justify-content-center align-items-center">
                                     <a href="~/Category/Input/@item.CategoryID"
                                        class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
-                                    <a style="color: #fff"
-                                       onclick="return confirm('Do you really want to delete this category?');"
-                                       class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                                    <button name="categoryIDs" value="@item.CategoryID" onclick="return confirm('Do you really want to delete this categorie?')" ; class="btn btn-danger mr-3"
+                                            type="submit">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -75,7 +76,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="modal-header">
-                <h2 class="modal-title" id="myModalLabel">Add category</h2>
+                <h2 class="modal-title" id="myModalLabel">ADD CATEGORY</h2>
 
             </div>
             <form method="post" action="~/Category/Add">

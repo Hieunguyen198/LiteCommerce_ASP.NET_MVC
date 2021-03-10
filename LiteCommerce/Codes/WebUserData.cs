@@ -46,9 +46,10 @@ namespace LiteCommerce
             /// Chuyển thông tin tài khoản đăng nhập thành chuỗi để ghi Cookie
             /// </summary>
             /// <returns></returns>
+            public string HireDate { get; set; }
             public string ToCookieString()
             {
-                return string.Format($"{UserID}|{FullName}|{GroupName}|{LoginTime}|{SessionID}|{ClientIP}|{Photo}|{Title}");
+                return string.Format($"{UserID}|{FullName}|{GroupName}|{LoginTime}|{SessionID}|{ClientIP}|{Photo}|{Title}|{HireDate}");
             }
 
             /// <summary>
@@ -61,7 +62,7 @@ namespace LiteCommerce
                 try
                 {
                     string[] infos = cookie.Split('|');
-                    if (infos.Length == 8)
+                    if (infos.Length == 9)
                     {
                         return new WebUserData()
                         {
@@ -72,7 +73,8 @@ namespace LiteCommerce
                             SessionID = infos[4],
                             ClientIP = infos[5],
                             Photo = infos[6],
-                            Title = infos[7]
+                            Title = infos[7],
+                            HireDate=infos[8]
                         };
                     }
                     else

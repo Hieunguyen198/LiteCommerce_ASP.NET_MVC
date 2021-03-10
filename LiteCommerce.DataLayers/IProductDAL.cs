@@ -37,13 +37,14 @@ namespace LiteCommerce.DataLayers
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        List<Product> Product_List(int page, int pageSize, string searchValue, string searchSupplier, string searchCategory, string searchPrice);
+        List<Product> Product_List(int page, int pageSize, string searchValue,  string searchCategory, string searchPrice);
         /// <summary>
         /// Lấy ra một nhân viên theo ID
         /// </summary>
         /// <param name="ProductID"></param>
         /// <returns></returns>
         Product Get_Product(int ProductID);
-        int Count_Product(string searchValue, string searchSupplier, string searchCategory, string searchPrice);
+        int Count_Product(string searchValue, string searchCategory, string searchPrice);
+        List<SelectList> List_Category();
     }
 }

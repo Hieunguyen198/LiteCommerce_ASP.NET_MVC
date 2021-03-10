@@ -45,7 +45,7 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         Customer Get_Customer(string CustomerID);
         /// <summary>
-        /// Count Customer
+        /// Count Customer by searchValue
         /// </summary>
         int Count_Customer(string searchValue);
     }

@@ -31,5 +31,9 @@ namespace LiteCommerce.DomainModels
         /// Phân quyền
         /// </summary>
         public string GroupName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string HireDate { get; set; }
     }
 }

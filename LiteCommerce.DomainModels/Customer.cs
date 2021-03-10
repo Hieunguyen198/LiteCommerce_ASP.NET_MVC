@@ -43,6 +43,10 @@ namespace LiteCommerce.DomainModels
         /// 
         /// </summary>
         public string Country { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Fax { get; set; }
     }
 
 }

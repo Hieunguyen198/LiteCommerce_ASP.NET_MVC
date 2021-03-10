@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LiteCommerce.BusinessLayers;
-using LiteCommerce.Codes;
 using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.Controllers
@@ -60,6 +59,7 @@ namespace LiteCommerce.Controllers
         [HttpPost]
         public ActionResult Input(Employee model, HttpPostedFileBase uploadPhoto)
         {
+            try { 
             //Kiểm tra dữ liệu đầu vào
             if (string.IsNullOrEmpty(model.Address))
                 model.Address = "";
@@ -108,12 +108,12 @@ namespace LiteCommerce.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            //}
-            //catch (Exception e)
-            //{
-            //    ModelState.AddModelError("", e.StackTrace);
-            //    return View(model);
-            //}
+            }
+           catch (Exception e)
+            {
+                ModelState.AddModelError("", e.StackTrace);
+                return View(model);
+            }
         }
         [HttpPost]
         public ActionResult Delete(string method = "", int[] employeeIDs = null)

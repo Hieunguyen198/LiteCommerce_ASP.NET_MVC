@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace LiteCommerce.Controllers
 {
-    //[Authorize] //kiểm tra đăng nhập
+    [Authorize] //kiểm tra đăng nhập
     public class DashboardController : Controller
     {
         // GET: Dashboard

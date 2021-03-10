@@ -31,10 +31,20 @@ namespace LiteCommerce
         {
             List<SelectListItem> listCities = new List<SelectListItem>();
             listCities.Add(new SelectListItem() { Value = "Hue", Text = "Hue" });
-            listCities.Add(new SelectListItem() { Value = "HN", Text = "Ha Noi" });
-            listCities.Add(new SelectListItem() { Value = "HCM", Text = "Ho Chi Minh" });
-            listCities.Add(new SelectListItem() { Value = "DN", Text = "Da Nang" });
+            listCities.Add(new SelectListItem() { Value = "Ha Noi", Text = "Ha Noi" });
+            listCities.Add(new SelectListItem() { Value = "Ho Chi Minh", Text = "Ho Chi Minh" });
+            listCities.Add(new SelectListItem() { Value = "Da Nang", Text = "Da Nang" });
             return listCities;
+        }
+        public static List<SelectListItem> ListOfCategories()
+        {
+            List<SelectListItem> listCategorys = new List<SelectListItem>();
+            foreach (var item in CatalogBLL.List_Category())
+            {
+                listCategorys.Add(new SelectListItem() { Value = item.Value.ToString(), Text = item.Text });
+            }
+
+            return listCategorys;
         }
         /// <summary>
         /// Clean code (refactor)
@@ -43,11 +53,11 @@ namespace LiteCommerce
         public static List<SelectListItem> ListOfPrices()
         {
             List<SelectListItem> listPrices = new List<SelectListItem>();
-            listPrices.Add(new SelectListItem() { Value = "10", Text = "More than 10" });
-            listPrices.Add(new SelectListItem() { Value = "20", Text = "More than 20" });
-            listPrices.Add(new SelectListItem() { Value = "30", Text = "More than 30" });
-            listPrices.Add(new SelectListItem() { Value = "40", Text = "More than 40" });
-            listPrices.Add(new SelectListItem() { Value = "50", Text = "More than 50" });
+            listPrices.Add(new SelectListItem() { Value = "10", Text = "More than 10$" });
+            listPrices.Add(new SelectListItem() { Value = "20", Text = "More than 20$" });
+            listPrices.Add(new SelectListItem() { Value = "30", Text = "More than 30$" });
+            listPrices.Add(new SelectListItem() { Value = "40", Text = "More than 40$" });
+            listPrices.Add(new SelectListItem() { Value = "50", Text = "More than 50$" });
             return listPrices;
         }
     }

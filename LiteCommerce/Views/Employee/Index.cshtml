@@ -8,9 +8,9 @@
 
 <div class="box  box-group">
     <form action="~/Employee" method="get">
-        @Html.DropDownListFor(m => m.searchCountry, SelectListHelper.ListOfCountries(), "-------------------------------- All countries ----------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:400px" })
+        <i>Country: </i>@Html.DropDownListFor(m => m.searchCountry, SelectListHelper.ListOfCountries(), "-------------------------------- All countries ----------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:400px" })
         <div class="input-group input-group-sm ">
-            <input type="text" style="width:100%;" class="form-control" placeholder="Search" name="searchValue" value="@Model.SearchValue">
+            <input type="text" style="width:100%;" class="form-control" placeholder="Enter the name employee to search" name="searchValue" value="@Model.SearchValue">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
             </span>
@@ -21,7 +21,7 @@
     <form action="~/Employee/Delete" method="post">
         <div class="box-body">
             <h3 style="float: right;" class="box-title">
-                <button onclick="return confirm('Do you really want to delete these employees?')" class="btn btn-danger mr-3"
+                <button onclick="return confirm('Do you really want to delete selected employees?')" class="btn btn-danger mr-3"
                         type="submit">
                     Delete Employees
                 </button>
@@ -31,7 +31,7 @@
                    href="~/Employee/Input">Add employee</a>
             </h3>
             <div style="padding-top:25px;">
-                <em><b>There are @Model.RowCount employee, Page @Model.Page/@Model.PageCount</b></em> 
+                <em><b style="color:#3c8dbc;">There are @Model.RowCount employee, page @Model.Page/@Model.PageCount</b></em> 
             </div>
             <table  class="table table-bordered table-striped">
                 <thead>
@@ -56,9 +56,9 @@
                             <td>@(i++)</td>
                             <td>@item.FirstName @item.LastName (@item.Title)</td>
                             <td><img class="profile-user-img img-responsive img-circle" src="@item.PhotoPath" alt="User profile picture"></td>
-                            <td>@string.Format("{0:yyyy-MM-dd}", item.BirthDate)</td>
+                            <td>@string.Format("{0:dd-MMMM-yyyy}", item.BirthDate)</td>
                             <td>@item.Email</td>
-                            <td>@string.Format("{0:yyyy-MM-dd}", item.HireDate)</td>
+                            <td>@string.Format("{0:dd-MMMM-yyyy}", item.HireDate)</td>
                             <td>
                                 <div class="fa fa-address-card"></div> @item.Address
                                 <br />
@@ -73,9 +73,11 @@
                                 <div class="d-flex justify-content-center align-items-center">
                                     <a href="~/Employee/Input/@item.EmployeeID"
                                        class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
-                                    <a href="~/Account/Delete/@item.EmployeeID" style="color: #fff"
-                                       onclick="return confirm('Do you really want to delete this employee?');"
-                                       class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                                    
+                                    <button name="employeeIDs" value="@item.EmployeeID" onclick="return confirm('Do you really want to delete this employee?')" class="btn btn-danger mr-3"
+                                            type="submit">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
                                 </div>
                             </td>
                         </tr>

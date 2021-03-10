@@ -1,4 +1,7 @@
-﻿<!-- edit customer -->
+﻿@model LiteCommerce.DomainModels.Customer
+@{
+
+}
 <div class="box box-primary">
     <div class="box-header">
         <h3 style="float: right;" class="box-title">
@@ -10,13 +13,22 @@
         <div class="col-sm-12">
             <div>
                 <form method="post" action="~/Customer/Input">
-                    <input type="hidden" name="method" value="" />
+                    <input type="hidden" name="method" value="@ViewBag.Method" />
                     <div class="col-sm-6 disabled">
                         <div class="form-group">
-                            <label>CustomerID </label><i class="text-danger"></i>
+                            <label>CustomerID </label><i class="text-danger"> @Html.ValidationMessage("")</i>
+                            @if (ViewBag.Method == "Add")
+                            {
                                 <input type="text"
                                        class="text form-control" placeholder="CustomerID"
                                        name="customerID" value="">
+                            }
+                            else
+                            {
+                                <input type="text"
+                                       class="text form-control "
+                                       name="customerID" readonly value="@Model.CustomerID">
+                            }
                         </div>
                     </div>
 
@@ -24,7 +36,7 @@
                         <div class="form-group">
                             <label>Company Name</label> <input type="text"
                                                                class="text form-control" placeholder="Company name" required
-                                                               name="companyName" value="">
+                                                               name="companyName" value="@Model.CompanyName">
                         </div>
                     </div>
 
@@ -33,14 +45,14 @@
                             <div class="form-group">
                                 <label>Contact Name </label> <input type="text"
                                                                     class="text form-control" placeholder="Name" required
-                                                                    name="contactname" value="">
+                                                                    name="contactname" value="@Model.ContactName">
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Contact title </label> <input type="text"
                                                                      class="text form-control" placeholder="Ex: Manage person" required
-                                                                     name="contactTitle" value="">
+                                                                     name="contactTitle" value="@Model.ContactTitle">
                             </div>
                         </div>
                     </div>
@@ -48,41 +60,39 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Country</label>
-                                <select name="country" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                    <option value="">-- Choise your country --</option>
-                                            <option value="1" selected>VN</option>
-                                            <option value="2">USA</option>
-                                </select>
+                                @Html.DropDownListFor(m => m.Country,
+                                   SelectListHelper.ListOfCountries(),
+                                   "-------------------------------------------------------- Choice your country ---------------------------------------------------------------",
+                                   new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <label>City</label>
-                            <select name="city" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                <option value="">-- Choise your city --</option>
-                                        <option value="" selected>Hue</option>
-                                        <option value="">Ha Noi</option>
-                            </select>
+                            @Html.DropDownListFor(m => m.City,
+                               SelectListHelper.ListOfcities(),
+                               "-------------------------------------------------------- Choice your city ---------------------------------------------------------------",
+                               new { @class = "form-control" })
                         </div>
                     </div>
                     <div>
                         <div class="col-sm-12">
                             <label>Address</label> <input type="text"
                                                           class="form-control" name="address"
-                                                          placeholder="Address" value="" required>
+                                                          placeholder="Address" value="@Model.Address" required>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <label>Phone</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-phone"></i></div>
-                            <input type="text" class="form-control" name="phone" value="" placeholder="Phone" required>
+                            <input type="text" class="form-control" name="phone" value="@Model.Phone" placeholder="Phone" required>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <label>Fax</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="fa fa-fax"></i></div>
-                            <input type="text" class="form-control" name="fax" value="" placeholder="Fax" required>
+                            <input type="text" class="form-control" name="fax" value="@Model.Fax" placeholder="Fax" required>
                         </div>
                     </div>
                     <div class="form-group " style="float:right;padding-top:10px;padding-right:15px;">

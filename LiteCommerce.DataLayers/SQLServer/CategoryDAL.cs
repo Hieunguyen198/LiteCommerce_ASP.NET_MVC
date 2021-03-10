@@ -75,10 +75,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select *
-                                        from Categories
-                                        where (@searchValue=N'')
-                                               or(CategoryName like @searchValue)";// chuỗi câu lệnh thực thi
+                    cmd.CommandText = @"SELECT *
+                                        FROM Categories
+                                        WHERE    (@searchValue=N'')
+                                               OR(CategoryName like @searchValue)";// chuỗi câu lệnh thực thi
                     cmd.CommandType = CommandType.Text; // kiểu câu lệnh procedu text 
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
@@ -118,10 +118,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select count(*)
-                                        from Categories
-                                        where (@searchValue=N'')
-                                               or(CategoryName like @searchValue)";
+                    cmd.CommandText = @"SELECT count(*)
+                                        FROM Categories
+                                        WHERE    (@searchValue=N'')
+                                               OR(CategoryName like @searchValue)";
                     cmd.CommandType = CommandType.Text;
                     cmd.Connection = connection;
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
@@ -145,9 +145,10 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"DELETE FROM Categories
-                                            WHERE(CategoryID = @CategoryID)
-                                              AND(CategoryID NOT IN(SELECT CategoryID FROM Products))";
+                cmd.CommandText = @"DELETE 
+                                    FROM  Categories
+                                    WHERE (CategoryID = @CategoryID)
+                                          AND(CategoryID NOT IN(SELECT CategoryID FROM Products))";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.Add("@CategoryID", SqlDbType.Int);
@@ -172,7 +173,9 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"SELECT * FROM Categories WHERE CategoryID = @CategoryID";
+                cmd.CommandText = @"SELECT * 
+                                    FROM Categories 
+                                    WHERE CategoryID = @CategoryID";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@CategoryID", categoryID);
