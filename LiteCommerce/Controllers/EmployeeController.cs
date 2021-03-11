@@ -29,7 +29,7 @@ namespace LiteCommerce.Controllers
                 SearchValue = searchValue,
                 searchCountry = searchCountry,
                 RowCount = EmployeeBLL.Count_Employee(searchValue, searchCountry),
-                Data = EmployeeBLL.Employee_List(page,AppSettings.defaultPageSize, searchValue, searchCountry)
+                Data = EmployeeBLL.Employee_List(page, AppSettings.defaultPageSize, searchValue, searchCountry)
             };
             return View(model);
         }
@@ -59,57 +59,60 @@ namespace LiteCommerce.Controllers
         [HttpPost]
         public ActionResult Input(Employee model, HttpPostedFileBase uploadPhoto)
         {
-            try { 
-            //Kiểm tra dữ liệu đầu vào
-            if (string.IsNullOrEmpty(model.Address))
-                model.Address = "";
-            if (string.IsNullOrEmpty(model.City))
-                model.City = "";
-            if (string.IsNullOrEmpty(model.Country))
-                model.Country = "";
-            if (string.IsNullOrEmpty(model.Notes))
-                model.Notes = "";
-            if (uploadPhoto != null)
+            try
             {
-                string path = Path.Combine(Server.MapPath("~/Images/"), Path.GetFileName(uploadPhoto.FileName));
-                uploadPhoto.SaveAs(path);
-                model.PhotoPath = "Images/" + Path.GetFileName(uploadPhoto.FileName);
-            }
-            //xử lý để đưa dữ liệu vào DB
-            Employee data = EmployeeBLL.Check_Email(model.Email);
-            if (model.EmployeeID == 0)//add
-            {
+                //Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(model.Address))
+                    model.Address = "";
+                if (string.IsNullOrEmpty(model.City))
+                    model.City = "";
+                if (string.IsNullOrEmpty(model.Country))
+                    model.Country = "";
+                if (string.IsNullOrEmpty(model.Notes))
+                    model.Notes = "";
+                if (uploadPhoto != null)
+                {
+                    string path = Path.Combine(Server.MapPath("~/Images/"), Path.GetFileName(uploadPhoto.FileName));
+                    uploadPhoto.SaveAs(path);
+                    model.PhotoPath = "Images/" + Path.GetFileName(uploadPhoto.FileName);
+                }
+                //xử lý để đưa dữ liệu vào DB
+                Employee data = EmployeeBLL.Check_Email(model.Email);
+                if (model.EmployeeID == 0)//add
+                {
 
-                if (data != null)//check email
-                {
-                    ViewBag.Method = "Add";
-                    ViewBag.Title = "ADD NEW EMPLOYEE";
-                    ModelState.AddModelError("", "Email already exists!");
-                    return View(model);
+                    if (data != null)//check email
+                    {
+                        ViewBag.Method = "Add";
+                        ViewBag.Title = "ADD NEW EMPLOYEE";
+                        ModelState.AddModelError("", "Email already exists!");
+                        return View(model);
+                    }
+                    else
+                    {
+                        int employeeID = EmployeeBLL.Add_Employee(model);
+                        return RedirectToAction("Index");
+                    }
                 }
-                else
+                else //Edit
                 {
-                    int employeeID = EmployeeBLL.Add_Employee(model);
-                    return RedirectToAction("Index");
+                    if (data.EmployeeID != model.EmployeeID)
+                    {
+                        ViewBag.Method = "Edit";
+                        ViewBag.Title = "EDIT EMPLOYEE";
+                        ModelState.AddModelError("", "Email already exists!");
+                        return View(model);
+                    }
+                    else
+                    {
+                        ViewBag.Title = "EDIT EMPLOYEE";
+                        ViewBag.Success = "EDIT SUCCESS";
+                        bool result = EmployeeBLL.Update_Employee(model);
+                        return View(model);
+                    }
                 }
             }
-            else //Edit
-            {
-                if (data.EmployeeID != model.EmployeeID)
-                {
-                    ViewBag.Method = "Edit";
-                    ViewBag.Title = "EDIT EMPLOYEE";
-                    ModelState.AddModelError("", "Email already exists!");
-                    return View(model);
-                }
-                else
-                {
-                    bool result = EmployeeBLL.Update_Employee(model);
-                    return RedirectToAction("Index");
-                }
-            }
-            }
-           catch (Exception e)
+            catch (Exception e)
             {
                 ModelState.AddModelError("", e.StackTrace);
                 return View(model);

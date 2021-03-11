@@ -10,13 +10,19 @@
 <div class="box box-default">
     <form action="~/Product" method="get">
         <div class="input-group input-group-sm" style="display:block;">
-            <i>Category: </i>@Html.DropDownListFor(m => m.searchCategory, SelectListHelper.ListOfCategories(),
-            "----------------------------------------- All Category ----------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:475px" })
-            <i>Price: </i>@Html.DropDownListFor(m => m.searchPrice, SelectListHelper.ListOfPrices(), 
-            "----------------------------------------- All price -------------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:477px" })
+            <div class="col-sm-6">
+                <i>Category: </i>@Html.DropDownListFor(m => m.searchCategory, SelectListHelper.ListOfCategories(),
+"----------------------------------------- All Category ----------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:475px" })
+            </div>
+            <div class="col-sm-6">
+                <i>Price: </i>@Html.DropDownListFor(m => m.searchPrice, SelectListHelper.ListOfPrices(),
+"----------------------------------------- All price -------------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:477px" })
+            </div>
+            
+            
         </div>
         <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Enter the name product to search" name="searchValue" value="@Model.SearchValue">
+            <input type="text" class="form-control" placeholder="Enter the name product to search" name="searchValue" value="@Model.searchValue">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
             </span>
@@ -47,12 +53,12 @@
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
                         <th>#</th>
-                        <th>Product name</th>
+                        <th>Product Name</th>
                         <th>Image</th>
                         <th>Category</th>
-                        <th>Quantity per unit</th>
-                        <th>Unit price</th>
-                        <th width="100px">Decriptions</th>
+                        <th>Quantity Per Unit</th>
+                        <th>Unit Price</th>
+                        <th>Decriptions</th>
                         <th style="text-align: center;">Actions</th>
                     </tr>
                 </thead>

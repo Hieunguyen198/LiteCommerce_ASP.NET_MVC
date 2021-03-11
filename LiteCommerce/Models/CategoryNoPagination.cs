@@ -13,5 +13,6 @@ namespace LiteCommerce.Models
     {
         public List<Category> Data;
         public int RowCount;
+        public string searchValue;
     }
 }

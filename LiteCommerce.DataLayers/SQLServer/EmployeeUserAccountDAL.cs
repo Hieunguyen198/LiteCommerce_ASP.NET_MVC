@@ -20,6 +20,12 @@ namespace LiteCommerce.DataLayers.SQLServer
         {
             this.connectionString = connectionString;
         }
+        /// <summary>
+        /// Authorize login infomation
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public UserAccount Authorize(string email, string password)
         {
             UserAccount data = null;
@@ -29,14 +35,15 @@ namespace LiteCommerce.DataLayers.SQLServer
                 using (SqlCommand cmd = new SqlCommand())
                 {
 
-                    cmd.CommandText = @"select EmployeeID,FirstName,LastName,PhotoPath,GroupName,Title,HireDate
-                                        from Employees
-                                        where (Email=@email) and  (Password=@pWd)
-                                        ";// chuỗi câu lệnh thực thi
-                    cmd.CommandType = CommandType.Text; // kiểu câu lệnh procedu text 
+                    cmd.CommandText = @"Proc_UserAccount_Authorize";
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@email", email);
-                    cmd.Parameters.AddWithValue("@pWd", password);
+                    SqlParameter prm1 = new SqlParameter("Email", SqlDbType.NVarChar);
+                    SqlParameter prm2 = new SqlParameter("PWd", SqlDbType.NVarChar);
+                    prm1.Value = email;
+                    prm2.Value = password;
+                    cmd.Parameters.Add(prm1);
+                    cmd.Parameters.Add(prm2);
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -59,7 +66,7 @@ namespace LiteCommerce.DataLayers.SQLServer
             return data;
         }
         /// <summary>
-        /// 
+        /// change Pwd
         /// </summary>
         /// <param name="id"></param>
         /// <param name="newPWd"></param>
@@ -72,14 +79,15 @@ namespace LiteCommerce.DataLayers.SQLServer
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     connection.Open();
-                    cmd.CommandText = @"UPDATE Employees
-                                        SET 
-                                               Password = @Password
-                                        WHERE  EmployeeID = @EmployeeID";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"Proc_UserAccount_Change_PWd";
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@EmployeeID", id);
-                    cmd.Parameters.AddWithValue("@Password", newPWd);
+                    SqlParameter prm1 = new SqlParameter("EmployeeID", SqlDbType.Int);
+                    SqlParameter prm2 = new SqlParameter("Password", SqlDbType.NVarChar);
+                    prm1.Value = id;
+                    prm2.Value = newPWd;
+                    cmd.Parameters.Add(prm1);
+                    cmd.Parameters.Add(prm2);
                     rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
                     connection.Close();
                 }

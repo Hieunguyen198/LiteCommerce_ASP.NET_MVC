@@ -34,38 +34,29 @@ namespace LiteCommerce.DataLayers.SQLServer
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
-
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"INSERT INTO Products
-                                          (
-                                              ProductName,
-                                              CategoryID,
-                                              QuantityPerUnit,
-                                              UnitPrice,
-                                              Descriptions,
-                                              PhotoPath
-                                          )
-                                          VALUES
-                                          (
-	                                          @ProductName,
-	                                          @CategoryID,
-	                                          @QuantityPerUnit,
-	                                          @UnitPrice,
-	                                          @Descriptions,
-	                                          @PhotoPath
-                                          );
-                                          SELECT @@IDENTITY;";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Product_Add";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@ProductName", data.ProductName);
-                cmd.Parameters.AddWithValue("@CategoryID", data.CategoryID);
-                cmd.Parameters.AddWithValue("@QuantityPerUnit", data.QuantityPerUnit);
-                cmd.Parameters.AddWithValue("@UnitPrice", data.UnitPrice);
-                cmd.Parameters.AddWithValue("@Descriptions", data.Descriptions);
-                cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
-
+                SqlParameter prm1 = new SqlParameter("ProductName", SqlDbType.NVarChar);
+                SqlParameter prm2 = new SqlParameter("CategoryID", SqlDbType.NVarChar);
+                SqlParameter prm3 = new SqlParameter("QuantityPerUnit", SqlDbType.NVarChar);
+                SqlParameter prm4 = new SqlParameter("UnitPrice", SqlDbType.Float);
+                SqlParameter prm5 = new SqlParameter("Descriptions", SqlDbType.NVarChar);
+                SqlParameter prm6 = new SqlParameter("PhotoPath", SqlDbType.NVarChar);
+                prm1.Value = data.ProductName;
+                prm2.Value = data.CategoryID;
+                prm3.Value = data.QuantityPerUnit;
+                prm4.Value = data.UnitPrice;
+                prm5.Value = data.Descriptions;
+                prm6.Value = data.PhotoPath;
+                cmd.Parameters.Add(prm1);
+                cmd.Parameters.Add(prm2);
+                cmd.Parameters.Add(prm3);
+                cmd.Parameters.Add(prm4);
+                cmd.Parameters.Add(prm5);
+                cmd.Parameters.Add(prm6);
                 productID = Convert.ToInt32(cmd.ExecuteScalar());
-
                 connection.Close();
             }
 
@@ -91,20 +82,19 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @" SELECT count(*)
-                                        FROM View_Product
-                                        WHERE       ((@searchValue=N'')
-                                               OR   (ProductName like @searchValue)) 
-                                               AND  ((CategoryID like @searchCategory) OR (@searchCategory=N''))
-                                               AND  ((UnitPrice >= @searchPrice) OR  (@searchPrice=N''))
-                                      ";// chuỗi câu lệnh thực thi
-                    cmd.CommandType = CommandType.Text; // kiểu câu lệnh procedu text 
+                    cmd.CommandText = @"Proc_Product_Count";
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
-                    cmd.Parameters.AddWithValue("@searchCategory", searchCategory);
-                    cmd.Parameters.AddWithValue("@searchPrice", searchPrice);
+                    SqlParameter prm1 = new SqlParameter("searchValue", SqlDbType.NVarChar);
+                    SqlParameter prm2 = new SqlParameter("searchCategory", SqlDbType.NVarChar);
+                    SqlParameter prm3 = new SqlParameter("searchPrice", SqlDbType.NVarChar);
+                    prm1.Value = searchValue;
+                    prm2.Value = searchCategory;
+                    prm3.Value = searchPrice;
+                    cmd.Parameters.Add(prm1);
+                    cmd.Parameters.Add(prm2);
+                    cmd.Parameters.Add(prm3);
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
-
                 }
                 connection.Close();
             }
@@ -122,15 +112,14 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"DELETE FROM Products
-                                           WHERE    (ProductID = @ProductID)
-                                                 AND(ProductID NOT IN(SELECT ProductID FROM OrderDetails))";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Product_Delete";
+                SqlParameter prm1 = new SqlParameter("ProductID", SqlDbType.Int);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                cmd.Parameters.Add("@ProductID", SqlDbType.Int);
                 foreach (int productID in productIDs)
                 {
-                    cmd.Parameters["@ProductID"].Value = productID;
+                    prm1.Value = productID;
+                    cmd.Parameters.Add(prm1);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -149,10 +138,12 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"SELECT * FROM View_Product WHERE ProductID = @ProductID";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Product_Get_By_ID";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@ProductID", productID);
+                SqlParameter prm1 = new SqlParameter("ProductID", SqlDbType.Int);
+                prm1.Value = productID;
+                cmd.Parameters.Add(prm1);
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (dbReader.Read())
@@ -229,25 +220,24 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT *
-                                        FROM
-                                        (
-                                        SELECT *,
-		                                        ROW_NUMBER() OVER (order by ProductID) AS RowNumber
-                                        FROM    View_Product
-                                        WHERE       ((@searchValue=N'')
-                                               OR   (ProductName like @searchValue)) 
-                                               AND  ((CategoryID like @searchCategory) OR (@searchCategory=N''))
-                                               AND  ((UnitPrice >=@searchPrice) OR (@searchPrice=N''))
-                                        ) AS T
-                                        WHERE t.RowNumber BETWEEN (@page*@pageSize)-@pageSize+1 AND @page*@pageSize";// chuỗi câu lệnh thực thi
-                    cmd.CommandType = CommandType.Text; // kiểu câu lệnh procedu text 
+                    cmd.CommandText = @"Proc_Product_List";
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@page", page);
-                    cmd.Parameters.AddWithValue("@pageSize", pageSize);
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
-                    cmd.Parameters.AddWithValue("@searchCategory", searchCategory);
-                    cmd.Parameters.AddWithValue("@searchPrice", searchPrice);
+                    SqlParameter prm1 = new SqlParameter("searchValue", SqlDbType.NVarChar);
+                    SqlParameter prm2 = new SqlParameter("searchCategory", SqlDbType.NVarChar);
+                    SqlParameter prm3 = new SqlParameter("searchPrice", SqlDbType.NVarChar);
+                    SqlParameter prm4 = new SqlParameter("page", SqlDbType.Int);
+                    SqlParameter prm5 = new SqlParameter("pageSize", SqlDbType.Int);
+                    prm1.Value = searchValue;
+                    prm2.Value = searchCategory;
+                    prm3.Value = searchPrice;
+                    prm4.Value = page;
+                    prm5.Value = pageSize;
+                    cmd.Parameters.Add(prm1);
+                    cmd.Parameters.Add(prm2);
+                    cmd.Parameters.Add(prm3);
+                    cmd.Parameters.Add(prm4);
+                    cmd.Parameters.Add(prm5);
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -284,27 +274,31 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"UPDATE Products
-                                    SET 
-                                          ProductName =  @ProductName,
-	                                      CategoryID = @CategoryID,
-	                                      QuantityPerUnit =  @QuantityPerUnit,
-	                                      UnitPrice=  @UnitPrice,
-	                                      Descriptions = @Descriptions,
-	                                      PhotoPath = @PhotoPath
-                                    WHERE ProductID = @ProductID";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Product_Edit";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@ProductID", data.ProductID);
-                cmd.Parameters.AddWithValue("@ProductName", data.ProductName);
-                cmd.Parameters.AddWithValue("@CategoryID", data.CategoryID);
-                cmd.Parameters.AddWithValue("@QuantityPerUnit", data.QuantityPerUnit);
-                cmd.Parameters.AddWithValue("@UnitPrice", data.UnitPrice);
-                cmd.Parameters.AddWithValue("@Descriptions", data.Descriptions);
-                cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
-
+                SqlParameter prm1 = new SqlParameter("ProductName", SqlDbType.NVarChar);
+                SqlParameter prm2 = new SqlParameter("CategoryID", SqlDbType.NVarChar);
+                SqlParameter prm3 = new SqlParameter("QuantityPerUnit", SqlDbType.NVarChar);
+                SqlParameter prm4 = new SqlParameter("UnitPrice", SqlDbType.Float);
+                SqlParameter prm5 = new SqlParameter("Descriptions", SqlDbType.NVarChar);
+                SqlParameter prm6 = new SqlParameter("PhotoPath", SqlDbType.NVarChar);
+                SqlParameter prm7 = new SqlParameter("ProductID", SqlDbType.Int);
+                prm1.Value = data.ProductName;
+                prm2.Value = data.CategoryID;
+                prm3.Value = data.QuantityPerUnit;
+                prm4.Value = data.UnitPrice;
+                prm5.Value = data.Descriptions;
+                prm6.Value = data.PhotoPath;
+                prm7.Value = data.ProductID;
+                cmd.Parameters.Add(prm1);
+                cmd.Parameters.Add(prm2);
+                cmd.Parameters.Add(prm3);
+                cmd.Parameters.Add(prm4);
+                cmd.Parameters.Add(prm5);
+                cmd.Parameters.Add(prm6);
+                cmd.Parameters.Add(prm7);
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
-
                 connection.Close();
             }
             return rowsAffected > 0;

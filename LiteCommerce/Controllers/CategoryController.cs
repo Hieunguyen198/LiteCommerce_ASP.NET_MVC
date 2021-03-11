@@ -20,6 +20,7 @@ namespace LiteCommerce.Controllers
             var model = new Models.CategoryNoPagination
             {
                 RowCount = CatalogBLL.Count_Category(searchValue),
+                searchValue = searchValue,
                 Data = CatalogBLL.Category_List(searchValue)
             };
             return View(model);
@@ -43,8 +44,10 @@ namespace LiteCommerce.Controllers
         {
             try
             {
+                ViewBag.Title = "EDIT EMPLOYEE";
+                ViewBag.Success = "EDIT SUCCESS";
                 bool result = CatalogBLL.Update_Category(model);
-                return RedirectToAction("Index");
+                return View(model);
             }
             catch
             {

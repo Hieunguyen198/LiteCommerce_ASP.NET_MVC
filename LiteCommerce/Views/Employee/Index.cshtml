@@ -39,13 +39,13 @@
                         <th><input type="checkbox" id="selectAll" /></th>
                         <th>#</th>
                         <th>Name</th>
-                        <th>Photo path</th>
-                        <th>Birth date</th>
+                        <th>Photo Path</th>
+                        <th>Birth Date</th>
                         <th>E-mail</th>
-                        <th>Hire date</th>
+                        <th>Hire Date</th>
                         <th>Address</th>
                         <th style="width:300px;">Notes</th>
-                        <th style="text-align: center;width:100px;">Actions</th>
+                        <th style="text-align: center;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,7 +54,7 @@
                         <tr>
                             <td><input type="checkbox" name="employeeIDs" value="@item.EmployeeID" /></td>
                             <td>@(i++)</td>
-                            <td>@item.FirstName @item.LastName (@item.Title)</td>
+                            <td>@item.FirstName @item.LastName (<i>@item.Title</i>)</td>
                             <td><img class="profile-user-img img-responsive img-circle" src="@item.PhotoPath" alt="User profile picture"></td>
                             <td>@string.Format("{0:dd-MMMM-yyyy}", item.BirthDate)</td>
                             <td>@item.Email</td>

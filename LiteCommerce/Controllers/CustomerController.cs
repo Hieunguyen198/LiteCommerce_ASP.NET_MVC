@@ -79,7 +79,7 @@ namespace LiteCommerce.Controllers
                     if (CatalogBLL.Get_Customer(model.CustomerID) != null)
                     {
                         ViewBag.Method = "Add";
-                        ViewBag.Title = "Add new Customer";
+                        ViewBag.Title = "ADD NEW CUSTOMER";
                         ModelState.AddModelError("", "ID already exists!");
                         return View(model);
                     }
@@ -92,8 +92,10 @@ namespace LiteCommerce.Controllers
                 }
                 else
                 {
+                    ViewBag.Title = "EDIT EMPLOYEE";
+                    ViewBag.Success = "EDIT SUCCESS";
                     bool resultUpdateCustomer = CatalogBLL.Update_Customer(model);
-                    return RedirectToAction("Index");
+                    return View(model);
                 }
             }
             catch (Exception ex)

@@ -29,8 +29,8 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"SELECT CountryName FROM Countries";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Country_List";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {

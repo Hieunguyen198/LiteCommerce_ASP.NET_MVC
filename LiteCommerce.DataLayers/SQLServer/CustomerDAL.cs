@@ -35,41 +35,36 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"INSERT INTO Customers
-                                          (
-                                              CustomerID,
-	                                          CompanyName,
-	                                          ContactName,
-	                                          ContactTitle,
-	                                          Address,
-	                                          City,
-	                                          Country,
-	                                          Phone,
-	                                          Fax
-                                          )
-                                          VALUES
-                                          (
-                                              @CustomerID,    
-	                                          @CompanyName,
-	                                          @ContactName,
-	                                          @ContactTitle,
-	                                          @Address,
-	                                          @City,
-	                                          @Country,
-	                                          @Phone,
-	                                          @Fax
-                                          );";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Customer_Add";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@CustomerID", data.CustomerID);
-                cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
-                cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
-                cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
-                cmd.Parameters.AddWithValue("@Address", data.Address);
-                cmd.Parameters.AddWithValue("@City", data.City);
-                cmd.Parameters.AddWithValue("@Country", data.Country);
-                cmd.Parameters.AddWithValue("@Phone", data.Phone);
-                cmd.Parameters.AddWithValue("@Fax", data.Fax);
+                SqlParameter prm1 = new SqlParameter("CustomerID",SqlDbType.NChar);
+                SqlParameter prm2 = new SqlParameter("CompanyName", SqlDbType.NVarChar);
+                SqlParameter prm3 = new SqlParameter("ContactName", SqlDbType.NVarChar);
+                SqlParameter prm4 = new SqlParameter("ContactTitle", SqlDbType.NVarChar);
+                SqlParameter prm5 = new SqlParameter("Address", SqlDbType.NVarChar);
+                SqlParameter prm6 = new SqlParameter("City", SqlDbType.NVarChar);
+                SqlParameter prm7 = new SqlParameter("Country", SqlDbType.NVarChar);
+                SqlParameter prm8 = new SqlParameter("Phone", SqlDbType.NVarChar);
+                SqlParameter prm9 = new SqlParameter("Fax", SqlDbType.NVarChar);
+                prm1.Value = data.CustomerID;
+                prm2.Value = data.CompanyName;
+                prm3.Value = data.ContactName;
+                prm4.Value = data.ContactTitle;
+                prm5.Value = data.Address;
+                prm6.Value = data.City;
+                prm7.Value = data.Country;
+                prm8.Value = data.Phone;
+                prm9.Value = data.Fax;
+                cmd.Parameters.Add(prm1);
+                cmd.Parameters.Add(prm2);
+                cmd.Parameters.Add(prm3);
+                cmd.Parameters.Add(prm4);
+                cmd.Parameters.Add(prm5);
+                cmd.Parameters.Add(prm6);
+                cmd.Parameters.Add(prm7);
+                cmd.Parameters.Add(prm8);
+                cmd.Parameters.Add(prm9);
 
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
                 connection.Close();
@@ -93,13 +88,12 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select count(*)
-                                        from Customers
-                                        where (@searchValue=N'')
-                                               or(CompanyName like @searchValue)";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"Proc_Customer_Count";
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
+                    SqlParameter prm1 = new SqlParameter("SearchValue", SqlDbType.NVarChar);
+                    prm1.Value = searchValue;
+                    cmd.Parameters.Add(prm1);
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 connection.Close();
@@ -126,21 +120,18 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select *
-                                        from
-                                        (
-                                        select *,
-		                                        ROW_NUMBER() over(order by CustomerID) as RowNumber
-                                        from Customers
-                                        where (@searchValue=N'')
-                                               or(CompanyName like @searchValue)
-                                        ) as T
-                                        where t.RowNumber between (@page*@pageSize)-@pageSize+1 and @page*@pageSize";// chuỗi câu lệnh thực thi
-                    cmd.CommandType = CommandType.Text; // kiểu câu lệnh procedu text 
+                    cmd.CommandText = @"Proc_Customer_List";
+                    cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@page", page);
-                    cmd.Parameters.AddWithValue("@pageSize", pageSize);
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
+                    SqlParameter prm1 = new SqlParameter("SearchValue", SqlDbType.NVarChar);
+                    SqlParameter prm2 = new SqlParameter("Page", SqlDbType.Int);
+                    SqlParameter prm3 = new SqlParameter("PageSize", SqlDbType.Int);
+                    prm1.Value = searchValue;
+                    prm2.Value = page;
+                    prm3.Value = pageSize;
+                    cmd.Parameters.Add(prm1);
+                    cmd.Parameters.Add(prm2);
+                    cmd.Parameters.Add(prm3);
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -177,16 +168,14 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"DELETE  
-                                    FROM Customers 
-                                    WHERE   (CustomerID = @CustomerID)
-                                         AND(CustomerID NOT IN(SELECT CustomerID FROM Orders))";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Customer_Delete";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                cmd.Parameters.Add("@CustomerID", SqlDbType.NChar);
+                SqlParameter prm1 = new SqlParameter("CustomerID", SqlDbType.NChar);
                 foreach (string CustomerID in customerIDs)
                 {
-                    cmd.Parameters["@CustomerID"].Value = CustomerID;
+                    prm1.Value = CustomerID;
+                    cmd.Parameters.Add(prm1);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -205,12 +194,12 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"SELECT * 
-                                    FROM Customers 
-                                    WHERE CustomerID = @CustomerID";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Customer_Get_By_ID";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@CustomerID", CustomerID);
+                SqlParameter prm1 = new SqlParameter("CustomerID", SqlDbType.NChar);
+                prm1.Value = CustomerID;
+                cmd.Parameters.Add(prm1);
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (dbReader.Read())
@@ -246,29 +235,37 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"UPDATE Customers
-                                    SET 
-                                          CustomerID = @CustomerID,
-                                          CompanyName =  @CompanyName,
-	                                      ContactName =  @ContactName,
-	                                      ContactTitle = @ContactTitle,
-	                                      Address =  @Address,
-	                                      City=  @City,
-	                                      Country = @Country,
-	                                      Phone = @Phone,
-	                                      Fax = @Fax
-                                    WHERE CustomerID = @CustomerID";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Customer_Edit";
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@CustomerID", data.CustomerID);
-                cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
-                cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
-                cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
-                cmd.Parameters.AddWithValue("@Address", data.Address);
-                cmd.Parameters.AddWithValue("@City", data.City);
-                cmd.Parameters.AddWithValue("@Country", data.Country);
-                cmd.Parameters.AddWithValue("@Phone", data.Phone);
-                cmd.Parameters.AddWithValue("@Fax", data.Fax);
+                SqlParameter prm1 = new SqlParameter("CustomerID", SqlDbType.NChar);
+                SqlParameter prm2 = new SqlParameter("CompanyName", SqlDbType.NVarChar);
+                SqlParameter prm3 = new SqlParameter("ContactName", SqlDbType.NVarChar);
+                SqlParameter prm4 = new SqlParameter("ContactTitle", SqlDbType.NVarChar);
+                SqlParameter prm5 = new SqlParameter("Address", SqlDbType.NVarChar);
+                SqlParameter prm6 = new SqlParameter("City", SqlDbType.NVarChar);
+                SqlParameter prm7 = new SqlParameter("Country", SqlDbType.NVarChar);
+                SqlParameter prm8 = new SqlParameter("Phone", SqlDbType.NVarChar);
+                SqlParameter prm9 = new SqlParameter("Fax", SqlDbType.NVarChar);
+                prm1.Value = data.CustomerID;
+                prm2.Value = data.CompanyName;
+                prm3.Value = data.ContactName;
+                prm4.Value = data.ContactTitle;
+                prm5.Value = data.Address;
+                prm6.Value = data.City;
+                prm7.Value = data.Country;
+                prm8.Value = data.Phone;
+                prm9.Value = data.Fax;
+                cmd.Parameters.Add(prm1);
+                cmd.Parameters.Add(prm2);
+                cmd.Parameters.Add(prm3);
+                cmd.Parameters.Add(prm4);
+                cmd.Parameters.Add(prm5);
+                cmd.Parameters.Add(prm6);
+                cmd.Parameters.Add(prm7);
+                cmd.Parameters.Add(prm8);
+                cmd.Parameters.Add(prm9);
+
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
 
                 connection.Close();

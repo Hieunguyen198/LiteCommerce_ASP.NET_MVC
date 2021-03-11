@@ -1,14 +1,13 @@
 ﻿@model LiteCommerce.DomainModels.Employee
-@{
-
-}
+<!--Add or edit an employee-->
 <div class="box box-primary">
     <div class="box-header">
         <h3 style="float: right;" class="box-title">
-            <a class="btn btn-primary mr-3"
+            <a class="btn btn-primary "
                href="~/Employee">Back to list >></a>
         </h3>
     </div>
+    <div class="col-sm-6"><h3 style="color:forestgreen">@ViewBag.Success</h3></div>
     <div class="row shadow" style="padding-top:10px;">
         <div class="col-sm-12">
             <div>
@@ -90,9 +89,9 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Country</label>
-                                @Html.DropDownListFor(m => m.Country, 
-                               SelectListHelper.ListOfCountries(), 
-                               "-------------------------------------------------------- Choice your country ---------------------------------------------------------------", 
+                                @Html.DropDownListFor(m => m.Country,
+                               SelectListHelper.ListOfCountries(),
+                               "-------------------------------------------------------- Choice your country ---------------------------------------------------------------",
                                new { @class = "form-control" })
                             </div>
                         </div>
@@ -101,7 +100,7 @@
                             <label>City</label>
                             @Html.DropDownListFor(m=>m.City,SelectListHelper.ListOfcities(),
                             "-------------------------------------------------------- Choice your City ---------------------------------------------------------------",
-                           new { @class = "form-control form-control-sm" }) 
+                           new { @class = "form-control form-control-sm" })
                         </div>
                     </div>
                     <div>

@@ -83,6 +83,8 @@ namespace LiteCommerce.Controllers
                     model.City = "";
                 if (string.IsNullOrEmpty(model.Country))
                     model.Country = "";
+                if (string.IsNullOrEmpty(model.Notes))
+                    model.Notes = "";
                 if (uploadPhoto != null)
                 {
                     string path = Path.Combine(Server.MapPath("~/Images/"), Path.GetFileName(uploadPhoto.FileName));
