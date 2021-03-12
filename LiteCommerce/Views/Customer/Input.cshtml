@@ -105,3 +105,14 @@
         </div>
     </div>
 </div>
+<!-- js upload image-->
+<script>
+        document.getElementById("my_input_file").onchange = function () {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("showThumb").src = e.target.result;
+            };
+            reader.readAsDataURL(this.files[0]);
+        };
+</script>
+<!--/.js-->

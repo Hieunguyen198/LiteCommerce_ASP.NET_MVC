@@ -163,6 +163,7 @@
     <Compile Include="Models\CategoryNoPagination.cs" />
     <Compile Include="Models\CustomerPaginationResult.cs" />
     <Compile Include="Models\EmployeePaginationResult.cs" />
+    <Compile Include="Models\OrderPaginationResult.cs" />
     <Compile Include="Models\PaginationResult.cs" />
     <Compile Include="Models\ProductPaginationResult.cs" />
     <Compile Include="Models\SelectList.cs" />
@@ -177,7 +178,9 @@
     <Content Include="Images\Cat5.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Category.js" />
     <Content Include="Scripts\changepassword.js" />
+    <Content Include="Scripts\Common.js" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap.css" />

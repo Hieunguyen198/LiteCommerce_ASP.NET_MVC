@@ -25,11 +25,11 @@ namespace LiteCommerce.Controllers
             var model = new Models.EmployeePaginationResult()
             {
                 Page = page,
-                PageSize = AppSettings.defaultPageSize,
+                PageSize = AppSettings.DefaultPageSize,
                 SearchValue = searchValue,
                 searchCountry = searchCountry,
                 RowCount = EmployeeBLL.Count_Employee(searchValue, searchCountry),
-                Data = EmployeeBLL.Employee_List(page, AppSettings.defaultPageSize, searchValue, searchCountry)
+                Data = EmployeeBLL.Employee_List(page, AppSettings.DefaultPageSize, searchValue, searchCountry)
             };
             return View(model);
         }

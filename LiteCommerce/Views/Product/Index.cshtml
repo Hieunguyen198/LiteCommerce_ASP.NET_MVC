@@ -12,14 +12,13 @@
         <div class="input-group input-group-sm" style="display:block;">
             <div class="col-sm-6">
                 <i>Category: </i>@Html.DropDownListFor(m => m.searchCategory, SelectListHelper.ListOfCategories(),
-"----------------------------------------- All Category ----------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:475px" })
+                "----------------------------------------- All Category ----------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:475px" })
             </div>
             <div class="col-sm-6">
                 <i>Price: </i>@Html.DropDownListFor(m => m.searchPrice, SelectListHelper.ListOfPrices(),
-"----------------------------------------- All price -------------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:477px" })
+                "----------------------------------------- All price -------------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:477px" })
             </div>
-            
-            
+              
         </div>
         <div class="input-group input-group-sm">
             <input type="text" class="form-control" placeholder="Enter the name product to search" name="searchValue" value="@Model.searchValue">
@@ -45,7 +44,7 @@
                    href="~/Product/Input">Add product</a>
             </h3>
             <div style="padding-top:25px;">
-                There are @Model.RowCount product, Page @Model.Page/@Model.PageCount
+                <b style="color:#3c8dbc;">There are @Model.RowCount employee, page @Model.Page/@Model.PageCount</b>
             </div>
             <table id="example1" class="table table-bordered table-striped">
 

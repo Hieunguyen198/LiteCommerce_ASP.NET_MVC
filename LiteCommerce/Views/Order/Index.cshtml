@@ -1,7 +1,15 @@
-﻿<div class="box box-header">
+﻿@model LiteCommerce.Models.OrderPaginationResult
+@{
+    ViewBag.Title = "MANAGE ORDERS";
+    ViewBag.SmallTitle = "List, create, edit, delete orders";
+    ViewBag.Manage = "Orders";
+    int i = 1;
+}
+
+<div class="box box-header">
     <form action="~/Order" method="get">
         <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Search" name="searchValue" value="">
+            <input type="text" class="form-control" placeholder="Search" name="searchValue" value="@Model.SearchValue">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
             </span>
@@ -12,7 +20,7 @@
     <form action="~/Order/Delete" method="post">
         <div class="box-body">
             <h3 style="float: right;" class="box-title">
-                <button onclick="return confirm('Do you really want to delete these orders,This action cannot be undone ?')" class="btn btn-danger mr-3"
+                <button onclick="return confirm('Do you really want to delete selected orders,This action cannot be undone ?')" class="btn btn-danger mr-3"
                         type="submit">
                     Delete orders
                 </button>
@@ -21,7 +29,9 @@
                 <a class="btn btn-success mr-3"
                    href="~/Order/Create">Create order</a>
             </h3>
-            <!-- /.box-header -->
+            <div style="padding-top:25px;">
+                <b style="color:#3c8dbc;">There are @Model.RowCount employee, page @Model.Page/@Model.PageCount</b>
+            </div>
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -29,86 +39,138 @@
                         <th>#</th>
                         <th>Customer Name</th>
                         <th>Employee Name</th>
-                        <th>Order date</th>
-                        <th> </th>
+                        <th>Order Date</th>
+                        <th style="text-align: center;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><input type="checkbox" name="OrderIDs" value="1" /></td>
-                        <td>1</td>
-                        <td>Hieu Nguyen</td>
-                        <td>Dien Nguyen</td>
-                        <td>05/03/2021</td>
-                        <td></td>
-                        <td>
-                            <div>
-                                <a class="btn btn-info" data-toggle="modal" data-target="#1"><i class="fas fa-info-circle"></i></a>
-                                <a onclick="return confirm('Do you really want to delete this order?');"
-                                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" name="OrderIDs" value="1" /></td>
-                        <td>2</td>
-                        <td>Hieu Nguyen</td>
-                        <td>Thuan Nguyen</td>
-                        <td>04/03/2021</td>
-                        <td></td>
-                        <td>
-                            <div>
-                                <a class="btn btn-info"><i class="fas fa-info-circle"></i></a>
-                                <a onclick="return confirm('Do you really want to delete this order?');"
-                                   class="btn btn-danger"><i class="fa fa-remove"></i></a>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="OrderIDs" value="@item.OrderID" /></td>
+                            <td>@(i++)</td>
+                            <td>@item.CustomerName</td>
+                            <td>@item.EmployeeName</td>
+                            <td>@string.Format("{0:dd-MMMM-yyyy}", item.OrderDate)</td>
+                            <td style="text-align: center;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a class="btn btn-info" data-toggle="modal" data-target="#@item.OrderID"><i class="fas fa-info-circle"></i></a>
+                                    <button value="@item.OrderID" name="OrderIDs" onclick="return confirm('Do you really want to delete selected orders,This action cannot be undone ?')" class="btn btn-danger mr-3"
+                                            type="submit">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 </tbody>
             </table>
+            <!-- Pagination -->
+            <ul class="pagination pagination-sm no-margin pull-right">
+                @if (Model.Page > 1)
+                {
+                    <li><a href="~/Order?page=@(Model.Page-1)&searchValue=@Model.SearchValue">«</a></li>
+                }
+                else
+                {
+                    <li class="hide"><a>«</a></li>
+                }
+                @if (Model.PageCount <= 5)
+                {
+                    for (int page = Model.Page; page <= Model.PageCount; page++)
+                    {
+                        <li><a href="~/Order?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                    }
+                }
+                else
+                if (Model.Page == Model.PageCount || Model.Page == Model.PageCount - 1)
+                {
+                    for (int page = (Model.PageCount - 4); page <= Model.PageCount; page++)
+                    {
+
+                        <li><a href="~/Order?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+
+                    }
+                }
+                else
+                {
+                    if (Model.Page > 3)
+                    {
+                        for (int page = Model.Page - 2; page <= (Model.Page + 2); page++)
+                        {
+                            <li><a href="~/Order?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
+                    }
+                    else
+                    {
+                        for (int page = Model.Page; page <= (Model.Page + 4); page++)
+                        {
+                            <li><a href="~/Order?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
+                    }
+                }
+                @if (Model.Page < Model.PageCount)
+                {
+                    <li><a href="~/Order?page=@(Model.Page+1)&searchValue=@Model.SearchValue">»</a></li>
+                }
+                else
+                {
+                    <li class="hide"><a>»</a></li>
+                }
+            </ul>
+            <!-- /.Pagination -->
         </div>
     </form>
     <!-- /.box-body -->
 </div>
-<!-- Modal OrderDetails-->
-<div class="modal fade" id="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="myModalLabel">Order detail</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Product Name</th>
-                            <th>Unit price</th>
-                            <th>Quantity</th>
-                            <th>Discount</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Pen</td>
-                            <td>20000</td>
-                            <td>20</td>
-                            <td>0.5</td>
-                            <td><b style="color:red;">200000</b></td>
-                        </tr>
-                    </tbody>
-                </table>
+<!-- Details Modal-->
+@foreach (var item in Model.Data)
+{
+    <div class="modal fade" id="@item.OrderID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="myModalLabel">Order detail</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product Name</th>
+                                <th>Unit price</th>
+                                <th>Quantity</th>
+                                <th>Discount</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            @foreach (var detailItem in Model.DetailData)
+                            {
+                                if (detailItem.OrderID == item.OrderID)
+                                {
+                                    <tr>
+                                        <td>@detailItem.ProductID</td>
+                                        <td>@detailItem.ProductName</td>
+                                        <td>@detailItem.UnitPrice</td>
+                                        <td>@detailItem.Quantity</td>
+                                        <td>@string.Format("{0:0.00}", detailItem.Discount)</td>
+                                        <td><b style="color:red;">@string.Format("{0:0.00}", detailItem.Total())</b></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- /.Modal OrderDetails-->
+}

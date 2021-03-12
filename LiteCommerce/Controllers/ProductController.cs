@@ -23,12 +23,12 @@ namespace LiteCommerce.Controllers
             var model = new Models.ProductPaginationResult()
             {
                 Page = page,
-                PageSize = AppSettings.defaultPageSize,
+                PageSize = AppSettings.DefaultPageSize,
                 searchValue = searchValue,
                 searchPrice = searchPrice,
                 searchCategory =searchCategory,
                 RowCount = CatalogBLL.Count_Product(searchValue, searchCategory, searchPrice),
-                Data = CatalogBLL.Product_List(page, AppSettings.defaultPageSize, searchValue, searchCategory, searchPrice)
+                Data = CatalogBLL.Product_List(page, AppSettings.DefaultPageSize, searchValue, searchCategory, searchPrice)
             };
             return View(model);
         }

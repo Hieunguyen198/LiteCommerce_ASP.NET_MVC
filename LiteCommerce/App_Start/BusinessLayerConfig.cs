@@ -20,6 +20,7 @@ namespace LiteCommerce
             UserAccountBLL.Initialize(connectionString);
             EmployeeBLL.Initialize(connectionString);
             CatalogBLL.Initialize(connectionString);
+            OrderBLL.Initialize(connectionString);
         }
     }
 }

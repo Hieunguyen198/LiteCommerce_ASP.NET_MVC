@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     $('#subChange').click(function (e) {
         e.preventDefault();
         $('#resultcurrentpassword').html("");
@@ -40,5 +39,5 @@
             $('#resultconfirmpassword').html('<i class="fa fa-exclamation-circle"></i> Please fill out the field');
             $('#resultnewpassword').html('<i class="fa fa-exclamation-circle"></i> Please fill out the field');
         }
-    });
+    });    
 });

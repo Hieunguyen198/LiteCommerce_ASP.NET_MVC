@@ -34,16 +34,14 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-
                     cmd.CommandText = @"Proc_UserAccount_Authorize";
                     cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@Email", email);
+                    cmd.Parameters.AddWithValue("@PWd", password);
+
                     cmd.Connection = connection;
-                    SqlParameter prm1 = new SqlParameter("Email", SqlDbType.NVarChar);
-                    SqlParameter prm2 = new SqlParameter("PWd", SqlDbType.NVarChar);
-                    prm1.Value = email;
-                    prm2.Value = password;
-                    cmd.Parameters.Add(prm1);
-                    cmd.Parameters.Add(prm2);
+                   
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -81,13 +79,12 @@ namespace LiteCommerce.DataLayers.SQLServer
                     connection.Open();
                     cmd.CommandText = @"Proc_UserAccount_Change_PWd";
                     cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@EmployeeID", id);
+                    cmd.Parameters.AddWithValue("@Password", newPWd);
+
                     cmd.Connection = connection;
-                    SqlParameter prm1 = new SqlParameter("EmployeeID", SqlDbType.Int);
-                    SqlParameter prm2 = new SqlParameter("Password", SqlDbType.NVarChar);
-                    prm1.Value = id;
-                    prm2.Value = newPWd;
-                    cmd.Parameters.Add(prm1);
-                    cmd.Parameters.Add(prm2);
+
                     rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
                     connection.Close();
                 }

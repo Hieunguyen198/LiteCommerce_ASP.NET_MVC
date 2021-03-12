@@ -38,33 +38,16 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.CommandText = @"Proc_Customer_Add";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                SqlParameter prm1 = new SqlParameter("CustomerID",SqlDbType.NChar);
-                SqlParameter prm2 = new SqlParameter("CompanyName", SqlDbType.NVarChar);
-                SqlParameter prm3 = new SqlParameter("ContactName", SqlDbType.NVarChar);
-                SqlParameter prm4 = new SqlParameter("ContactTitle", SqlDbType.NVarChar);
-                SqlParameter prm5 = new SqlParameter("Address", SqlDbType.NVarChar);
-                SqlParameter prm6 = new SqlParameter("City", SqlDbType.NVarChar);
-                SqlParameter prm7 = new SqlParameter("Country", SqlDbType.NVarChar);
-                SqlParameter prm8 = new SqlParameter("Phone", SqlDbType.NVarChar);
-                SqlParameter prm9 = new SqlParameter("Fax", SqlDbType.NVarChar);
-                prm1.Value = data.CustomerID;
-                prm2.Value = data.CompanyName;
-                prm3.Value = data.ContactName;
-                prm4.Value = data.ContactTitle;
-                prm5.Value = data.Address;
-                prm6.Value = data.City;
-                prm7.Value = data.Country;
-                prm8.Value = data.Phone;
-                prm9.Value = data.Fax;
-                cmd.Parameters.Add(prm1);
-                cmd.Parameters.Add(prm2);
-                cmd.Parameters.Add(prm3);
-                cmd.Parameters.Add(prm4);
-                cmd.Parameters.Add(prm5);
-                cmd.Parameters.Add(prm6);
-                cmd.Parameters.Add(prm7);
-                cmd.Parameters.Add(prm8);
-                cmd.Parameters.Add(prm9);
+                cmd.Parameters.AddWithValue("@CustomerID", data.CustomerID);
+                cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
+                cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
+                cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
+                cmd.Parameters.AddWithValue("@Address", data.Address);
+                cmd.Parameters.AddWithValue("@City", data.City);
+                cmd.Parameters.AddWithValue("@Country", data.Country);
+                cmd.Parameters.AddWithValue("@Phone", data.Phone);
+                cmd.Parameters.AddWithValue("@Fax", data.Fax);
+                cmd.Connection = connection;
 
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
                 connection.Close();
@@ -90,10 +73,8 @@ namespace LiteCommerce.DataLayers.SQLServer
                 {
                     cmd.CommandText = @"Proc_Customer_Count";
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@SearchValue", searchValue);
                     cmd.Connection = connection;
-                    SqlParameter prm1 = new SqlParameter("SearchValue", SqlDbType.NVarChar);
-                    prm1.Value = searchValue;
-                    cmd.Parameters.Add(prm1);
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 connection.Close();
@@ -122,16 +103,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 {
                     cmd.CommandText = @"Proc_Customer_List";
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@SearchValue", searchValue);
+                    cmd.Parameters.AddWithValue("@Page", page);
+                    cmd.Parameters.AddWithValue("@PageSize", pageSize);
                     cmd.Connection = connection;
-                    SqlParameter prm1 = new SqlParameter("SearchValue", SqlDbType.NVarChar);
-                    SqlParameter prm2 = new SqlParameter("Page", SqlDbType.Int);
-                    SqlParameter prm3 = new SqlParameter("PageSize", SqlDbType.Int);
-                    prm1.Value = searchValue;
-                    prm2.Value = page;
-                    prm3.Value = pageSize;
-                    cmd.Parameters.Add(prm1);
-                    cmd.Parameters.Add(prm2);
-                    cmd.Parameters.Add(prm3);
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -171,11 +146,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.CommandText = @"Proc_Customer_Delete";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-                SqlParameter prm1 = new SqlParameter("CustomerID", SqlDbType.NChar);
-                foreach (string CustomerID in customerIDs)
+
+                foreach (string customerID in customerIDs)
                 {
-                    prm1.Value = CustomerID;
-                    cmd.Parameters.Add(prm1);
+                    cmd.Parameters.AddWithValue("@CustomerID", customerID);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -187,7 +161,7 @@ namespace LiteCommerce.DataLayers.SQLServer
         /// </summary>
         /// <param name="CustomerID"></param>
         /// <returns></returns>
-        public Customer Get_Customer(string CustomerID)
+        public Customer Get_Customer(string customerID)
         {
             Customer data = null;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -196,10 +170,9 @@ namespace LiteCommerce.DataLayers.SQLServer
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"Proc_Customer_Get_By_ID";
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CustomerID", customerID);
                 cmd.Connection = connection;
-                SqlParameter prm1 = new SqlParameter("CustomerID", SqlDbType.NChar);
-                prm1.Value = CustomerID;
-                cmd.Parameters.Add(prm1);
+
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (dbReader.Read())
@@ -233,38 +206,19 @@ namespace LiteCommerce.DataLayers.SQLServer
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
-
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"Proc_Customer_Edit";
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CustomerID", data.CustomerID);
+                cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
+                cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
+                cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
+                cmd.Parameters.AddWithValue("@Address", data.Address);
+                cmd.Parameters.AddWithValue("@City", data.City);
+                cmd.Parameters.AddWithValue("@Country", data.Country);
+                cmd.Parameters.AddWithValue("@Phone", data.Phone);
+                cmd.Parameters.AddWithValue("@Fax", data.Fax);
                 cmd.Connection = connection;
-                SqlParameter prm1 = new SqlParameter("CustomerID", SqlDbType.NChar);
-                SqlParameter prm2 = new SqlParameter("CompanyName", SqlDbType.NVarChar);
-                SqlParameter prm3 = new SqlParameter("ContactName", SqlDbType.NVarChar);
-                SqlParameter prm4 = new SqlParameter("ContactTitle", SqlDbType.NVarChar);
-                SqlParameter prm5 = new SqlParameter("Address", SqlDbType.NVarChar);
-                SqlParameter prm6 = new SqlParameter("City", SqlDbType.NVarChar);
-                SqlParameter prm7 = new SqlParameter("Country", SqlDbType.NVarChar);
-                SqlParameter prm8 = new SqlParameter("Phone", SqlDbType.NVarChar);
-                SqlParameter prm9 = new SqlParameter("Fax", SqlDbType.NVarChar);
-                prm1.Value = data.CustomerID;
-                prm2.Value = data.CompanyName;
-                prm3.Value = data.ContactName;
-                prm4.Value = data.ContactTitle;
-                prm5.Value = data.Address;
-                prm6.Value = data.City;
-                prm7.Value = data.Country;
-                prm8.Value = data.Phone;
-                prm9.Value = data.Fax;
-                cmd.Parameters.Add(prm1);
-                cmd.Parameters.Add(prm2);
-                cmd.Parameters.Add(prm3);
-                cmd.Parameters.Add(prm4);
-                cmd.Parameters.Add(prm5);
-                cmd.Parameters.Add(prm6);
-                cmd.Parameters.Add(prm7);
-                cmd.Parameters.Add(prm8);
-                cmd.Parameters.Add(prm9);
 
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
 

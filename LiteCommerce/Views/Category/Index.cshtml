@@ -4,12 +4,11 @@
     ViewBag.SmallTitle = "List, create, edit, delete categories";
     ViewBag.Manage = "Catalog";
     ViewBag.ManageDetail = "Category";
-    int i = 1;
 }
 <div class="box box-header">
     <form action="~/Category" method="get">
         <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Enter the category name to search" name="searchValue" value="@Model.searchValue">
+            <input type="text" class="form-control" placeholder="Enter the category name to search" name="searchValue" value="">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
             </span>
@@ -26,49 +25,30 @@
                 </button>
             </h3>
             <h3 style="float: right; padding-right:5px" class="box-title">
-                <a class="btn btn-success mr-3"
-                   data-toggle="modal" data-target="#input">Add category</a>
+                <button class="btn btn-success mr-3" type="button" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add category</button>
             </h3>
             <div style="padding-top:25px;">
-                <em><b style="color:#3c8dbc">There are @Model.RowCount category</b></em>
+                <em><b style="color:#3c8dbc">There are category</b></em>
             </div>
-            <table id="example1" class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
                         <th>#</th>
                         <th>Category Name</th>
                         <th>Description</th>
-                        <th style="text-align: center;">Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach (var item in Model.Data)
-                    {
-                        <tr>
-                            <td><input type="checkbox" name="categoryIDs" value="@item.CategoryID" /></td>
-                            <td>@(i++)</td>
-                            <td>@item.CategoryName</td>
-                            <td>@item.Description</td>
-                            <td style="text-align: center;">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <a href="~/Category/Input/@item.CategoryID"
-                                       class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
-                                    <button name="categoryIDs" value="@item.CategoryID" onclick="return confirm('Do you really want to delete this categorie?')" ; class="btn btn-danger mr-3"
-                                            type="submit">
-                                        <i class="fa fa-remove"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    }
+                <tbody class="tbody">
+
                 </tbody>
             </table>
         </div>
     </form>
 </div>
 <!-- Add Category Modal-->
-<div class="modal fade" id="input" aria-hidden="true">
+<div class="modal fade" id="myModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
@@ -80,22 +60,24 @@
 
             </div>
             <form method="post" action="~/Category/Add">
+                <input  class="form-control" id="CategoryID" placeholder="Id" type="hidden" />
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Category Name</label> <input type="text"
+                        <label>Category Name</label> <input type="text" id="CategoryName"
                                                             class="text form-control" placeholder="Category Name" required
                                                             name="categoryName">
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label>Descriptions</label> <input type="text"
+                        <label>Descriptions</label> <input type="text" id="Description"
                                                            class="text form-control" placeholder="Descriptions" required
                                                            name="description">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary mb-5" name="subAdd"><div class="fa fa-save"></div> Save</button>
+                    <button type="submit" class="btn btn-primary mb-5" id="btnAdd" onclick="Add();"><i class="fa fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </form>

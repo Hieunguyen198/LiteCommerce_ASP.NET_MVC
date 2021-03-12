@@ -20,10 +20,10 @@ namespace LiteCommerce.Controllers
             var model = new Models.CustomerPaginationResult()
             {
                 Page = page,
-                PageSize = AppSettings.defaultPageSize,
+                PageSize = AppSettings.DefaultPageSize,
                 SearchValue = searchValue,
                 RowCount = CatalogBLL.Count_Customer(searchValue),
-                Data = CatalogBLL.Customers_List(page, AppSettings.defaultPageSize, searchValue)
+                Data = CatalogBLL.Customers_List(page, AppSettings.DefaultPageSize, searchValue)
             };
             return View(model);
         }

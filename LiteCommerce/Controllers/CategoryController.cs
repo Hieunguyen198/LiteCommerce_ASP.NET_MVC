@@ -15,15 +15,13 @@ namespace LiteCommerce.Controllers
         /// Trang quản lý loại sản phẩm
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(string searchValue = "")
+        public ActionResult index()
         {
-            var model = new Models.CategoryNoPagination
-            {
-                RowCount = CatalogBLL.Count_Category(searchValue),
-                searchValue = searchValue,
-                Data = CatalogBLL.Category_List(searchValue)
-            };
-            return View(model);
+            return View();
+        }
+        public JsonResult List(string searchValue = "")
+        {
+            return Json(CatalogBLL.Category_List(searchValue),JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// Trang thêm mới hoặc chính sửa loại sản phẩm
@@ -31,13 +29,14 @@ namespace LiteCommerce.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult Input(string id = "")
+        public JsonResult Input(string id = "")
         {
-            ViewBag.Title = "Edit Category";
-            Category editCategory = CatalogBLL.Get_Category(Convert.ToInt32(id));
-            if (editCategory == null)
-                return RedirectToAction("Index");
-            return View(editCategory);
+            // ViewBag.Title = "Edit Category";
+            //Category editCategory = CatalogBLL.Get_Category(Convert.ToInt32(id));
+            //if (editCategory == null)
+            //  return RedirectToAction("Index");
+            //return View(editCategory);
+            return Json(CatalogBLL.Get_Category(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult Input(Category model)
@@ -59,18 +58,10 @@ namespace LiteCommerce.Controllers
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult Add(Category model)
+ 
+        public JsonResult Add(Category model)
         {
-            try
-            {
-                int result = CatalogBLL.Add_Category(model);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return RedirectToAction("Index");
-            }
+            return Json(CatalogBLL.Add_Category(model), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// 

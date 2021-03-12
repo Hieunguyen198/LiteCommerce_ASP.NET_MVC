@@ -8,11 +8,18 @@ namespace LiteCommerce
 {
     public static class AppSettings
     {
-        public static int defaultPageSize
+        public static int DefaultPageSize
         {
             get
             {
                 return Convert.ToInt32(ConfigurationManager.AppSettings["DefaultPageSizeValue"]);
+            }
+        }
+        public static int OrderDefaultPageSize
+        {
+            get
+            {
+                return Convert.ToInt32(ConfigurationManager.AppSettings["OrderDefaultPageSizeValue"]);
             }
         }
 

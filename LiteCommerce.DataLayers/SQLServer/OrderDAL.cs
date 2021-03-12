@@ -41,21 +41,14 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT *
-                                        FROM
-                                        (
-                                        SELECT *,
-		                                        ROW_NUMBER() over(order by OrderID) AS RowNumber
-                                        FROM View_Orders
-                                        WHERE (@searchValue=N'')
-                                               OR(FirstName like @searchValue) OR (LastName like @searchValue)
-                                        ) AS T
-                                        WHERE  (t.RowNumber between (@page*@pageSize)-@pageSize+1 and @page*@pageSize)";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"Proc_Order_List";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@SearchValue", searchValue);
+                    cmd.Parameters.AddWithValue("@Page", page);
+                    cmd.Parameters.AddWithValue("@PageSize", pageSize);
+
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@page", page);
-                    cmd.Parameters.AddWithValue("@pageSize", pageSize);
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
+
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -94,13 +87,13 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"SELECT COUNT(*)
-                                        FROM View_Orders
-                                        WHERE      (@searchValue=N'')
-                                               OR  (FirstName like @searchValue) OR (LastName like @searchValue)";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"Proc_Order_Count";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@SearchValue", searchValue);
+
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
+
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 connection.Close();
@@ -120,9 +113,9 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select OrderID,ProductID,ProductName,Quantity,UnitPrice,Discount
-                                        from View_OrderDetails";
-                    cmd.CommandType = CommandType.Text; 
+                    cmd.CommandText = @"Proc_Order_OrderDetail";
+                    cmd.CommandType = CommandType.StoredProcedure; 
+
                     cmd.Connection = connection;
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
@@ -157,15 +150,14 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"DELETE 
-                                    FROM     Orders
-                                    WHERE   (OrderID = @OrderID)";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Order_Delete";
+                cmd.CommandType = CommandType.StoredProcedure;
+                
                 cmd.Connection = connection;
-                cmd.Parameters.Add("@OrderID", SqlDbType.Int);
+
                 foreach (int orderID in orderIDs)
                 {
-                    cmd.Parameters["@OrderID"].Value = orderID;
+                    cmd.Parameters.AddWithValue("@OrderID", orderID);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();

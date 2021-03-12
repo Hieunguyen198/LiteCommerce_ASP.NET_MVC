@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/Themes/Admin/dist/css/AdminLTE.min.css" />
     <!-- Link page skin-->
     <link rel="stylesheet" href="~/Themes/Admin/dist/css/skins/skin-blue.css" />
+    
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
     <!-- Wrapper -->
@@ -47,29 +48,8 @@
     <script src="~/Themes/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/Themes/Admin/dist/js/adminlte.min.js"></script>
     <script src="~/Scripts/changepassword.js"></script>
-    <!-- Select all Script -->
-    <script>
-        $("#selectAll").click(function () {
-            $("input[type=checkbox]").prop("checked", $(this).prop("checked"));
-        });
-        $("input[type=checkbox]").click(function () {
-            if (!$(this).prop("checked")) {
-                $("#selectAll").prop("checked", false);
-            }
-        });
-    </script>
-    <!--/.Select all Script -->
-    <!-- Show images-->
-    <script>
-        document.getElementById("my_input_file").onchange = function () {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                document.getElementById("showThumb").src = e.target.result;
-            };
-            reader.readAsDataURL(this.files[0]);
-        };
-    </script>
-    <!--/.Show images-->
+    <script src="~/Scripts/Category.js"></script>
+    <script src="~/Scripts/Common.js"></script>
     <!-- /.Script-->
 </body>
 </html>

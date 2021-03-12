@@ -37,12 +37,8 @@ namespace LiteCommerce.DataLayers.SQLServer
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"Proc_Category_Add";
                 cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter prm1 = new SqlParameter("CategoryName", SqlDbType.VarChar);
-                SqlParameter prm2 = new SqlParameter("Description", SqlDbType.VarChar);
-                prm1.Value = data.CategoryName;
-                cmd.Parameters.Add(prm1);
-                prm2.Value = data.Description;
-                cmd.Parameters.Add(prm2);
+                cmd.Parameters.AddWithValue("@CategoryName", data.CategoryName);
+                cmd.Parameters.AddWithValue("@Description", data.Description);
                 cmd.Connection = connection;
                 categoryID = Convert.ToInt32(cmd.ExecuteScalar());
                 connection.Close();
@@ -67,13 +63,11 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
-                {
+                {          
                     cmd.CommandText = @"Proc_Category_List";
-                    cmd.CommandType = CommandType.StoredProcedure; // kiểu câu lệnh 
-                    SqlParameter param1 = new SqlParameter("searchValue", SqlDbType.VarChar);
-                    param1.Value = searchValue;
+                    cmd.CommandType = CommandType.StoredProcedure;  
+                    cmd.Parameters.AddWithValue("@SearchValue", searchValue);
                     cmd.Connection = connection;
-                    cmd.Parameters.Add(param1);
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -112,10 +106,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                 {
                     cmd.CommandText = @"Proc_Category_Count";
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = connection;
-                    SqlParameter param1 = new SqlParameter("searchValue", SqlDbType.VarChar);
-                    param1.Value = searchValue;
-                    cmd.Parameters.Add(param1);
+                    cmd.Parameters.AddWithValue("@SearchValue", searchValue);
                     cmd.Connection = connection;
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 }
@@ -139,12 +130,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"Proc_Category_Delete_By_ID";
                 cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter prm1 = new SqlParameter("CategoryID", SqlDbType.Int);
                 cmd.Connection = connection;
                 foreach (int categoryID in categoryIDs)
                 {
-                    prm1.Value = categoryID;
-                    cmd.Parameters.Add(prm1);
+                    cmd.Parameters.AddWithValue("@CategoryID", categoryID);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -165,9 +154,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"Proc_Category_Get_By_ID";
                 cmd.CommandType = CommandType.StoredProcedure;
-                SqlParameter prm1 = new SqlParameter("CategoryID", SqlDbType.Int);
-                prm1.Value = categoryID;
-                cmd.Parameters.Add(prm1);
+                cmd.Parameters.AddWithValue("@CategoryID", categoryID);
                 cmd.Connection = connection;
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {
@@ -199,16 +186,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"Proc_Category_Edit";
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CategoryName", data.CategoryName);
+                cmd.Parameters.AddWithValue("@Description", data.Description);
+                cmd.Parameters.AddWithValue("@CategoryID", data.CategoryID);
                 cmd.Connection = connection;
-                SqlParameter prm1 = new SqlParameter("CategoryName", SqlDbType.NVarChar);
-                SqlParameter prm2 = new SqlParameter("Description", SqlDbType.NVarChar);
-                SqlParameter prm3 = new SqlParameter("CategoryID", SqlDbType.Int);
-                prm1.Value = data.CategoryName;
-                prm2.Value = data.Description;
-                prm3.Value = data.CategoryID;
-                cmd.Parameters.Add(prm1);
-                cmd.Parameters.Add(prm2);
-                cmd.Parameters.Add(prm3);
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
                 connection.Close();
             }

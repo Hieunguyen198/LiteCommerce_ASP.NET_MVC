@@ -32,10 +32,12 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"SELECT * FROM Employees WHERE Email = @Email";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = connection;
+                cmd.CommandText = @"Proc_Employee_Get_By_Email";
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.Parameters.AddWithValue("@Email", email);
+
+                cmd.Connection = connection;   
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (dbReader.Read())
@@ -76,41 +78,10 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"INSERT INTO Employees
-                                          (
-                                              LastName,
-                                              FirstName,
-                                              Title,
-                                              BirthDate,
-                                              HireDate,
-                                              Email,
-                                              Address,
-                                              City,
-                                              Country,
-                                              HomePhone,
-                                              Notes,
-                                              PhotoPath,
-                                              Password
-                                          )
-                                          VALUES
-                                          (
-                                              @LastName,
-                                              @FirstName,
-                                              @Title,
-                                              @BirthDate,
-                                              @HireDate,
-                                              @Email,
-                                              @Address,
-                                              @City,
-                                              @Country,
-                                              @HomePhone,
-                                              @Notes,
-                                              @PhotoPath,
-                                              @Password
-                                          );
-                                          SELECT @@IDENTITY;";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = connection;
+
+                cmd.CommandText = @"Proc_Employee_Add";
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.Parameters.AddWithValue("@LastName", data.LastName);
                 cmd.Parameters.AddWithValue("@FirstName", data.FirstName);
                 cmd.Parameters.AddWithValue("@Title", data.Title);
@@ -124,6 +95,8 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
                 cmd.Parameters.AddWithValue("@HomePhone", data.HomePhone);
                 cmd.Parameters.AddWithValue("@Password", "e10adc3949ba59abbe56e057f20f883e");
+
+                cmd.Connection = connection;
 
                 employeeID = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -149,15 +122,15 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select count(*)
-                                        from Employees
-                                        where ((@searchValue=N'')
-                                               or(FirstName like @searchValue) or (LastName like @searchValue))
-                                               AND ((Country like @searchCountry) or(@searchCountry=N''))";
-                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = @"Proc_Employee_Count";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@SearchValue", searchValue);
+                    cmd.Parameters.AddWithValue("@SearchCountry", searchCountry);
+
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
-                    cmd.Parameters.AddWithValue("@searchCountry", searchCountry);
+
+
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 connection.Close();
@@ -177,15 +150,13 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"DELETE FROM Employees
-                                            WHERE (EmployeeID = @employeeID)
-                                                   AND (EmployeeID NOT IN (SELECT EmployeeID FROM Orders) ) ";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Employee_Delete_By_ID";
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.Connection = connection;
-                cmd.Parameters.Add("@employeeID", SqlDbType.Int);
                 foreach (int employeeID in employeeIDs)
                 {
-                    cmd.Parameters["@employeeID"].Value = employeeID;
+                    cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -211,23 +182,15 @@ namespace LiteCommerce.DataLayers.SQLServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = @"select *
-                                        from
-                                        (
-                                        select *,
-		                                        ROW_NUMBER() over(order by EmployeeID) as RowNumber
-                                        from Employees
-                                        where     ((@searchValue=N'')
-                                               OR (FirstName like @searchValue) or (LastName like @searchValue))
-                                               AND ((Country like @searchCountry) or (@searchCountry=N''))
-                                        ) as T
-                                        where t.RowNumber between (@page*@pageSize)-@pageSize+1 and @page*@pageSize";// chuỗi câu lệnh thực thi
-                    cmd.CommandType = CommandType.Text; // kiểu câu lệnh procedu text 
+                    cmd.CommandText = @"Proc_Employee_List"; 
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@SearchValue", searchValue);
+                    cmd.Parameters.AddWithValue("@SearchCountry", searchCountry);
+                    cmd.Parameters.AddWithValue("@Page", page);
+                    cmd.Parameters.AddWithValue("@PageSize", pageSize);
+
                     cmd.Connection = connection;
-                    cmd.Parameters.AddWithValue("@page", page);
-                    cmd.Parameters.AddWithValue("@pageSize", pageSize);
-                    cmd.Parameters.AddWithValue("@searchValue", searchValue);
-                    cmd.Parameters.AddWithValue("@searchCountry", searchCountry);
+
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -269,10 +232,12 @@ namespace LiteCommerce.DataLayers.SQLServer
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"SELECT * FROM Employees WHERE EmployeeID = @employeeID";
-                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = @"Proc_Employee_Get_By_ID";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+
                 cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@employeeID", employeeID);
+
                 using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (dbReader.Read())
@@ -311,26 +276,11 @@ namespace LiteCommerce.DataLayers.SQLServer
             using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
-
                 SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"UPDATE Employees
-                                    SET 
-                                            LastName = @LastName,
-                                            FirstName = @FirstName,
-                                            Title = @Title,
-                                            BirthDate = @BirthDate,
-                                            HireDate = @HireDate,
-                                            Email  = @Email,
-                                            Address = @Address,
-                                            City = @City,
-                                            Country = @Country,
-                                            HomePhone = @HomePhone,
-                                            Notes = @Notes,
-                                            PhotoPath = @PhotoPath
-                                    WHERE EmployeeID = @EmployeeID";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@EmployeeID", data.EmployeeID);
+
+                cmd.CommandText = @"Proc_Employee_Edit";
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.Parameters.AddWithValue("@LastName", data.LastName);
                 cmd.Parameters.AddWithValue("@FirstName", data.FirstName);
                 cmd.Parameters.AddWithValue("@Title", data.Title);
@@ -343,6 +293,9 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.Parameters.AddWithValue("@Notes", data.Notes);
                 cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);
                 cmd.Parameters.AddWithValue("@HomePhone", data.HomePhone);
+                cmd.Parameters.AddWithValue("@EmployeeID", data.EmployeeID);
+
+                cmd.Connection = connection;
 
                 rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
 
