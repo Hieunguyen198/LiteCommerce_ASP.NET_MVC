@@ -162,6 +162,7 @@
     </Compile>
     <Compile Include="Models\CategoryNoPagination.cs" />
     <Compile Include="Models\CustomerPaginationResult.cs" />
+    <Compile Include="Models\DashBoardModel.cs" />
     <Compile Include="Models\EmployeePaginationResult.cs" />
     <Compile Include="Models\OrderPaginationResult.cs" />
     <Compile Include="Models\PaginationResult.cs" />
@@ -181,6 +182,9 @@
     <Content Include="Scripts\Category.js" />
     <Content Include="Scripts\changepassword.js" />
     <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\Customer.js" />
+    <Content Include="Scripts\DashboardSumary.js" />
+    <Content Include="Scripts\OrderDetails.js" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
     <Content Include="Themes\Admin\bower_components\bootstrap\dist\css\bootstrap.css" />
@@ -434,7 +438,6 @@
     <Content Include="Views\Employee\Input.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
-    <Content Include="Views\Category\Input.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

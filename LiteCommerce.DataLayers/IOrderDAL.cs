@@ -36,6 +36,7 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="orderIDs"></param>
         /// <returns></returns>
+        List<OrderDetail> GetOrderDetail_By_OrderID(int orderID);
         bool Delete_Order(int[] orderIDs);
     }
 }

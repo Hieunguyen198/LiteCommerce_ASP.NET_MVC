@@ -56,6 +56,10 @@ namespace LiteCommerce.BusinessLayers
         /// </summary>
         /// <param name="orderIDs"></param>
         /// <returns></returns>
+        public static List<OrderDetail> GetOrderDetail_By_OrderID(int orderID)
+        {
+            return OrderDB.GetOrderDetail_By_OrderID(orderID);
+        }
         public static bool Delete_Order(int[] orderIDs)
         {
             return OrderDB.Delete_Order(orderIDs);

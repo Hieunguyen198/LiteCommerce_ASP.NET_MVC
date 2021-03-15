@@ -42,5 +42,9 @@ namespace LiteCommerce.DomainModels
         {
             return UnitPrice * Quantity - (UnitPrice * Quantity) * Discount;
         }
+        public double TotalDiscount()
+        {
+            return UnitPrice * Discount;
+        }
     }
 }

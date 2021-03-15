@@ -1,18 +1,31 @@
-﻿<div class="box box-primary">
-    <div id="titleThongKe" style="color:forestgreen;text-align: center; padding-top: 16px;">
-        <h1>STATISTICS OF MONTHLY REVENUE IN 2021</h1> 
+﻿@model LiteCommerce.Models.DashBoardModel
+@{
+    ViewBag.Title = "DASHBOARD";
+    ViewBag.Manage = "Dashboard";
+}
+
+<div class="box box-primary">
+    <div id="titleThongKe" style="font-size: 23px; text-align: center; padding-top: 16px; color:forestgreen;">
+        STATISTICS OF MONTHLY REVENUE IN @Model.RevenueDashBoard.Year
     </div>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="form-group">
                 <select class="text form-control" id="OrderStatistic"
                         style="width: 100px; margin-left: auto;">
-                    <option selected>2021</option>
-                    <option>2020</option>
-                    <option>2019</option>
-
+                    @for (long i = DateTime.Now.Year - 2; i <= DateTime.Now.Year; i++)
+                    {
+                        if (i == Model.RevenueDashBoard.Year)
+                        {
+                            <option selected>@i</option>
+                        }
+                        else
+                        {
+                            <option>@i</option>
+                        }
+                    }
                 </select>
-                <b style="color:#3c8dbc">Total Revenue</b>: <strong id="TTotal" style="color:red">2131100$</strong>
+                Total Revenue: <strong class="TTotal" style="color:orangered">@Model.RevenueDashBoard.ToTal()$</strong>
             </div>
             <table class="table table-bordered">
                 <thead>
@@ -34,18 +47,18 @@
                 </thead>
                 <tbody>
                     <tr id="OrderStatistics">
-                        <td>123124$</td>
-                        <td>14124$</td>
-                        <td>12441$</td>
-                        <td>41213l$</td>
-                        <td>12312$</td>
-                        <td>133$</td>
-                        <td>123123$</td>
-                        <td>123231$</td>
-                        <td>21312$</td>
-                        <td>2131$</td>
-                        <td>123123$</td>
-                        <td>12313$</td>
+                        <td>@Model.RevenueDashBoard.January$</td>
+                        <td>@Model.RevenueDashBoard.February$</td>
+                        <td>@Model.RevenueDashBoard.March$</td>
+                        <td>@Model.RevenueDashBoard.April$</td>
+                        <td>@Model.RevenueDashBoard.May$</td>
+                        <td>@Model.RevenueDashBoard.June$</td>
+                        <td>@Model.RevenueDashBoard.July$</td>
+                        <td>@Model.RevenueDashBoard.August$</td>
+                        <td>@Model.RevenueDashBoard.September$</td>
+                        <td>@Model.RevenueDashBoard.October$</td>
+                        <td>@Model.RevenueDashBoard.November$</td>
+                        <td>@Model.RevenueDashBoard.December$</td>
                     </tr>
                 </tbody>
 
@@ -81,13 +94,12 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="text-center">
-                    <strong>Sales: 1 Jan, 2021 - 30 Dec, 2021</strong>
-                </p>
+                    <strong>Sales: 1 Jan, @Model.RevenueDashBoard.Year - 30 Dec, @Model.RevenueDashBoard.Year</strong>
                 <div class="chart">
                     <!-- Sales Chart Canvas -->
                     <div class="card-body">
-                        <div id="chart1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                        <input type="hidden" value="123123)" id='doanhThu'>
+                        <canvas id="line-chart" width="1500" height="290"></canvas>
+                        <input type="hidden" value="@Model.RevenueDashBoard.ToTal()" id='doanhThu'>
                     </div>
                 </div>
             </div>
@@ -100,7 +112,7 @@
             <div class="col-sm-3 col-xs-6">
                 <div class="description-block border-right">
                     <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                    <h5 class="description-header">213213$</h5>
+                    <h5 class="description-header"><strong class="TTotal">@Model.RevenueDashBoard.ToTal()$</strong></h5>
                     <span class="description-text">TOTAL REVENUE</span>
                 </div>
                 <!-- /.description-block -->
@@ -109,7 +121,7 @@
             <div class="col-sm-3 col-xs-6">
                 <div class="description-block border-right">
                     <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                    <h5 class="description-header">$10,390.90</h5>
+                    <h5 class="description-header">@Model.TotalDiscount.ToTal()$</h5>
                     <span class="description-text">TOTAL Discount</span>
                 </div>
                 <!-- /.description-block -->
@@ -118,7 +130,7 @@
             <div class="col-sm-3 col-xs-6">
                 <div class="description-block border-right">
                     <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                    <h5 class="description-header">$24,813.53</h5>
+                    <h5 class="description-header"><strong class="TTotal">@Model.RevenueDashBoard.ToTal()$</strong></h5>
                     <span class="description-text">TOTAL PROFIT</span>
                 </div>
                 <!-- /.description-block -->
@@ -138,4 +150,3 @@
     </div>
     <!-- /.box-footer -->
 </div>
-

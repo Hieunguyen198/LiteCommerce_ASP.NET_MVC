@@ -29,6 +29,11 @@ namespace LiteCommerce.Controllers
             };
             return View(model);
         }
+        [HttpGet]
+        public JsonResult GetOrderDetailByID(int OrderID)
+        {
+            return Json(OrderBLL.GetOrderDetail_By_OrderID(OrderID), JsonRequestBehavior.AllowGet);
+        }
         /// <summary>
         /// Trang tạo mới sản phẩm
         /// </summary>

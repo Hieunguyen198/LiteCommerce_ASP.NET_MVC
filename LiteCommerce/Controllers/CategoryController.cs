@@ -15,9 +15,14 @@ namespace LiteCommerce.Controllers
         /// Trang quản lý loại sản phẩm
         /// </summary>
         /// <returns></returns>
-        public ActionResult index()
+        public ActionResult index(string searchValue = "")
         {
-            return View();
+            var model = new Models.CategoryNoPagination
+            {
+                RowCount = CatalogBLL.Count_Category(searchValue),
+                Data = CatalogBLL.Category_List(searchValue)
+            };
+            return View(model);
         }
         public JsonResult List(string searchValue = "")
         {
@@ -39,26 +44,16 @@ namespace LiteCommerce.Controllers
             return Json(CatalogBLL.Get_Category(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult Input(Category model)
+        public JsonResult Input(Category model)
         {
-            try
-            {
-                ViewBag.Title = "EDIT EMPLOYEE";
-                ViewBag.Success = "EDIT SUCCESS";
-                bool result = CatalogBLL.Update_Category(model);
-                return View(model);
-            }
-            catch
-            {
-                return View();
-            }
+            return Json(CatalogBLL.Update_Category(model), JsonRequestBehavior.AllowGet);
         }
         /// <summary>
         /// 
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
- 
+        [HttpPost]
         public JsonResult Add(Category model)
         {
             return Json(CatalogBLL.Add_Category(model), JsonRequestBehavior.AllowGet);

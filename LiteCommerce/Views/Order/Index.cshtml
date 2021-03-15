@@ -54,7 +54,7 @@
                             <td>@string.Format("{0:dd-MMMM-yyyy}", item.OrderDate)</td>
                             <td style="text-align: center;">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <a class="btn btn-info" data-toggle="modal" data-target="#@item.OrderID"><i class="fas fa-info-circle"></i></a>
+                                    <button type="button" class="btn btn-info"  onclick="return getDetailByID(@item.OrderID)"><i class="fas fa-info-circle"></i></button>
                                     <button value="@item.OrderID" name="OrderIDs" onclick="return confirm('Do you really want to delete selected orders,This action cannot be undone ?')" class="btn btn-danger mr-3"
                                             type="submit">
                                         <i class="fa fa-remove"></i>
@@ -126,11 +126,11 @@
 <!-- Details Modal-->
 @foreach (var item in Model.Data)
 {
-    <div class="modal fade" id="@item.OrderID" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="OrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="myModalLabel">Order detail</h2>
+                    <h2 class="modal-title" id="myModalLabel">ORDER DETAIL</h2>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -147,25 +147,10 @@
                                 <th>Total</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                            @foreach (var detailItem in Model.DetailData)
-                            {
-                                if (detailItem.OrderID == item.OrderID)
-                                {
-                                    <tr>
-                                        <td>@detailItem.ProductID</td>
-                                        <td>@detailItem.ProductName</td>
-                                        <td>@detailItem.UnitPrice</td>
-                                        <td>@detailItem.Quantity</td>
-                                        <td>@string.Format("{0:0.00}", detailItem.Discount)</td>
-                                        <td><b style="color:red;">@string.Format("{0:0.00}", detailItem.Total())</b></td>
-                                    </tr>
-                                }
-                            }
+                        <tbody class="ordertbody">
                         </tbody>
+                        <tfoot class="ordertfoot"></tfoot>
                     </table>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -8,9 +8,9 @@
 <div class="box box-header">
     <form action="~/Category" method="get">
         <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Enter the category name to search" name="searchValue" value="">
+            <input type="text" class="form-control" placeholder="Enter the category name to search" id="searchValue" name="searchValue">
             <span class="input-group-btn">
-                <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
+                <button id="search" type="button"   class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
             </span>
         </div>
     </form>
@@ -40,8 +40,7 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody class="tbody">
-
+                <tbody class="tbody">    
                 </tbody>
             </table>
         </div>
@@ -56,7 +55,7 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="modal-header">
-                <h2 class="modal-title" id="myModalLabel">ADD CATEGORY</h2>
+                <h2 class="modal-title" id="myModalLabel">EDIT CATEGORY</h2>
 
             </div>
             <form method="post" action="~/Category/Add">
@@ -76,8 +75,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary mb-5" id="btnAdd" onclick="Add();"><i class="fa fa-save"></i> Save</button>
-                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();">Update</button>
+                    <button type="button" class="btn btn-primary mb-5" id="btnAdd" onclick="Add();"><i class="fa fa-save"></i> Save</button>
+                    <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update();"><i class="fa fa-edit"></i>Update</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
             </form>

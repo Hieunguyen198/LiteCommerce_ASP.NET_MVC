@@ -1,23 +1,23 @@
 ﻿$(document).ready(function () {
-    loadData();
+    loadData(null);
 });
-
-function loadData() {
+loadData = function(searchValue) {
     $.ajax({
         url: "/Category/List",
+        data:{ searchValue: searchValue },
         type: "GET",
-        contentType: "application/json;charset=utf-8",
+        contentType: "application/json",
         dataType: "json",
         success: function (result) {
             var html = '';
             var i = 1;
             $.each(result, function (key, item) {
                 html += '<tr>';
-                html += '<td>' + '<input type="checkbox" name="customerIDs" value='+item.CategoryID+' />' + '</td>';
+                html += '<td>' + '<input type="checkbox" name="CategoryIDs" value=' + item.CategoryID + ' />' + '</td>';
                 html += '<td>' + (i++) + '</td>';
                 html += '<td>' + item.CategoryName + '</td>';
                 html += '<td>' + item.Description + '</td>';
-                html += '<td> <a href="#" onclick ="return getbyID('+ item.CategoryID+') " class="btn btn-success mr-3"><i class="fa fa-edit"></i></a> <button name="customerIDs" value=' + item.CategoryID + ' class="btn btn-danger mr-3" type = "submit" ><i class="fa fa-remove"></i></button ></td>';
+                html += '<td> <button type="button" onclick ="return getbyID(' + item.CategoryID + ') " class="btn btn-success mr-3"><i class="fa fa-edit"></i></button> <button type="submit" name="categoryIDs" value=' + item.CategoryID + ' onclick="return confirm("Do you really want to delete the this Category?")" class="btn btn-danger mr-3" type = "button" ><i class="fa fa-remove"></i></button ></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -27,16 +27,18 @@ function loadData() {
         }
     });
 }  
+
 function Add() {
     var obj = {
         CategoryName: $('#CategoryName').val(),
         Description: $('#Description').val(),
+        CategoryID: $('#CategoryID').val(),
     };
     $.ajax({
         url: "/Category/Add",
         data: JSON.stringify(obj),
         type: "POST",
-        contentType: "application/json;charset=utf-8",
+        contentType: "application/json",
         dataType: "json",
         success: function (result) {
             loadData();
@@ -52,7 +54,7 @@ function getbyID(CategoryID) {
     $.ajax({
         url: "/Category/Input/" + CategoryID,
         typr: "GET",
-        contentType: "application/json;charset=UTF-8",
+        contentType: "application/json",
         dataType: "json",
         success: function (result) {
             $('#CategoryName').val(result.CategoryName);
@@ -66,8 +68,7 @@ function getbyID(CategoryID) {
             alert(errormessage.responseText);
         }
     });
-    return false;
-}  
+}
 
 function Update() {
     var obj = {
@@ -79,17 +80,45 @@ function Update() {
         url: "/Category/Input",
         data: JSON.stringify(obj),
         type: "POST",
-        contentType: "application/json;charset=utf-8",
+        contentType: "application/json",
         dataType: "json",
         success: function (result) {
             loadData();
             $('#myModal').modal('hide');
-            $('#CategoryID').val("");
-            $('#CategoryName').val("");
-            $('#Description').val("");
+            $('#btnUpdate').hide();
+            $('#btnAdd').show();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
         }
     });
 }  
+function Delele(ID) {
+        $.ajax({
+            url: "/Cagetory/Delete",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (result) {
+                loadData();
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+}  
+function clearTextBox() {
+    $('#CategoryName').val("");
+    $('#Description').val("");
+}
+
+$("#search").click(function () {
+    var txtSearch = $("#searchValue").val();
+    if (txtSearch != "") {
+        loadData(txtSearch);
+    }
+    else {
+        loadData(null);
+    }
+
+});

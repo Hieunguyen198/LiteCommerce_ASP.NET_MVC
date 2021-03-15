@@ -15,12 +15,12 @@ namespace LiteCommerce
         /// </summary>
         public static void Initialize()
         {
-            string connectionString =
-                ConfigurationManager.ConnectionStrings["LiteCommerce"].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings["LiteCommerce"].ConnectionString;
             UserAccountBLL.Initialize(connectionString);
             EmployeeBLL.Initialize(connectionString);
             CatalogBLL.Initialize(connectionString);
             OrderBLL.Initialize(connectionString);
+            DashBoardBLL.Initialize(connectionString);
         }
     }
 }
