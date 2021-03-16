@@ -1,4 +1,7 @@
-﻿$('#OrderStatistic').change(function () {
+﻿$(document).ready(function () {
+    LoadDasboard();
+});
+$('#OrderStatistic').change(LoadDasboard = function () {
     var year = $("#OrderStatistic").val();
     $.ajax({
         type: "GET",
@@ -7,7 +10,7 @@
         contentType: "application/json",
         dataType: "json",
         success: function (result) {
-            console.log(result);
+            var ctx = document.getElementById('myChart').getContext('2d');
             if (result != null) {
                 $('td').remove();
                 $.each(result, function (index, dashboard) {
@@ -26,7 +29,20 @@
                     $('#OrderStatistics').append("<td>" + dashboard.October + "$" + "</td>");
                     $('#OrderStatistics').append("<td>" + dashboard.November + "$" + "</td>");
                     $('#OrderStatistics').append("<td>" + dashboard.December + "$" + "</td>");
+                    var chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            datasets: [{
+                                label: 'Monthly revenue Chart in ' + year,
+                                backgroundColor:'rgba(0, 255, 255)',   
+                                borderColor: 'rgb(0, 0, 255)',
+                                data: [dashboard.January, dashboard.February, dashboard.March, dashboard.April, dashboard.May, dashboard.June, dashboard.July, dashboard.August, dashboard.September, dashboard.October, dashboard.November, dashboard.December]
+                            }]
+                        },
+                    });
                 });
+                $('#titleChart').html('Sales: 1 Jan ' + year + ' - 30 Dec '+year);
             }
             else {
                 alert("Non data!");

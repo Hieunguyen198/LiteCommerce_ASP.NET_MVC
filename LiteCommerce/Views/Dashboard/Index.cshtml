@@ -94,11 +94,11 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="text-center">
-                    <strong>Sales: 1 Jan, @Model.RevenueDashBoard.Year - 30 Dec, @Model.RevenueDashBoard.Year</strong>
+                    <strong id="titleChart">Sales: 1 Jan, @Model.RevenueDashBoard.Year - 30 Dec, @Model.RevenueDashBoard.Year</strong>
                 <div class="chart">
                     <!-- Sales Chart Canvas -->
                     <div class="card-body">
-                        <canvas id="line-chart" width="1500" height="290"></canvas>
+                        <canvas id="myChart" width="1500" height="450"></canvas>
                         <input type="hidden" value="@Model.RevenueDashBoard.ToTal()" id='doanhThu'>
                     </div>
                 </div>

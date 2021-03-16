@@ -131,9 +131,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.CommandText = @"Proc_Category_Delete_By_ID";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
+                cmd.Parameters.Add("@CategoryID", SqlDbType.Int);
                 foreach (int categoryID in categoryIDs)
                 {
-                    cmd.Parameters.AddWithValue("@CategoryID", categoryID);
+                    cmd.Parameters["@CategoryID"].Value = categoryID;
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();

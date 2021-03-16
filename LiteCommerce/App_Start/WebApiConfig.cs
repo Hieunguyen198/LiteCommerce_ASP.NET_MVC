@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace LiteCommerce
 {
@@ -11,11 +12,12 @@ namespace LiteCommerce
         {
             config.MapHttpAttributeRoutes();
 
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+            // define route
+            IHttpRoute defaultRoute = config.Routes.CreateRoute("api/{controller}/{id}",
+                                                new { id = RouteParameter.Optional }, null);
+
+            // Add route
+            config.Routes.Add("DefaultApi", defaultRoute);
         }
     }
 }

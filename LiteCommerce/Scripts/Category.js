@@ -85,8 +85,6 @@ function Update() {
         success: function (result) {
             loadData();
             $('#myModal').modal('hide');
-            $('#btnUpdate').hide();
-            $('#btnAdd').show();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);

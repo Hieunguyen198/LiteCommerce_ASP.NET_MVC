@@ -189,10 +189,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.CommandType = CommandType.StoredProcedure;
                 
                 cmd.Connection = connection;
-
+                cmd.Parameters.Add("@OrderID", SqlDbType.Int);
                 foreach (int orderID in orderIDs)
                 {
-                    cmd.Parameters.AddWithValue("@OrderID", orderID);
+                    cmd.Parameters["@OrderID"].Value = orderID;
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();

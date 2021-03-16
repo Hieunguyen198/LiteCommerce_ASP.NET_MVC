@@ -29,6 +29,11 @@ namespace LiteCommerce.Controllers
             };
             return View(model);
         }
+        /// <summary>
+        /// Get orderdetail by orderID
+        /// </summary>
+        /// <param name="OrderID"></param>
+        /// <returns></returns>
         [HttpGet]
         public JsonResult GetOrderDetailByID(int OrderID)
         {

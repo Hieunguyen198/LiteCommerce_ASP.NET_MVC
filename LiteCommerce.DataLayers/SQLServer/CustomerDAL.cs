@@ -146,10 +146,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.CommandText = @"Proc_Customer_Delete";
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Connection = connection;
-
+                cmd.Parameters.Add("@CustomerID", SqlDbType.NVarChar);
                 foreach (string customerID in customerIDs)
                 {
-                    cmd.Parameters.AddWithValue("@CustomerID", customerID);
+                    cmd.Parameters["@CustomerID"].Value = customerID;
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();

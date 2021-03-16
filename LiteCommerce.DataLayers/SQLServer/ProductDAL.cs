@@ -106,9 +106,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Connection = connection;
+                cmd.Parameters.Add("@ProductID", SqlDbType.Int);
                 foreach (int productID in productIDs)
                 {
-                    cmd.Parameters.AddWithValue("@ProductID", productID);
+                    cmd.Parameters["@ProductID"].Value = productID;
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
