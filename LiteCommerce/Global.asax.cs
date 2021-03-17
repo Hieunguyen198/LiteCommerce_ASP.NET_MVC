@@ -17,10 +17,10 @@ namespace LiteCommerce
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            BusinessLayerConfig.Initialize();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            BusinessLayerConfig.Initialize();  
         }
         /// <summary>
         ///

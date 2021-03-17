@@ -42,6 +42,7 @@ $('#OrderStatistic').change(LoadDasboard = function () {
                         },
                     });
                 });
+
                 $('#titleChart').html('Sales: 1 Jan ' + year + ' - 30 Dec '+year);
             }
             else {

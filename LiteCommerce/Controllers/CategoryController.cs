@@ -36,11 +36,6 @@ namespace LiteCommerce.Controllers
         [HttpGet]
         public JsonResult Input(string id = "")
         {
-            // ViewBag.Title = "Edit Category";
-            //Category editCategory = CatalogBLL.Get_Category(Convert.ToInt32(id));
-            //if (editCategory == null)
-            //  return RedirectToAction("Index");
-            //return View(editCategory);
             return Json(CatalogBLL.Get_Category(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);
         }
         [HttpPost]

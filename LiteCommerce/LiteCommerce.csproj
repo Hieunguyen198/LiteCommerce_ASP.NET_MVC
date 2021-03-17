@@ -151,10 +151,14 @@
     <Compile Include="Codes\WebUserPrincipal.cs" />
     <Compile Include="Codes\WebUserRoles.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\CategoryController.cs" />
+    <Compile Include="Controllers\api\CustomerController.cs" />
+    <Compile Include="Controllers\api\EmployeeController.cs" />
+    <Compile Include="Controllers\api\OrderController.cs" />
+    <Compile Include="Controllers\api\ProductController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
-    <Compile Include="Controllers\api\EmployeeAPIController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
