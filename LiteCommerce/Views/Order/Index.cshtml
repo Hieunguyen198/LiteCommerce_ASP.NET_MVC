@@ -17,22 +17,26 @@
     </form>
 </div>
 <div class="box box-primary">
-    <form action="~/Order/Delete" method="post">
+    <form id="myForm" method="post" action="~/Order/Approval">
         <div class="box-body">
             <h3 style="float: right;" class="box-title">
-                <button onclick="return confirm('Do you really want to delete selected orders,This action cannot be undone ?')" class="btn btn-danger mr-3"
-                        type="submit">
+                <button  class="btn btn-danger mr-3" id="Delete"
+                        onclick="return confirm('Do you really want to delete selected orders,This action cannot be undone ?')" 
+                        type="button">
                     Delete orders
                 </button>
             </h3>
             <h3 style="float: right; padding-right:5px" class="box-title">
-                <a class="btn btn-success mr-3"
-                   href="~/Order/Create">Create order</a>
+                <button class="btn btn-success mr-3" id="Approval"
+                        onclick="return confirm('Are you sure approval all selected Orders?')"
+                        type="submit">
+                    Approval or Undo
+                </button>
             </h3>
             <div style="padding-top:25px;">
-                <b style="color:#3c8dbc;">There are @Model.RowCount employee, page @Model.Page/@Model.PageCount</b>
+                <b style="color:#3c8dbc;">There are @Model.RowCount Order, page @Model.Page/@Model.PageCount</b>
             </div>
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example1" class="table table-hover table-striped">
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
@@ -40,6 +44,7 @@
                         <th>Customer Name</th>
                         <th>Employee Name</th>
                         <th>Order Date</th>
+                        <th>Status</th>
                         <th style="text-align: center;">Actions</th>
                     </tr>
                 </thead>
@@ -52,13 +57,45 @@
                             <td>@item.CustomerName</td>
                             <td>@item.EmployeeName</td>
                             <td>@string.Format("{0:dd-MMMM-yyyy}", item.OrderDate)</td>
-                            <td style="text-align: center;">
+                            @if (item.Status == false)
+                            {
+                                <td>
+                                    <span class="badge bg-orange">Unapproved</span>
+                                </td>
+                            }
+                            else
+                            {
+
+                                <td>
+                                    <span class="badge bg-green">Unapproved</span>
+                                </td>
+                            }
+                            <td align="center">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <button type="button" class="btn btn-info"  onclick="return getDetailByID(@item.OrderID)"><i class="fas fa-info-circle"></i></button>
-                                    <button value="@item.OrderID" name="OrderIDs" onclick="return confirm('Do you really want to delete selected orders,This action will be delete order detail and cannot be undone ?')" class="btn btn-danger mr-3"
-                                            type="submit">
+                                    <button type="button" class="btn btn-info" onclick="return getDetailByID(@item.OrderID)"><i class="fas fa-info-circle"></i></button>
+                                    <a href="~/Order/Delete/@item.OrderID" name="OrderIDs"
+                                       onclick="return confirm('Do you really want to delete this orders,This action will be delete order detail and cannot be undone ?')"
+                                       class="btn btn-danger mr-3">
                                         <i class="fa fa-remove"></i>
-                                    </button>
+                                    </a>
+                                    @if (item.Status == false)
+                                    {
+
+                                        <button class="btn btn-success" value="@item.OrderID"
+                                                onclick="return confirm('Are you sure approval this order?')"
+                                                name="OrderIDs" type="submit">
+                                            <i class="fa fa-check"></i>
+                                        </button>
+
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-warning" value="@item.OrderID"
+                                                onclick="return confirm('Do you really want undo?')"
+                                                name="OrderIDs" type="submit">
+                                            <i class="fa fa-undo"></i>
+                                        </button>
+                                    }
                                 </div>
                             </td>
                         </tr>
@@ -124,34 +161,34 @@
     <!-- /.box-body -->
 </div>
 <!-- Details Modal-->
-    <div class="modal fade" id="OrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title" id="myModalLabel" style="color:forestgreen">ORDER DETAIL</h2>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Product Name</th>
-                                <th>Unit price</th>
-                                <th>Quantity</th>
-                                <th>Discount</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody class="ordertbody"></tbody>
-                        <tfoot id="ordertfoot"></tfoot>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
+<div class="modal fade" id="OrderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="myModalLabel" style="color:forestgreen">ORDER DETAIL</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Product Name</th>
+                            <th>Unit price</th>
+                            <th>Quantity</th>
+                            <th>Discount</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="ordertbody"></tbody>
+                    <tfoot id="ordertfoot"></tfoot>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>

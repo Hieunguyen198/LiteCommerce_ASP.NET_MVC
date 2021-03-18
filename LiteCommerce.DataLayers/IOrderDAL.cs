@@ -38,5 +38,11 @@ namespace LiteCommerce.DataLayers
         /// <returns></returns>
         List<OrderDetail> GetOrderDetail_By_OrderID(int orderID);
         bool Delete_Order(int[] orderIDs);
+        /// <summary>
+        /// Approval Order by orderID
+        /// </summary>
+        /// <param name="orderIDs"></ param>
+        /// <returns></returns>
+        bool Order_Approval(int[] orderIDs);
     }
 }

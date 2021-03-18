@@ -61,6 +61,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                                 CustomerName = Convert.ToString(dbReader["ContactName"]),
                                 EmployeeName = Convert.ToString(dbReader["FirstName"]) + " " + Convert.ToString(dbReader["LastName"]),
                                 OrderDate = Convert.ToDateTime(dbReader["OrderDate"]),
+                                Status = Convert.ToBoolean(dbReader["Status"])
                             });
                         }
                     }
@@ -188,6 +189,27 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.CommandText = @"Proc_Order_Delete";
                 cmd.CommandType = CommandType.StoredProcedure;
                 
+                cmd.Connection = connection;
+                cmd.Parameters.Add("@OrderID", SqlDbType.Int);
+                foreach (int orderID in orderIDs)
+                {
+                    cmd.Parameters["@OrderID"].Value = orderID;
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            return result;
+        }
+        public bool Order_Approval(int[] orderIDs)
+        {
+            bool result = true;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"Proc_Order_Approval";
+                cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.Connection = connection;
                 cmd.Parameters.Add("@OrderID", SqlDbType.Int);
                 foreach (int orderID in orderIDs)

@@ -29,7 +29,7 @@ namespace LiteCommerce.DataLayers
         /// </summary>
         /// <param name="CategoryIDs"></param>
         /// <returns></returns>
-        bool Delete_Category(int[] categoryIDs);
+        bool Delete_Categorys(int[] categoryIDs);
         /// <summary>
         /// 
         /// </summary>
@@ -50,6 +50,11 @@ namespace LiteCommerce.DataLayers
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count_Catogory(string searchValue);
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="categoyID"></param>
+        /// <returns></returns>
+        bool Delete_Category(int categoyID);
     }
 }

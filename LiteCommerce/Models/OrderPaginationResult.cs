@@ -9,6 +9,5 @@ namespace LiteCommerce.Models
     public class OrderPaginationResult:PaginationResult
     {
         public List<Order> Data;
-        public List<OrderDetail> DetailData;
     }
 }

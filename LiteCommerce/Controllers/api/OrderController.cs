@@ -23,5 +23,13 @@ namespace LiteCommerce.Controllers.api
         {
             return Ok(OrderBLL.OrderDetail_List());
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public IHttpActionResult GetDetailByOrderID(int id)
+        {
+            return Ok(OrderBLL.GetOrderDetail_By_OrderID(id));
+        }
     }
 }

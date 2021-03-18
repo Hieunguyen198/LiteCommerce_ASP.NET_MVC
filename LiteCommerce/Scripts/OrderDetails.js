@@ -34,3 +34,20 @@
         }
     });
 }
+
+function OrderApproval(OrderID) {
+    $.ajax({
+        type: "POST",
+        url: "/Order/Approval",
+        data: { orderIDs: OrderID },
+        dataType: "text",
+        async: true,
+        cache: false,
+        success: function (result) {
+            if (result == true) {
+                this.text("Approved");
+            }      
+        }
+    });
+
+}

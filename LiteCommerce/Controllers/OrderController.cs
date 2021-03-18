@@ -24,8 +24,7 @@ namespace LiteCommerce.Controllers
                 PageSize = AppSettings.OrderDefaultPageSize,
                 SearchValue = searchValue,
                 RowCount = OrderBLL.Count_Order(searchValue),
-                Data = OrderBLL.Order_List(page, AppSettings.OrderDefaultPageSize, searchValue),
-                DetailData = OrderBLL.OrderDetail_List()
+                Data = OrderBLL.Order_List(page, AppSettings.OrderDefaultPageSize, searchValue)
             };
             return View(model);
         }
@@ -43,18 +42,34 @@ namespace LiteCommerce.Controllers
         /// Trang tạo mới sản phẩm
         /// </summary>
         /// <returns></returns>
-        public ActionResult Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Delete(string method = "", int[] orderIDs = null)
+
+        [HttpPost] 
+        public ActionResult Delete(int[] orderIDs = null)
         {
             try
             {
                 if (orderIDs != null)
                 {
                     OrderBLL.Delete_Order(orderIDs);
+
+                }
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+
+        }
+        [HttpPost]
+        public ActionResult Approval(int[] orderIDs)
+        {
+
+            try
+            {
+                if (orderIDs != null)
+                {
+                    OrderBLL.Order_Approval(orderIDs);
 
                 }
                 return RedirectToAction("Index");

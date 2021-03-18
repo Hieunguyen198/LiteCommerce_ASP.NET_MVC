@@ -64,5 +64,9 @@ namespace LiteCommerce.BusinessLayers
         {
             return OrderDB.Delete_Order(orderIDs);
         }
+        public static bool Order_Approval(int[] orderIDs)
+        {
+            return OrderDB.Order_Approval(orderIDs);
+        }
     }
 }

@@ -35,5 +35,9 @@ namespace LiteCommerce.DomainModels
         /// Billing Employee
         /// </summary>
         public string EmployeeName { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public Boolean Status { get; set; }
     }
 }

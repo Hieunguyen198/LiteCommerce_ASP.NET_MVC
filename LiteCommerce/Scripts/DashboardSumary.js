@@ -2,7 +2,7 @@
     LoadDasboard();
 });
 $('#OrderStatistic').change(LoadDasboard = function () {
-    var year = $("#OrderStatistic").val();
+        var year = $("#OrderStatistic").val();
     $.ajax({
         type: "GET",
         url: "/Dashboard/Input",

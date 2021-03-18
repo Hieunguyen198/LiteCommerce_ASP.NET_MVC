@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    loadData(null);
+    loadData();
 });
 loadData = function(searchValue) {
     $.ajax({
@@ -17,7 +17,7 @@ loadData = function(searchValue) {
                 html += '<td>' + (i++) + '</td>';
                 html += '<td>' + item.CategoryName + '</td>';
                 html += '<td>' + item.Description + '</td>';
-                html += '<td> <button type="button" onclick ="return getbyID(' + item.CategoryID + ') " class="btn btn-success mr-3"><i class="fa fa-edit"></i></button> <button type="submit" name="categoryIDs" value=' + item.CategoryID + ' onclick="return confirm("Do you really want to delete the this Category?")" class="btn btn-danger mr-3" type = "button" ><i class="fa fa-remove"></i></button ></td>';
+                html += '<td align="center"> <button type="button" onclick ="return getbyID(' + item.CategoryID + ') " class="btn btn-success mr-3"><i class="fa fa-edit"></i></button> <button type="button"   onclick = "return Delete(' + item.CategoryID + ') " class="btn btn-danger mr-3" type = "button" ><i class="fa fa-remove"></i></button ></td>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
@@ -41,7 +41,12 @@ function Add() {
         contentType: "application/json",
         dataType: "json",
         success: function (result) {
-            loadData();
+            var txtSearch = $("#searchValue").val();
+            if (txtSearch != "") {
+                loadData(txtSearch);
+            } else {
+                loadData();
+            }
             $('#myModal').modal('hide');
         },
         error: function (errormessage) {
@@ -83,7 +88,13 @@ function Update() {
         contentType: "application/json",
         dataType: "json",
         success: function (result) {
-            loadData();
+            var txtSearch = $("#searchValue").val();
+            if (txtSearch != "") {
+                loadData(txtSearch);
+            } else
+            {
+                loadData();
+            }
             $('#myModal').modal('hide');
         },
         error: function (errormessage) {
@@ -91,20 +102,30 @@ function Update() {
         }
     });
 }  
-function Delele(ID) {
+
+
+function Delete(CategoryID) {
+    if (confirm('Do you really want delete this Category?')) {
         $.ajax({
-            url: "/Cagetory/Delete",
-            type: "POST",
+            url: "/Category/Delete/" + CategoryID,
+            type: "GET",
             contentType: "application/json",
             dataType: "json",
             success: function (result) {
-                loadData();
+                var txtSearch = $("#searchValue").val();
+                if (txtSearch != "") {
+                    loadData(txtSearch);
+                } else {
+                    loadData();
+                }
             },
             error: function (errormessage) {
                 alert(errormessage.responseText);
             }
         });
+    }
 }  
+
 function clearTextBox() {
     $('#CategoryName').val("");
     $('#Description').val("");
@@ -116,7 +137,7 @@ $("#search").click(function () {
         loadData(txtSearch);
     }
     else {
-        loadData(null);
+        loadData();
     }
 
 });

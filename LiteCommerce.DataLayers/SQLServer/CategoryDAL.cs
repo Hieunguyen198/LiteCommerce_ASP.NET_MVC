@@ -121,7 +121,7 @@ namespace LiteCommerce.DataLayers.SQLServer
         /// </summary>
         /// <param name="categoryIDs"></param>
         /// <returns></returns>
-        public bool Delete_Category(int[] categoryIDs)
+        public bool Delete_Categorys(int[] categoryIDs)
         {
             bool result = true;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -137,6 +137,27 @@ namespace LiteCommerce.DataLayers.SQLServer
                     cmd.Parameters["@CategoryID"].Value = categoryID;
                     cmd.ExecuteNonQuery();
                 }
+                connection.Close();
+            }
+            return result;
+        }
+        /// <summary>
+        /// Delete a Category
+        /// </summary>
+        /// <param name="categoryID"></param>
+        /// <returns></returns>
+        public bool Delete_Category(int categoryID)
+        {
+            bool result = true;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"Proc_Category_Delete_By_ID";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CategoryID", categoryID);
+                cmd.Connection = connection;
+                cmd.ExecuteNonQuery(); 
                 connection.Close();
             }
             return result;

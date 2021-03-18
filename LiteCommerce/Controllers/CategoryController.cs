@@ -60,13 +60,13 @@ namespace LiteCommerce.Controllers
         /// <param name="categoryIDs"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Delete(string method = "", int[] categoryIDs = null)
+        public ActionResult Deletes(string method = "", int[] categoryIDs = null)
         {
             try
             {
                 if (categoryIDs != null)
                 {
-                    CatalogBLL.Delete_Category(categoryIDs);
+                    CatalogBLL.Delete_Categorys(categoryIDs);
                 }
                 return RedirectToAction("Index");
             }
@@ -75,6 +75,16 @@ namespace LiteCommerce.Controllers
                 return RedirectToAction("Index");
             }
 
+        }
+        /// <summary>
+        /// Delete a category
+        /// </summary>
+        /// <param name="categoryID"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public JsonResult Delete(string id = "")
+        {
+            return Json(CatalogBLL.Delete_Category(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);
         }
     }
 }

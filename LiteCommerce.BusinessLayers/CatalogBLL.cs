@@ -96,9 +96,9 @@ namespace LiteCommerce.BusinessLayers
         /// </summary>
         /// <param name="categoryIDs"></param>
         /// <returns></returns>
-        public static bool Delete_Category(int[] categoryIDs)
+        public static bool Delete_Categorys(int[] categoryIDs)
         {
-            return CategoryDB.Delete_Category(categoryIDs);
+            return CategoryDB.Delete_Categorys(categoryIDs);
         }
         /// <summary>
         /// Add customer
@@ -222,6 +222,10 @@ namespace LiteCommerce.BusinessLayers
         public static bool Update_Product(Product data)
         {
             return ProductDB.Update_Product(data);
+        }
+        public static bool Delete_Category(int categoryID)
+        {
+            return CategoryDB.Delete_Category(categoryID);
         }
     }
 

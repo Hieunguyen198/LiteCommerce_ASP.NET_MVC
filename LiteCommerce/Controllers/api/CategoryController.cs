@@ -34,6 +34,7 @@ namespace LiteCommerce.Controllers.api
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+        [HttpPost]
         public IHttpActionResult AddNewCategory([FromUri]Category data)
         { 
             return Ok(CatalogBLL.Add_Category(data));
