@@ -60,9 +60,9 @@ namespace LiteCommerce.BusinessLayers
         {
             return OrderDB.GetOrderDetail_By_OrderID(orderID);
         }
-        public static bool Delete_Order(int[] orderIDs)
+        public static bool Delete_Order(int orderID)
         {
-            return OrderDB.Delete_Order(orderIDs);
+            return OrderDB.Delete_Order(orderID);
         }
         public static bool Order_Approval(int[] orderIDs)
         {

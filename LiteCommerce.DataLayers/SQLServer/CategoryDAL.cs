@@ -148,7 +148,7 @@ namespace LiteCommerce.DataLayers.SQLServer
         /// <returns></returns>
         public bool Delete_Category(int categoryID)
         {
-            bool result = true;
+            int rowsAffected = 0;
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -157,10 +157,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@CategoryID", categoryID);
                 cmd.Connection = connection;
-                cmd.ExecuteNonQuery(); 
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
                 connection.Close();
             }
-            return result;
+            return rowsAffected > 0;
         }
         /// <summary>
         /// 

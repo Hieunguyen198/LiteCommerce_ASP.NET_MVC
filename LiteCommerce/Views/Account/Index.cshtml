@@ -1,4 +1,4 @@
-﻿@model LiteCommerce.DomainModels.Employee
+﻿    @model LiteCommerce.DomainModels.Employee
 @{
     ViewBag.Manage = "Profile";
 }
@@ -80,12 +80,12 @@
     <!-- /.box-body -->
 </div>
 <!-- Modal edit profle-->
-<div class="modal fade" id="editInfo">
+<div class="modal fade " id="editInfo">
     <div class="modal-dialog">
         <div class="modal-content" style="width: 650px;">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Update profile</h4>
+                <h4 class="modal-title">UPDATE PROFILE</h4>
             </div>
             <div class="modal-body">
                 <form method="POST" action="~/Account/input" enctype="multipart/form-data">
@@ -173,7 +173,7 @@
 
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label>Notes</label> <input type="text" class="form-control" name="notes" placeholder="notes" value="@Model.Notes" />
+                            <label>Notes</label> <textarea type="text" class="form-control" name="notes" placeholder="notes">@Model.Notes</textarea>
                         </div>
                     </div>
 

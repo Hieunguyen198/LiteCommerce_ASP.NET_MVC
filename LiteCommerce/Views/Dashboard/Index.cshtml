@@ -99,7 +99,6 @@
                     <!-- Sales Chart Canvas -->
                     <div class="card-body">
                         <canvas id="myChart" width="1500" height="450"></canvas>
-                        <input type="hidden" value="@Model.RevenueDashBoard.ToTal()" id='doanhThu'>
                     </div>
                 </div>
             </div>
@@ -109,42 +108,30 @@
     <!-- ./box-body -->
     <div class="box-footer">
         <div class="row">
-            <div class="col-sm-3 col-xs-6">
+            <div class="col-sm-4 col-xs-6">
                 <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
                     <h5 class="description-header"><strong class="TTotal">@Model.RevenueDashBoard.ToTal()$</strong></h5>
                     <span class="description-text">TOTAL REVENUE</span>
                 </div>
                 <!-- /.description-block -->
             </div>
             <!-- /.col -->
-            <div class="col-sm-3 col-xs-6">
+            <div class="col-sm-4 col-xs-6">
                 <div class="description-block border-right">
-                    <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
                     <h5 class="description-header">@Model.TotalDiscount.ToTal()$</h5>
                     <span class="description-text">TOTAL Discount</span>
                 </div>
                 <!-- /.description-block -->
             </div>
             <!-- /.col -->
-            <div class="col-sm-3 col-xs-6">
+            <div class="col-sm-4 col-xs-6">
                 <div class="description-block border-right">
-                    <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
                     <h5 class="description-header"><strong class="TTotal">@Model.RevenueDashBoard.ToTal()$</strong></h5>
                     <span class="description-text">TOTAL PROFIT</span>
                 </div>
                 <!-- /.description-block -->
             </div>
             <!-- /.col -->
-            <div class="col-sm-3 col-xs-6">
-                <div class="description-block">
-                    <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                    <h5 class="description-header">1200</h5>
-                    <span class="description-text">GOAL COMPLETIONS</span>
-                </div>
-                <!-- /.description-block -->
-            </div>
-
         </div>
         <!-- /.row -->
     </div>

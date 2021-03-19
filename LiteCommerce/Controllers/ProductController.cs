@@ -30,7 +30,16 @@ namespace LiteCommerce.Controllers
                 RowCount = CatalogBLL.Count_Product(searchValue, searchCategory, searchPrice),
                 Data = CatalogBLL.Product_List(page, AppSettings.DefaultPageSize, searchValue, searchCategory, searchPrice)
             };
-            return View(model);
+            if (model.RowCount != 0)
+            {
+                return View(model);
+
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "404. Can not find any Product");
+                return View(model);
+            }
         }
         /// <summary>
         /// Trang tạo mới chỉnh sứa sản phẩm

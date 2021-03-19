@@ -23,6 +23,7 @@ namespace LiteCommerce.Controllers
                 Data = CatalogBLL.Category_List(searchValue)
             };
             return View(model);
+                
         }
         public JsonResult List(string searchValue = "")
         {

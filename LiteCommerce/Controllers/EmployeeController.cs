@@ -31,7 +31,16 @@ namespace LiteCommerce.Controllers
                 RowCount = EmployeeBLL.Count_Employee(searchValue, searchCountry),
                 Data = EmployeeBLL.Employee_List(page, AppSettings.DefaultPageSize, searchValue, searchCountry)
             };
-            return View(model);
+            if (model.RowCount != 0)
+            {
+                return View(model);
+
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "404. Can not find any Employees .404");
+                return View(model);
+            }
         }
         /// <summary>
         /// Trang thêm mới hoặc chỉnh sửa thông tin nhân viên

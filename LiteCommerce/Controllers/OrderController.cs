@@ -26,7 +26,16 @@ namespace LiteCommerce.Controllers
                 RowCount = OrderBLL.Count_Order(searchValue),
                 Data = OrderBLL.Order_List(page, AppSettings.OrderDefaultPageSize, searchValue)
             };
-            return View(model);
+            if (model.RowCount != 0)
+            {
+                return View(model);
+
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "404. Can not find any Orders .404");
+                return View(model);
+            }
         }
         /// <summary>
         /// Get orderdetail by orderID
@@ -43,14 +52,14 @@ namespace LiteCommerce.Controllers
         /// </summary>
         /// <returns></returns>
 
-        [HttpPost] 
-        public ActionResult Delete(int[] orderIDs = null)
+        [HttpGet] 
+        public ActionResult Delete(string id=" " )
         {
             try
             {
-                if (orderIDs != null)
+                if (id != null)
                 {
-                    OrderBLL.Delete_Order(orderIDs);
+                    OrderBLL.Delete_Order(Convert.ToInt32(id));
 
                 }
                 return RedirectToAction("Index");

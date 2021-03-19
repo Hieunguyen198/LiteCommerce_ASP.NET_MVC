@@ -15,7 +15,7 @@ namespace LiteCommerce.Controllers
         /// Direct to Customer Index
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(int page = 1, string searchValue = "", string searchCountry = "")
+        public ActionResult Index(int page = 1, string searchValue = "")
         {
             var model = new Models.CustomerPaginationResult()
             {
@@ -25,7 +25,16 @@ namespace LiteCommerce.Controllers
                 RowCount = CatalogBLL.Count_Customer(searchValue),
                 Data = CatalogBLL.Customers_List(page, AppSettings.DefaultPageSize, searchValue)
             };
-            return View(model);
+            if (model.RowCount != 0)
+            {
+                return View(model);
+
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "404. Can not find any customers .404");
+                return View(model);
+            }
         }
         [HttpGet]
         public ActionResult Input(string id)
@@ -117,6 +126,7 @@ namespace LiteCommerce.Controllers
             }
             catch
             {
+                ModelState.AddModelError("err", "Cant delete this customer, you need delete this order of customer ");
                 return RedirectToAction("Index");
             }
 

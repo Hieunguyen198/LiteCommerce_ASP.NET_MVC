@@ -115,7 +115,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandText = @"Proc_Order_OrderDetail";
-                    cmd.CommandType = CommandType.StoredProcedure; 
+                    cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Connection = connection;
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
@@ -179,7 +179,7 @@ namespace LiteCommerce.DataLayers.SQLServer
         /// </summary>
         /// <param name="orderIDs"></param>
         /// <returns></returns>
-        public bool Delete_Order(int[] orderIDs)
+        public bool Delete_Order(int orderID)
         {
             bool result = true;
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -188,14 +188,10 @@ namespace LiteCommerce.DataLayers.SQLServer
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"Proc_Order_Delete";
                 cmd.CommandType = CommandType.StoredProcedure;
-                
+
                 cmd.Connection = connection;
-                cmd.Parameters.Add("@OrderID", SqlDbType.Int);
-                foreach (int orderID in orderIDs)
-                {
-                    cmd.Parameters["@OrderID"].Value = orderID;
-                    cmd.ExecuteNonQuery();
-                }
+                cmd.Parameters.AddWithValue("@OrderID", orderID);
+                cmd.ExecuteNonQuery();
                 connection.Close();
             }
             return result;

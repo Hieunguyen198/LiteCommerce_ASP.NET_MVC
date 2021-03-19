@@ -30,8 +30,20 @@
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="~/Dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href=""> @ViewBag.Manage</a></li>
-                    <li class="active"> @ViewBag.ManageDetail</li>
+                    @if (ViewBag.ManageDetail == null)
+                    {
+
+                        <li class="active"> @ViewBag.Manage</li>
+                    }
+                    else
+                    {
+                        <li>@ViewBag.Manage</li>
+                    }
+                    @if (ViewBag.ManageDetail != null)
+                    {
+
+                        <li class="active"> @ViewBag.ManageDetail</li>
+                    }
                 </ol>
             </section>
             <section class="content">

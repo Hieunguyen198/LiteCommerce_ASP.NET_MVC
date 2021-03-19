@@ -10,9 +10,9 @@ namespace LiteCommerce.Controllers.api
 {
     public class ProductController : ApiController
     {
-        public IHttpActionResult GetListProduct(string searchValue = "", int page = 1, string searchCountry = "",string searchCategory="",string searchPrice="")
+        public IHttpActionResult GetListProduct(string searchValue = "", int page = 1,int pageSize= 5, string searchCountry = "",string searchCategory="",string searchPrice="")
         {
-            return Ok(CatalogBLL.Product_List(page, AppSettings.DefaultPageSize, searchValue,searchCategory,searchPrice));
+            return Ok(CatalogBLL.Product_List(page, pageSize, searchValue,searchCategory,searchPrice));
         }
         /// <summary>
         /// 
