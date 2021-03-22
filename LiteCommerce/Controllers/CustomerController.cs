@@ -8,7 +8,7 @@ using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "administrator,Catalog Management")]
     public class CustomerController : Controller
     {
         /// <summary>

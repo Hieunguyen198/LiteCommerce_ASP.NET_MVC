@@ -173,6 +173,40 @@ namespace LiteCommerce.DataLayers.SQLServer
             }
             return data;
         }
+        public Order GetOrderByID(int id)
+        {
+            Order data = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"Proc_Order_By_ID";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id",id );
+
+                    cmd.Connection = connection;
+
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dbReader.Read())
+                        {
+                            data = new Order()
+                            {
+                                OrderID = Convert.ToInt32(dbReader["OrderID"]),
+                                CustomerID = Convert.ToString(dbReader["CustomerID"]),
+                                EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
+                                OrderDate = Convert.ToDateTime(dbReader["OrderDate"]),
+                                Status = Convert.ToBoolean(dbReader["Status"])
+                            };
+                        }
+                    }
+
+                }
+                connection.Close();
+            }
+            return data;
+        }
 
         /// <summary>
         /// Delete Order and orderdetails of these

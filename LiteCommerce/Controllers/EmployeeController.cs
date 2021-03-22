@@ -12,8 +12,7 @@ namespace LiteCommerce.Controllers
     /// <summary>
     /// 
     /// </summary>
-    //[Authorize(Roles =WebUserRoles.EMPLOYEEMANAGEMENT)]
-    [Authorize]
+    [Authorize(Roles = "administrator,Employee Management")]
     public class EmployeeController : Controller
     {
         /// <summary>

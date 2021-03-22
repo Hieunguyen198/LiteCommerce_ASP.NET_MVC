@@ -68,5 +68,9 @@ namespace LiteCommerce.BusinessLayers
         {
             return OrderDB.Order_Approval(orderIDs);
         }
+        public static Order GetOrderByID(int id)
+        {
+            return OrderDB.GetOrderByID(id);
+        }
     }
 }

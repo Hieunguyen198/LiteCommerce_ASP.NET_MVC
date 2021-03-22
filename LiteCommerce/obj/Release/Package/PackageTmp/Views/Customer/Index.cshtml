@@ -1,0 +1,153 @@
+﻿﻿@model LiteCommerce.Models.CustomerPaginationResult
+@{
+    ViewBag.Title = "MANAGE CUSTOMER";
+    ViewBag.SmallTitle = "List, create, edit,delete customers";
+    ViewBag.Manage = "Catalog";
+    ViewBag.ManageDetail = "Customer";
+    int i = 1;
+}
+<!-- Customer-->
+<div class="box box-header">
+    <form action="~/Customer" method="get">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Enter the name customer to search" name="searchValue" value="@Model.SearchValue">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
+            </span>
+        </div>
+    </form>
+</div>
+<div class="box box-primary">
+    <form action="~/Customer/Delete" method="post">
+        <div class="box-body">
+            <h3 style="float: right;" class="box-title">
+                <button class="btn btn-danger mr-3" onclick="return confirm('Do you really want to delete the selected customers?')"
+                        type="submit">
+                    Delete customers
+                </button>
+            </h3>
+            <h3 style="float: right; padding-right:5px" class="box-title">
+                <a class="btn btn-success mr-3"
+                   href="~/Customer/Input">Add customer</a>
+            </h3>
+            <div style="padding-top:25px;">
+                @if (Model.RowCount != 0)
+                {<u><i>There are @Model.RowCount customers, page @Model.Page/@Model.PageCount.</i></u>}
+
+            </div>
+            <table id="tbCustomer" class="table table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th style="padding-left:18px;"><input type="checkbox" id="selectAll" /></th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Contact info</th>
+                        <th style="text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Data)
+                    {
+                        <tr>
+                            <td style="text-align: center;width: 50px;">
+                                <input type="checkbox" name="customerIDs" value="@item.CustomerID" />
+                            </td>
+                            <td>@(i++)</td>
+                            <td>
+                                <i class="fa fa-user"></i> @item.ContactName (<i>@item.ContactTitle</i>)
+                                <br />
+                                <i class="fa fa-university"></i> @item.CompanyName
+                            </td>
+                            <td>
+                                <i class="fa fa-address-card"></i> @item.Address
+                                <br />
+                                <i class="fa fa-address-book"></i> @item.City
+                                <br />
+                                <i class="fa fa-globe"></i>@item.Country
+                            </td>
+                            <td>
+                                <i class="fa fa-phone"></i> @item.Phone
+                                <br />
+                                <i class="fa fa-fax"></i> @item.Fax
+                            </td>
+                            <td style="text-align: center;">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <a href="~/Customer/Input/@item.CustomerID" class="btn btn-success mr-3"><i class="fa fa-edit"></i></a>
+                                    <button name="customerIDs" value="@item.CustomerID" class="btn btn-danger mr-3" onclick="return confirm('Do you really want to delete the this customer?')"
+                                            type="submit">
+                                        <i class="fa fa-remove"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td colspan="6" align="center">
+                            <h3 class="text-danger">@Html.ValidationSummary(true, "")</h3>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--Pagination-->
+            @if (Model.RowCount != 0)
+            {
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    @if (Model.Page > 1)
+                    {
+                        <li><a href="~/Customer?page=@(Model.Page - 1)&searchValue=@Model.SearchValue">«</a></li>
+                    }
+                    else
+                    {
+                        <li class="disabled"><a>«</a></li>
+                    }
+                    @if (Model.PageCount <= 5)
+                    {
+                        for (int page = Model.Page; page <= Model.PageCount; page++)
+                        {
+                            <li><a href="~/Customer?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                        }
+                    }
+                    else
+                if (Model.Page == Model.PageCount || Model.Page == Model.PageCount - 1)
+                    {
+                        for (int page = (Model.PageCount - 4); page <= Model.PageCount; page++)
+                        {
+
+                            <li><a href="~/Customer?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+
+                        }
+                    }
+                    else
+                    {
+                        if (Model.Page > 3)
+                        {
+                            for (int page = Model.Page - 2; page <= (Model.Page + 2); page++)
+                            {
+                                <li><a href="~/Customer?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                            }
+                        }
+                        else
+                        {
+                            for (int page = Model.Page; page <= (Model.Page + 4); page++)
+                            {
+                                <li><a href="~/Customer?page=@page&searchValue=@Model.SearchValue">@page</a></li>
+                            }
+                        }
+                    }
+                    @if (Model.Page < Model.PageCount)
+                    {
+                        <li><a href="~/Customer?page=@(Model.Page + 1)&searchValue=@Model.SearchValue">»</a></li>
+                    }
+                    else
+                    {
+                        <li class="disabled"><a>»</a></li>
+                    }
+                </ul>
+            }
+        </div>
+        <!-- /.box-body -->
+    </form>
+</div>
+

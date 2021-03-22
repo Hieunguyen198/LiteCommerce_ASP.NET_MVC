@@ -33,7 +33,10 @@ namespace LiteCommerce
             listCities.Add(new SelectListItem() { Value = "Hue", Text = "Hue" });
             listCities.Add(new SelectListItem() { Value = "Ha Noi", Text = "Ha Noi" });
             listCities.Add(new SelectListItem() { Value = "Ho Chi Minh", Text = "Ho Chi Minh" });
-            listCities.Add(new SelectListItem() { Value = "Da Nang", Text = "Da Nang" });
+            listCities.Add(new SelectListItem() { Value = "Quang Nam", Text = "Quang Nam" });
+            listCities.Add(new SelectListItem() { Value = "Ha Long", Text = "Ha Long" });
+            listCities.Add(new SelectListItem() { Value = "Binh Thuan", Text = "Binh Thuan" });
+            listCities.Add(new SelectListItem() { Value = "Hai Duong", Text = "Hai Duong" });
             return listCities;
         }
         public static List<SelectListItem> ListOfCategories()

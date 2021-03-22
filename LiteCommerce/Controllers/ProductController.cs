@@ -12,6 +12,7 @@ namespace LiteCommerce.Controllers
     /// <summary>
     /// 
     /// </summary>
+    [Authorize(Roles = "administrator,Catalog Management")]
     public class ProductController : Controller
     {
         /// <summary>
@@ -76,8 +77,6 @@ namespace LiteCommerce.Controllers
         {
             try
             {
-
-
                 //Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(model.Descriptions))
                     model.Descriptions = "";

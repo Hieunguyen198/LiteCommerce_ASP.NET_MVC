@@ -10,6 +10,7 @@ using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.Controllers.api
 {
+    [Authorize]
     public class AccountController : ApiController
     {
         /// <summary>
@@ -18,6 +19,7 @@ namespace LiteCommerce.Controllers.api
         /// <param name="email"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         public IHttpActionResult Login(string email, string pwd)
         {
             var userAccount = UserAccountBLL.Authorize(email, MD5.Encrypt(pwd), UserAccountTypes.Employee);
@@ -53,10 +55,34 @@ namespace LiteCommerce.Controllers.api
         /// Logout and clear cookie
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         public IHttpActionResult Logout()
         {
             FormsAuthentication.SignOut();
             return Ok("Logout success!");
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newPWd"></param>
+        /// <param name="currentPWd"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public IHttpActionResult ChangePassword(string id, string newPWd, string currentPWd)
+        {
+            string result = "";
+            Employee employee = EmployeeBLL.Get_Employee(Convert.ToInt32(id));
+            if (employee.Password == MD5.Encrypt(currentPWd))
+            {
+                 UserAccountBLL.PWd_Update(id, MD5.Encrypt(newPWd));
+                result = "Change password successfully";
+            }
+            else
+            {
+                result = "Current password not correct";
+            }
+            return Ok(result);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace LiteCommerce.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Authorize]
+    [Authorize(Roles = WebUserRoles.ADMINISTRATOR)]
     public class DashboardController : Controller
     {
         /// <summary>

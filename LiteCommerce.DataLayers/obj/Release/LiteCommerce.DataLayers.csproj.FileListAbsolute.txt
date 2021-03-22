@@ -1,0 +1,9 @@
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\bin\Release\LiteCommerce.DataLayers.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\bin\Release\LiteCommerce.DataLayers.pdb
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\bin\Release\LiteCommerce.DomainModels.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\bin\Release\LiteCommerce.DomainModels.pdb
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\obj\Release\LiteCommerce.DataLayers.csprojAssemblyReference.cache
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\obj\Release\LiteCommerce.DataLayers.csproj.CoreCompileInputs.cache
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\obj\Release\LiteCommerce.DataLayers.csproj.CopyComplete
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\obj\Release\LiteCommerce.DataLayers.dll
+C:\Users\hieunv\source\repos\LiteCommerce\LiteCommerce.DataLayers\obj\Release\LiteCommerce.DataLayers.pdb

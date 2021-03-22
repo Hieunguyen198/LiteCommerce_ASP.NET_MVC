@@ -44,5 +44,6 @@ namespace LiteCommerce.DataLayers
         /// <param name="orderIDs"></ param>
         /// <returns></returns>
         bool Order_Approval(int[] orderIDs);
+        Order GetOrderByID(int id);
     }
 }

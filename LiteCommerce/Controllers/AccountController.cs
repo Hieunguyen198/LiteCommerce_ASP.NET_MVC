@@ -56,6 +56,18 @@ namespace LiteCommerce.Controllers
                         HireDate=userAccount.HireDate
                     };
                     FormsAuthentication.SetAuthCookie(cookieData.ToCookieString(), false);
+                    if(userAccount.GroupName == "Order Management")
+                    {
+                        return RedirectToAction("Index", "Order");
+                    }
+                    if(userAccount.GroupName =="Employee Management")
+                    {
+                        return RedirectToAction("Index", "Employee");
+                    }
+                    if(userAccount.GroupName =="Catalog Management")
+                    {
+                        return RedirectToAction("Index", "Product");
+                    }
                     return RedirectToAction("Index", "Dashboard");
                 }
                 else

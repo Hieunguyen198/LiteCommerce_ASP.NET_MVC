@@ -7,14 +7,13 @@ using LiteCommerce.BusinessLayers;
 
 namespace LiteCommerce.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "administrator,Order Management")]
     public class OrderController : Controller
     {
         /// <summary>
         /// Trang quản lý đơn đặt hàng
         /// </summary>
         /// <returns></returns>
-        //[Authorize(Roles = WebUserRoles.ORDERMANAGEMENT)]
         [Authorize]
         public ActionResult Index(int page = 1, string searchValue = "")
         {

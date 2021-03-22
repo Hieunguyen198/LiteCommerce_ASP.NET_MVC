@@ -31,5 +31,38 @@ namespace LiteCommerce.Controllers.api
         {
             return Ok(OrderBLL.GetOrderDetail_By_OrderID(id));
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderIDs"></param>
+        /// <returns></returns>
+        public IHttpActionResult Delete(int id)
+        {
+            if (OrderBLL.GetOrderByID(id) == null)
+            {
+                return Ok("This order is not exists!");
+            }
+            else
+            {
+                OrderBLL.Delete_Order(Convert.ToInt32(id));
+                return Ok("Delete success!");
+            }
+
+        }
+        public IHttpActionResult Approval([FromUri]int[] ids)
+        {
+
+            foreach (int id in ids)
+            {
+                if (OrderBLL.GetOrderByID(id) == null)
+                {
+                    return Ok("This Order is not exists!");
+                }
+            }
+            OrderBLL.Order_Approval(ids);
+            return Ok("Approved!");
+
+        }
+
     }
 }
