@@ -28,5 +28,9 @@ namespace LiteCommerce.Controllers.api
         {
             return Ok(DashBoardBLL.OrderStatisticsByYear(year));
         }
+        public IHttpActionResult GetDiscountStatisticsByYear(int year)
+        {
+            return Ok(DashBoardBLL.DiscountStatisticsByYear(year));
+        }
     }
 }

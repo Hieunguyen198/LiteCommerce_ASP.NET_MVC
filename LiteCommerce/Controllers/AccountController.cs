@@ -85,6 +85,7 @@ namespace LiteCommerce.Controllers
         /// <param name="model"></param>
         /// <param name="uploadPhoto"></param>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult Input(Employee model, HttpPostedFileBase uploadPhoto)
         {
             try
@@ -118,13 +119,14 @@ namespace LiteCommerce.Controllers
                     bool result = EmployeeBLL.Update_Employee(model);
                     return RedirectToAction("Index");
                 }
-
             }
-            catch (Exception e)
+            catch
             {
-                ModelState.AddModelError("", e.StackTrace);
+                ModelState.AddModelError("", "Error!!");
                 return View(model);
             }
+            
+           
         }
 
         /// <summary>

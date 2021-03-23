@@ -8,39 +8,16 @@ using LiteCommerce.DomainModels;
 
 namespace LiteCommerce.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [Authorize(Roles = WebUserRoles.ADMINISTRATOR)]
     public class DashboardController : Controller
     {
         /// <summary>
-        /// Trang xem dashboard chung 
+        /// return index
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(int year = 2021)
+        public ActionResult Index()
         {
-            var model = new Models.DashBoardModel
-            {
-                OrderDashBoard = DashBoardBLL.OrderStatisticsByYear(year),
-                RevenueDashBoard = DashBoardBLL.RevenueStatisticsByYear(year),
-                TotalDiscount = DashBoardBLL.DiscountStatisticsByYear(year)
-            };
-            return View(model);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="year"></param>
-        /// <returns></returns>
-        [HttpGet]
-        public JsonResult Input(int year)
-        {
-            Dashboard orderDashboard = DashBoardBLL.RevenueStatisticsByYear(year);
-            return Json(new
-            {
-                result = orderDashboard
-            }, JsonRequestBehavior.AllowGet);
+            return View();
         }
     }
 }

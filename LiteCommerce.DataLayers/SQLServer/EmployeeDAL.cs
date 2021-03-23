@@ -89,6 +89,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.Parameters.AddWithValue("@HireDate", data.HireDate);
                 cmd.Parameters.AddWithValue("@Email", data.Email);
                 cmd.Parameters.AddWithValue("@Address", data.Address);
+                cmd.Parameters.AddWithValue("@GroupName", data.GroupName);
                 cmd.Parameters.AddWithValue("@City", data.City);
                 cmd.Parameters.AddWithValue("@Country", data.Country);
                 cmd.Parameters.AddWithValue("@Notes", data.Notes);
@@ -253,6 +254,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                             City = Convert.ToString(dbReader["City"]),
                             Country = Convert.ToString(dbReader["Country"]),
                             HomePhone = Convert.ToString(dbReader["HomePhone"]),
+                            GroupName = Convert.ToString(dbReader["GroupName"]),
                             Notes = Convert.ToString(dbReader["Notes"]),
                             Email = Convert.ToString(dbReader["Email"]),
                             HireDate = Convert.ToDateTime(dbReader["HireDate"]),
@@ -290,6 +292,7 @@ namespace LiteCommerce.DataLayers.SQLServer
                 cmd.Parameters.AddWithValue("@Email", data.Email);
                 cmd.Parameters.AddWithValue("@Address", data.Address);
                 cmd.Parameters.AddWithValue("@City", data.City);
+                cmd.Parameters.AddWithValue("@GroupName", data.GroupName);
                 cmd.Parameters.AddWithValue("@Country", data.Country);
                 cmd.Parameters.AddWithValue("@Notes", data.Notes);
                 cmd.Parameters.AddWithValue("@PhotoPath", data.PhotoPath);

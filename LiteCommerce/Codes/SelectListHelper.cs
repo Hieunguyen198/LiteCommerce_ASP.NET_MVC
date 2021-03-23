@@ -56,12 +56,20 @@ namespace LiteCommerce
         public static List<SelectListItem> ListOfPrices()
         {
             List<SelectListItem> listPrices = new List<SelectListItem>();
-            listPrices.Add(new SelectListItem() { Value = "10", Text = "More than 10$" });
-            listPrices.Add(new SelectListItem() { Value = "20", Text = "More than 20$" });
-            listPrices.Add(new SelectListItem() { Value = "30", Text = "More than 30$" });
-            listPrices.Add(new SelectListItem() { Value = "40", Text = "More than 40$" });
-            listPrices.Add(new SelectListItem() { Value = "50", Text = "More than 50$" });
+            listPrices.Add(new SelectListItem() { Value = "10", Text = "More Than 10$" });
+            listPrices.Add(new SelectListItem() { Value = "20", Text = "More Than 20$" });
+            listPrices.Add(new SelectListItem() { Value = "30", Text = "More Than 30$" });
+            listPrices.Add(new SelectListItem() { Value = "40", Text = "More Than 40$" });
+            listPrices.Add(new SelectListItem() { Value = "50", Text = "More Than 50$" });
             return listPrices;
+        }
+        public static List<SelectListItem> ListRoles()
+        {
+            List<SelectListItem> Listroles = new List<SelectListItem>();
+            Listroles.Add(new SelectListItem() { Value = "Employee Management", Text = "Employee Management" });
+            Listroles.Add(new SelectListItem() { Value = "Order Management", Text = "Order Management" });
+            Listroles.Add(new SelectListItem() { Value = "Catalog Management", Text = "Catalog Management" });
+            return Listroles;
         }
     }
 }

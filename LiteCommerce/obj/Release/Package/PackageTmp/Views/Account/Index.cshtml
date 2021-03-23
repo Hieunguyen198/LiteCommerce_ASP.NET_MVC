@@ -1,5 +1,6 @@
-﻿    @model LiteCommerce.DomainModels.Employee
+﻿@model LiteCommerce.DomainModels.Employee
 @{
+    ViewBag.Title = "PROFILE";
     ViewBag.Manage = "Profile";
 }
 <div class="box box-primary" style="">
@@ -90,6 +91,7 @@
             <div class="modal-body">
                 <form method="POST" action="~/Account/input" enctype="multipart/form-data">
                     <input type="hidden" name="employeeID" value="@Model.EmployeeID" />
+                    <input type="hidden" name="GroupName" value="@Model.GroupName" />
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label>First Name</label> <input type="text"
@@ -178,7 +180,7 @@
                     </div>
 
                     <div style="padding-left:475px;">
-                        <button type="submit" class="btn btn-success mb-3" name="subUpdate">Update</button>
+                        <button type="submit" class="btn btn-success mb-3">Update</button>
                         <a class="btn btn-danger ml-3 mb-3" style="color: #fff;" data-dismiss="modal">Hủy</a>
                     </div>
                 </form>

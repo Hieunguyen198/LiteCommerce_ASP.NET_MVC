@@ -9,14 +9,13 @@
 
 <div class="box box-default">
     <form action="~/Product" method="get">
-        <div class="input-group input-group-sm" style="display:block;">
-            <div class="col-sm-6">
+        <div class="input-group input-group-sm" style="display:flex;">
+            <div class="col-sm-2">
                 <i>Category: </i>@Html.DropDownListFor(m => m.searchCategory, SelectListHelper.ListOfCategories(),
-                "--------------------------------------- All Category ----------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:475px" })
+                "All Category", new { @class = "select2 select2-hidden-accessible", @style = "width:150px" })
             </div>
-            <div class="col-sm-6">
-                <i>Price: </i>@Html.DropDownListFor(m => m.searchPrice, SelectListHelper.ListOfPrices(),
-                "--------------------------------------- All Price -------------------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:477px" })
+            <div class="col-sm-2">
+                <i>Price: </i>@Html.DropDownListFor(m => m.searchPrice, SelectListHelper.ListOfPrices(),"All Price", new { @class = "select2 select2-hidden-accessible", @style = "width:150px" })
             </div>
               
         </div>

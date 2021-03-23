@@ -120,9 +120,9 @@ namespace LiteCommerce.Controllers
                     }
                 }
             }
-            catch (Exception e)
+            catch
             {
-                ModelState.AddModelError("", e.StackTrace);
+                ModelState.AddModelError("", "Error!!");
                 return View(model);
             }
         }

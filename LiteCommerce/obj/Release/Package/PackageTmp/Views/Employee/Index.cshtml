@@ -8,13 +8,15 @@
 
 <div class="box  box-group">
     <form action="~/Employee" method="get">
-        <i>Country: </i>@Html.DropDownListFor(m => m.searchCountry, SelectListHelper.ListOfCountries(), "-------------------------------- All countries ----------------------------------", new { @class = "select2 select2-hidden-accessible", @style = "width:400px" })
-        <div class="input-group input-group-sm ">
-            <input type="text" style="width:100%;" class="form-control" placeholder="Enter the name employee to search" name="searchValue" value="@Model.SearchValue">
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
-            </span>
-        </div>
+        <div class="col-sm-12">
+            <i>Country:</i>@Html.DropDownListFor(m => m.searchCountry, SelectListHelper.ListOfCountries(), "All countries", new { @class = "select2 select2-hidden-accessible", @style = "width:200px" })
+         </div>
+            <div class="input-group input-group-sm ">
+                <input type="text" style="width:100%;" class="form-control" placeholder="Enter the name employee to search" name="searchValue" value="@Model.SearchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-info btn-flat"><div class="fa fa-search"></div></button>
+                </span>
+            </div>
     </form>
 </div>
 <div class="box box-primary">

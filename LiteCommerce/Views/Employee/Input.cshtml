@@ -84,33 +84,27 @@
                                                           placeholder="Address" value="@Model.Address" required>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <label>Country</label>
+                        @Html.DropDownListFor(m => m.Country, SelectListHelper.ListOfCountries(), "Choice Country", new { @class = "form-control" })
+                    </div>
 
-                    <div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>Country</label>
-                                @Html.DropDownListFor(m => m.Country,
-                               SelectListHelper.ListOfCountries(),
-                               "-------------------------------------------------------- Choice your country ---------------------------------------------------------------",
-                               new { @class = "form-control" })
-                            </div>
-                        </div>
+                    <div class="col-sm-6">
+                        <label>City</label>
+                        @Html.DropDownListFor(m => m.City, SelectListHelper.ListOfcities(), "Choice City", new { @class = "form-control" })
+                    </div>
 
-                        <div class="col-sm-6">
-                            <label>City</label>
-                            @Html.DropDownListFor(m=>m.City,SelectListHelper.ListOfcities(),
-                            "-------------------------------------------------------- Choice your City ---------------------------------------------------------------",
-                           new { @class = "form-control form-control-sm" })
+                    <div class="col-sm-6">
+                        <label>Roles:</label>
+                        @Html.DropDownListFor(m => m.GroupName, SelectListHelper.ListRoles(), "Choice Roles", new { @class = "form-control" })
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Home Phone</label> <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-globe"></i></div>
+                            <input type="text" class="form-control" name="homePhone" placeholder="8712367126" value="@Model.HomePhone" required />
                         </div>
                     </div>
-                    <div>
-                        <div class="col-sm-12">
-                            <label>Home Phone</label> <div class="input-group">
-                                <div class="input-group-addon"><i class="fa fa-globe"></i></div>
-                                <input type="text" class="form-control" name="homePhone" placeholder="8712367126" value="@Model.HomePhone" required />
-                            </div>
-                        </div>
-                    </div>
+
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label>Notes</label> <textarea type="text" class="form-control" name="notes" placeholder="notes">@Model.Notes</textarea>
@@ -128,4 +122,3 @@
 
     </div>
 </div>
-<i>@Html.ValidationMessage("")</i>

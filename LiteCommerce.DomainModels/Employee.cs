@@ -67,5 +67,9 @@ namespace LiteCommerce.DomainModels
         /// 
         /// </summary>
         public string Password { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string GroupName { get; set; }
     }
 }

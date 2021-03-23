@@ -1,31 +1,21 @@
-﻿@model LiteCommerce.Models.DashBoardModel
-@{
+﻿@{
     ViewBag.Title = "DASHBOARD";
     ViewBag.Manage = "Dashboard";
 }
-
 <div class="box box-primary">
     <div id="titleThongKe" style="font-size: 23px; text-align: center; padding-top: 16px; color:forestgreen;">
-        STATISTICS OF MONTHLY REVENUE IN @Model.RevenueDashBoard.Year
     </div>
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="form-group">
                 <select class="text form-control" id="OrderStatistic"
                         style="width: 100px; margin-left: auto;">
-                    @for (long i = DateTime.Now.Year - 2; i <= DateTime.Now.Year; i++)
+                    @for (long i = DateTime.Now.Year ; i >= DateTime.Now.Year-2; i--)
                     {
-                        if (i == Model.RevenueDashBoard.Year)
-                        {
-                            <option selected>@i</option>
-                        }
-                        else
-                        {
                             <option>@i</option>
-                        }
                     }
                 </select>
-                Total Revenue: <strong class="TTotal" style="color:orangered">@Model.RevenueDashBoard.ToTal()$</strong>
+                Total Revenue: <strong class="TTotal" style="color:orangered"></strong>
             </div>
             <table class="table table-bordered">
                 <thead>
@@ -42,23 +32,10 @@
                         <th>October</th>
                         <th>November</th>
                         <th>December</th>
-
                     </tr>
                 </thead>
                 <tbody>
                     <tr id="OrderStatistics">
-                        <td>@Model.RevenueDashBoard.January$</td>
-                        <td>@Model.RevenueDashBoard.February$</td>
-                        <td>@Model.RevenueDashBoard.March$</td>
-                        <td>@Model.RevenueDashBoard.April$</td>
-                        <td>@Model.RevenueDashBoard.May$</td>
-                        <td>@Model.RevenueDashBoard.June$</td>
-                        <td>@Model.RevenueDashBoard.July$</td>
-                        <td>@Model.RevenueDashBoard.August$</td>
-                        <td>@Model.RevenueDashBoard.September$</td>
-                        <td>@Model.RevenueDashBoard.October$</td>
-                        <td>@Model.RevenueDashBoard.November$</td>
-                        <td>@Model.RevenueDashBoard.December$</td>
                     </tr>
                 </tbody>
 
@@ -94,13 +71,13 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="text-center">
-                    <strong id="titleChart">Sales: 1 Jan, @Model.RevenueDashBoard.Year - 30 Dec, @Model.RevenueDashBoard.Year</strong>
-                <div class="chart">
-                    <!-- Sales Chart Canvas -->
-                    <div class="card-body">
-                        <canvas id="myChart" width="1500" height="450"></canvas>
+                    <strong id="titleChart">Sales: 1 Jan, - 30 Dec, </strong>
+                    <div class="chart">
+                        <!-- Sales Chart Canvas -->
+                        <div class="card-body">
+                            <canvas id="myChart" width="1500" height="450"></canvas>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
         <!-- /.row -->
@@ -110,7 +87,7 @@
         <div class="row">
             <div class="col-sm-4 col-xs-6">
                 <div class="description-block border-right">
-                    <h5 class="description-header"><strong class="TTotal">@Model.RevenueDashBoard.ToTal()$</strong></h5>
+                    <h5 class="description-header"><strong class="TTotal"></strong></h5>
                     <span class="description-text">TOTAL REVENUE</span>
                 </div>
                 <!-- /.description-block -->
@@ -118,7 +95,7 @@
             <!-- /.col -->
             <div class="col-sm-4 col-xs-6">
                 <div class="description-block border-right">
-                    <h5 class="description-header">@Model.TotalDiscount.ToTal()$</h5>
+                    <h5 class="description-header"><strong class="Tdiscount"></strong></h5>
                     <span class="description-text">TOTAL Discount</span>
                 </div>
                 <!-- /.description-block -->
@@ -126,7 +103,7 @@
             <!-- /.col -->
             <div class="col-sm-4 col-xs-6">
                 <div class="description-block border-right">
-                    <h5 class="description-header"><strong class="TTotal">@Model.RevenueDashBoard.ToTal()$</strong></h5>
+                    <h5 class="description-header"><strong class="TRevenue"></strong></h5>
                     <span class="description-text">TOTAL PROFIT</span>
                 </div>
                 <!-- /.description-block -->

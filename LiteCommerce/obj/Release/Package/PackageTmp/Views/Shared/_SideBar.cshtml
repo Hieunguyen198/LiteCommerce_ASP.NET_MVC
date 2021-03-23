@@ -1,13 +1,16 @@
-﻿<aside class="main-sidebar">
+﻿@{
+    WebUserData userData = User.GetUserData();
+}
+<aside class="main-sidebar">
     <!-- sidebar-->
     <section class="sidebar" style="height: auto;">
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="~/Images/Cat1.jpg" class="img-circle" alt="User Image">
+                <img src="~/@userData.Photo" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Hieu Nguyen</p>
+                <p>@userData.FullName</p>
                 <a href="#"><i class="fa fa-user text-success"></i> Online</a>
             </div>
         </div>
