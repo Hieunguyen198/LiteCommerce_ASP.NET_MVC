@@ -85,7 +85,8 @@ namespace LiteCommerce.Controllers
         [HttpGet]
         public JsonResult Delete(string id = "")
         {
-            return Json(CatalogBLL.Delete_Category(Convert.ToInt32(id)), JsonRequestBehavior.AllowGet);
+            bool result = CatalogBLL.Delete_Category(Convert.ToInt32(id));
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

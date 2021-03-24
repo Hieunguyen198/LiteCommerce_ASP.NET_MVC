@@ -23,10 +23,6 @@ namespace LiteCommerce
         /// </summary>
         public const string ADMINISTRATOR = "administrator";
         /// <summary>
-        /// Quản lý nhân sự
-        /// </summary>
-        public const string EMPLOYEEMANAGEMENT = "Employee Management";
-        /// <summary>
         /// Quản lý đơn hàng
         /// </summary>
         public const string ORDERMANAGEMENT = "Order Management";

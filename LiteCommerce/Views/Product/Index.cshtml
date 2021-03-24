@@ -10,14 +10,13 @@
 <div class="box box-default">
     <form action="~/Product" method="get">
         <div class="input-group input-group-sm" style="display:flex;">
-            <div class="col-sm-2">
-                <i>Category: </i>@Html.DropDownListFor(m => m.searchCategory, SelectListHelper.ListOfCategories(),
-                "All Category", new { @class = "select2 select2-hidden-accessible", @style = "width:150px" })
+            <div class="col-lg-2">
+                <b>Category: </b>@Html.DropDownListFor(m => m.searchCategory, SelectListHelper.ListOfCategories(), "All Category", new { @class = "select2 select2-hidden-accessible", @style = "width:150px" })
             </div>
-            <div class="col-sm-2">
-                <i>Price: </i>@Html.DropDownListFor(m => m.searchPrice, SelectListHelper.ListOfPrices(),"All Price", new { @class = "select2 select2-hidden-accessible", @style = "width:150px" })
+            <div class="col-lg-2">
+                <b>Price: </b>@Html.DropDownListFor(m => m.searchPrice, SelectListHelper.ListOfPrices(), "All Price", new { @class = "select2 select2-hidden-accessible", @style = "width:150px" })
             </div>
-              
+
         </div>
         <div class="input-group input-group-sm">
             <input type="text" class="form-control" placeholder="Enter the name product to search" name="searchValue" value="@Model.searchValue">
@@ -33,20 +32,20 @@
     <form action="~/Product/Delete" method="post">
         <div class="box-body">
             <h3 style="float: right;" class="box-title">
-                <button onclick="return confirm('Do you really want to delete selected products?')" class="btn btn-danger mr-3"
-                        type="submit">
-                    Delete Products
+                <button onclick="return confirm('Do you really want to delete selected products?')" class="btn btn-danger mr-3" type="submit">
+                    <i class="fa fa-remove"></i> DELETE PRODUCTS
                 </button>
             </h3>
             <h3 style="float: right; padding-right:5px;" class="box-title">
-                <a class="btn btn-success mr-3"
-                   href="~/Product/Input">Add product</a>
+                <a class="btn btn-success mr-3" href="~/Product/Input"><i class="fa fa-plus"></i> ADD PRODUCT</a>
             </h3>
             <div style="padding-top:25px;">
-                <u><i>There are @Model.RowCount products, page @Model.Page/@Model.PageCount.</i></u>
+                @if (Model.RowCount != 0)
+                {
+                    <b>There are @Model.RowCount products, page @Model.Page/@Model.PageCount.</b>
+                }
             </div>
             <table id="example1" class="table table-hover table-striped">
-
                 <thead>
                     <tr>
                         <th><input type="checkbox" id="selectAll" /></th>
@@ -92,60 +91,63 @@
                 </tbody>
             </table>
             <!--Pagination-->
-            <ul class="pagination pagination-sm no-margin pull-right">
+            @if (Model.RowCount != 0)
+            {
+                <ul class="pagination pagination-sm no-margin pull-right">
 
-                @if (Model.Page > 1)
-                {
-                    <li><a href="~/Product?page=@(Model.Page-1)&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">«</a></li>
-                }
-                else
-                {
-                    <li class="disabled"><a>«</a></li>
-                }
-                @if (Model.PageCount <= 5)
-                {
-                    for (int page = Model.Page; page <= Model.PageCount; page++)
+                    @if (Model.Page > 1)
                     {
-                        <li><a href="~/Product?page=@page&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">@page</a></li>
+                        <li><a href="~/Product?page=@(Model.Page - 1)&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">«</a></li>
                     }
-                }
-                else
-                if (Model.Page == Model.PageCount || Model.Page == Model.PageCount - 1)
-                {
-                    for (int page = (Model.PageCount - 4); page <= Model.PageCount; page++)
+                    else
                     {
-
-                        <li><a href="~/Product?page=@page&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">@page</a></li>
-
+                        <li class="disabled"><a>«</a></li>
                     }
-                }
-                else
-                {
-                    if (Model.Page > 2)
+                    @if (Model.PageCount <= 5)
                     {
-                        for (int page = Model.Page - 2; page <= (Model.Page + 2); page++)
+                        for (int page = Model.Page; page <= Model.PageCount; page++)
                         {
                             <li><a href="~/Product?page=@page&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">@page</a></li>
                         }
                     }
                     else
+                if (Model.Page == Model.PageCount || Model.Page == Model.PageCount - 1)
                     {
-                        for (int page = Model.Page; page <= (Model.Page + 4); page++)
+                        for (int page = (Model.PageCount - 4); page <= Model.PageCount; page++)
                         {
+
                             <li><a href="~/Product?page=@page&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">@page</a></li>
+
                         }
                     }
-                }
-                @if (Model.Page < Model.PageCount)
-                {
-                    <li><a href="~/Product?page=@(Model.Page+1)&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">»</a></li>
-                }
-                else
-                {
-                    <li class="disabled"><a>»</a></li>
-                }
-            </ul>
-        </div>
+                    else
+                    {
+                        if (Model.Page > 2)
+                        {
+                            for (int page = Model.Page - 2; page <= (Model.Page + 2); page++)
+                            {
+                                <li><a href="~/Product?page=@page&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">@page</a></li>
+                            }
+                        }
+                        else
+                        {
+                            for (int page = Model.Page; page <= (Model.Page + 4); page++)
+                            {
+                                <li><a href="~/Product?page=@page&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">@page</a></li>
+                            }
+                        }
+                    }
+                    @if (Model.Page < Model.PageCount)
+                    {
+                        <li><a href="~/Product?page=@(Model.Page + 1)&searchValue=@Model.SearchValue&searchCategory=@Model.searchCategory&searchPrice=@Model.searchPrice">»</a></li>
+                    }
+                    else
+                    {
+                        <li class="disabled"><a>»</a></li>
+                    }
+                </ul>
+            }
+            </div>
     </form>
 </div>
 <!-- /.box-body -->

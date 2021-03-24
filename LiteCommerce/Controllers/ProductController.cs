@@ -38,7 +38,7 @@ namespace LiteCommerce.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "404. Can not find any Product");
+                ModelState.AddModelError(string.Empty, "404. Can not find any Products .404");
                 return View(model);
             }
         }
@@ -52,7 +52,7 @@ namespace LiteCommerce.Controllers
         {
             if (string.IsNullOrEmpty(id))
             {
-                ViewBag.Title = "ADD NEW PRODUCT";
+                ViewBag.Title = "ADD NEW A PRODUCT";
                 Product newProduct = new Product();
                 newProduct.ProductID = 0;
                 return View(newProduct);
@@ -61,8 +61,6 @@ namespace LiteCommerce.Controllers
             {
                 ViewBag.Title = "EDIT PRODUCT";
                 Product editProduct = CatalogBLL.Get_Product(Convert.ToInt32(id));
-                if (editProduct == null)
-                    return RedirectToAction("Index");
                 return View(editProduct);
             }
         }
@@ -91,13 +89,16 @@ namespace LiteCommerce.Controllers
                 //xử lý để đưa dữ liệu vào DB
                 if (model.ProductID == 0)
                 {
+                    ViewBag.Title = "ADD NEW PRODUCT";
+                    ViewBag.Success = "ADDED!";
+                    Product newProduct = new Product();
                     int productID = CatalogBLL.Add_Product(model);
-                    return RedirectToAction("Input");
+                    return View(newProduct);
                 }
                 else
                 {
                     ViewBag.Title = "EDIT PRODUCT";
-                    ViewBag.Success = "EDIT SUCCESS";
+                    ViewBag.Success = "EDIT SUCCESS!";
                     bool result = CatalogBLL.Update_Product(model);
                     return View(model);
                 }

@@ -66,7 +66,7 @@ namespace LiteCommerce
         public static List<SelectListItem> ListRoles()
         {
             List<SelectListItem> Listroles = new List<SelectListItem>();
-            Listroles.Add(new SelectListItem() { Value = "Employee Management", Text = "Employee Management" });
+            Listroles.Add(new SelectListItem() { Value = "administrator", Text = "administrator" });
             Listroles.Add(new SelectListItem() { Value = "Order Management", Text = "Order Management" });
             Listroles.Add(new SelectListItem() { Value = "Catalog Management", Text = "Catalog Management" });
             return Listroles;

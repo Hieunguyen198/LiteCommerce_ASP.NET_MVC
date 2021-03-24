@@ -113,10 +113,21 @@ function Delete(CategoryID) {
             dataType: "json",
             success: function (result) {
                 var txtSearch = $("#searchValue").val();
-                if (txtSearch != "") {
-                    loadData(txtSearch);
-                } else {
-                    loadData();
+                if (result == true) {
+                    if (txtSearch != "") {
+                        loadData(txtSearch);
+                    } else {
+                        loadData();
+                    }
+                }
+                else {
+                    if (txtSearch != "") {
+                        loadData(txtSearch);
+                        alert('Cant delete this category!');
+                    } else {
+                        loadData();
+                        alert('Cant delete this category!');
+                    }
                 }
             },
             error: function (errormessage) {

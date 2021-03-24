@@ -60,10 +60,6 @@ namespace LiteCommerce.Controllers
                     {
                         return RedirectToAction("Index", "Order");
                     }
-                    if(userAccount.GroupName =="Employee Management")
-                    {
-                        return RedirectToAction("Index", "Employee");
-                    }
                     if(userAccount.GroupName =="Catalog Management")
                     {
                         return RedirectToAction("Index", "Product");
@@ -72,7 +68,7 @@ namespace LiteCommerce.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Login information not right");//lưu lại thông báo lỗi vào ""
+                    ModelState.AddModelError("", "Login information not right!");
                     ViewBag.Email = email;
                     return View();
                 }

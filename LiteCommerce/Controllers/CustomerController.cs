@@ -94,15 +94,19 @@ namespace LiteCommerce.Controllers
                     }
                     else
                     {
+                        ViewBag.Method = "Add";
+                        ViewBag.Title = "ADD NEW CUSTOMER";
+                        ViewBag.Success = "ADDED!";
+                        Customer newC = new Customer();
                         int resultAddCustomer = CatalogBLL.Add_Customer(model);
-                        return RedirectToAction("Index");
+                        return View(newC);
                     }
 
                 }
                 else
                 {
                     ViewBag.Title = "EDIT EMPLOYEE";
-                    ViewBag.Success = "EDIT SUCCESS";
+                    ViewBag.Success = "EDIT SUCCESS!";
                     bool resultUpdateCustomer = CatalogBLL.Update_Customer(model);
                     return View(model);
                 }

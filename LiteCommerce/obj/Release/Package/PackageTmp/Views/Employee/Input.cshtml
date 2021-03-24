@@ -4,7 +4,7 @@
     <div class="box-header">
         <h3 style="float: right;" class="box-title">
             <a class="btn btn-primary "
-               href="~/Employee">Back to list >></a>
+               href="~/Employee">Back to list <i class="fa fa-arrow-right"></i></a>
         </h3>
     </div>
     <div class="col-sm-6"><h3 style="color:forestgreen">@ViewBag.Success</h3></div>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <label>E-mail</label><i class="text-danger"> @Html.ValidationMessage("")</i>
+                            <label>E-mail</label><i class="text-danger"> @Html.ValidationMessage("Email")</i>
                             <input type="email"
                                    class="text form-control" placeholder="Ex: abc@gmail.com" required
                                    name="email" value="@Model.Email">
@@ -63,17 +63,15 @@
                     <div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Birth Date</label> <input type="date"
-                                                                 class="text form-control"
-                                                                 name="birthDate" value="@string.Format("{0:yyyy-MM-dd}",Model.BirthDate)">
+                                <label>Birth Date</label> <i class="text-danger"> @Html.ValidationMessage("date")</i>
+                                <input type="date" class="text form-control" name="birthDate" value="@string.Format("{0:yyyy-MM-dd}",Model.BirthDate)">
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>Hire Date</label> <input type="date"
-                                                            class="text form-control"
-                                                            name="hireDate" value="@string.Format("{0:yyyy-MM-dd}",Model.HireDate)">
+                            <label>Hire Date</label> <i class="text-danger"> @Html.ValidationMessage("date")</i>
+                            <input type="date" class="text form-control" name="hireDate" value="@string.Format("{0:yyyy-MM-dd}",Model.HireDate)">
                         </div>
                     </div>
 
@@ -95,7 +93,7 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <label>Roles:</label>
+                        <label>Roles:</label><i class="text-danger"> @Html.ValidationMessage("roles")</i>
                         @Html.DropDownListFor(m => m.GroupName, SelectListHelper.ListRoles(), "Choice Roles", new { @class = "form-control" })
                     </div>
                     <div class="col-sm-6">

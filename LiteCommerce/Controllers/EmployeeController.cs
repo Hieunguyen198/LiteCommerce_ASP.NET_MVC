@@ -12,7 +12,7 @@ namespace LiteCommerce.Controllers
     /// <summary>
     /// 
     /// </summary>
-    [Authorize(Roles = "administrator,Employee Management")]
+    [Authorize(Roles = "administrator")]
     public class EmployeeController : Controller
     {
         /// <summary>
@@ -78,6 +78,14 @@ namespace LiteCommerce.Controllers
                     model.Country = "";
                 if (string.IsNullOrEmpty(model.Notes))
                     model.Notes = "";
+                if (string.IsNullOrEmpty(model.PhotoPath))
+                    model.PhotoPath = "";
+                if (string.IsNullOrEmpty(model.GroupName))
+                {
+                    ViewBag.Title = "ADD NEW EMPLOYEE";
+                    ModelState.AddModelError("roles", "You need choice roles!");
+                    return View(model);
+                }
                 if (uploadPhoto != null)
                 {
                     string path = Path.Combine(Server.MapPath("~/Images/"), Path.GetFileName(uploadPhoto.FileName));
@@ -93,28 +101,38 @@ namespace LiteCommerce.Controllers
                     {
                         ViewBag.Method = "Add";
                         ViewBag.Title = "ADD NEW EMPLOYEE";
-                        ModelState.AddModelError("", "Email already exists!");
+                        ModelState.AddModelError("Email", "Email already exists!");
                         return View(model);
                     }
                     else
                     {
+                        ViewBag.Title = "ADD NEW EMPLOYEE";
                         int employeeID = EmployeeBLL.Add_Employee(model);
-                        return RedirectToAction("Index");
+                        Employee newE = new Employee();
+                        ViewBag.Success = "ADDED!";
+                        return View(newE);
                     }
                 }
                 else //Edit
                 {
-                    if (data.EmployeeID != model.EmployeeID)
+                    if (data==null)
+                    {
+                        ViewBag.Title = "EDIT EMPLOYEE";
+                        ViewBag.Success = "EDIT SUCCESS!";
+                        bool result = EmployeeBLL.Update_Employee(model);
+                        return View(model);
+                    }
+                        if (data.EmployeeID != model.EmployeeID)
                     {
                         ViewBag.Method = "Edit";
                         ViewBag.Title = "EDIT EMPLOYEE";
-                        ModelState.AddModelError("", "Email already exists!");
+                        ModelState.AddModelError("Email", "Email already exists!");
                         return View(model);
                     }
                     else
                     {
                         ViewBag.Title = "EDIT EMPLOYEE";
-                        ViewBag.Success = "EDIT SUCCESS";
+                        ViewBag.Success = "EDIT SUCCESS!";
                         bool result = EmployeeBLL.Update_Employee(model);
                         return View(model);
                     }
@@ -122,7 +140,8 @@ namespace LiteCommerce.Controllers
             }
             catch
             {
-                ModelState.AddModelError("", "Error!!");
+                ViewBag.Title = "ADD NEW EMPLOYEE";
+                ModelState.AddModelError("date", "Please check date!");
                 return View(model);
             }
         }
